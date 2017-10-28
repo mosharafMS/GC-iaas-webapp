@@ -32,12 +32,6 @@
         "AutomationAccountName": {
             "type": "string"
         },
-        "AzureUserName": {
-            "type": "string"
-        },
-        "AzurePassword": {
-            "type": "securestring"
-        },
         "SubscriptionId": {
             "type": "string"
         },
@@ -52,9 +46,7 @@
         }
     },
     "variables": {
-        "scriptFolder": ".",
-        "scriptFileName": "provisioningHybridworkers.ps1",
-        "scriptParameters": "[concat('-MachineName \"' ,parameters('vmName'), '\" -ResourceGroupName \"', parameters('ResourceGroupName'), '\" -AutomationAccountName \"', parameters('AutomationAccountName'), '\" -AzureUserName \"', parameters('AzureUserName'), '\" -AzurePassword \"', parameters('AzurePassword'),'\" -SubscriptionId \"', parameters('SubscriptionId'), '\" -EnvironmentName \"', parameters('EnvironmentName'), '\" -MachinesToSetPasswordPolicy \"', parameters('MachinesToSetPasswordPolicy'), '\"' )]"
+      
     },
     "resources": [{
             "type": "Microsoft.Compute/virtualMachines/extensions",

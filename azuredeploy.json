@@ -1486,14 +1486,6 @@
                         "secretName": "adminPassword"
                     }
                   },
-                  "AzurePassword": {
-                      "reference": {
-                          "keyVault": {
-                              "id": "[variables('derivedIds').keyVaultId]"
-                          },
-                          "secretName": "azurePassword"
-                      }
-                  },
                   "mgtModulesURL": {
                       "value": "[variables('artifacts').mgtModulesURL]"
                   },
@@ -1520,14 +1512,6 @@
                   },
                   "ResourceGroupName": {
                       "value": "[resourceGroup().name]"
-                  },
-                  "AzureUserName": {
-                      "reference": {
-                          "keyVault": {
-                              "id": "[variables('derivedIds').keyVaultId]"
-                          },
-                          "secretName": "azureUsername"
-                      }
                   },
                   "SubscriptionId": {
                       "value": "[subscription().subscriptionId]"
