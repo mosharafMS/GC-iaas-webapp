@@ -2,7 +2,7 @@
 ## If you do not want to delete all protected items in the vaults then the script will need to be adjust to filter only the specified items
 
 Import-Module AzureRm
-Add-AzureRmAccount -EnvironmentName AzureUSGovernment
+Add-AzureRmAccount -EnvironmentName AzureCloud
 
 
 Select-AzureRmSubscription -SubscriptionId "<enter your azure subscription here>"

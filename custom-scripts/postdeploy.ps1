@@ -9,7 +9,7 @@
         [parameter(mandatory = $true)][ValidateNotNullOrEmpty()][String]$WorkspaceName,        
         [parameter(mandatory = $true)][ValidateNotNullOrEmpty()][PSCredential]$AzureAuthCreds,
         [parameter(mandatory = $true)][ValidateNotNullOrEmpty()][String]$SubscriptionId,
-        [String]$EnvironmentName="AzureUSGovernment"
+        [String]$EnvironmentName="AzureCloud"
     )
 
     Import-Module -Name AzureRM

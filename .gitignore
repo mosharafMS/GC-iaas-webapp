@@ -8,6 +8,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+#redirect the deployment output to this file
+*.depout
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

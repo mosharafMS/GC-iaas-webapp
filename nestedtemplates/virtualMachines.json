@@ -193,14 +193,14 @@
                 "osDisk": {
                     "name": "osdisk",
                     "vhd": {
-                        "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('sql0VMName'),'-osdisk.vhd')]"
+                        "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('sql0VMName'),'-osdisk.vhd')]"
                     },
                     "caching": "ReadWrite",
                     "createOption": "FromImage"
                 },
                 "dataDisks": [{
                         "vhd": {
-                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('sql0VMName'), '-Data-1.vhd')]"
+                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('sql0VMName'), '-Data-1.vhd')]"
                         },
                         "name": "[concat(parameters('sql0VMName'),'-data-disk1')]",
                         "caching": "None",
@@ -210,7 +210,7 @@
                     },
                     {
                         "vhd": {
-                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('sql0VMName'), '-Data-2.vhd')]"
+                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('sql0VMName'), '-Data-2.vhd')]"
                         },
                         "name": "[concat(parameters('sql0VMName'), '-data-disk2')]",
                         "caching": "None",
@@ -228,7 +228,7 @@
             "diagnosticsProfile": {
                 "bootDiagnostics": {
                     "enabled": "true",
-                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.usgovcloudapi.net')]"
+                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.windows.net')]"
                 }
             }
         },
@@ -267,14 +267,14 @@
                 "osDisk": {
                     "name": "osdisk",
                     "vhd": {
-                        "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('sql1VMName'),'-osdisk.vhd')]"
+                        "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('sql1VMName'),'-osdisk.vhd')]"
                     },
                     "caching": "ReadWrite",
                     "createOption": "FromImage"
                 },
                 "dataDisks": [{
                         "vhd": {
-                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('sql1VMName'), '-Data-1.vhd')]"
+                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('sql1VMName'), '-Data-1.vhd')]"
                         },
                         "name": "[concat(parameters('sql1VMName'), '-data-disk1')]",
                         "caching": "None",
@@ -284,7 +284,7 @@
                     },
                     {
                         "vhd": {
-                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('sql1VMName'), '-Data-2.vhd')]"
+                            "uri": "[concat('http://',variables('sqlstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('sql1VMName'), '-Data-2.vhd')]"
                         },
                         "name": "[concat(parameters('sql1VMName'), '-data-disk2')]",
                         "caching": "None",
@@ -302,7 +302,7 @@
             "diagnosticsProfile": {
                 "bootDiagnostics": {
                     "enabled": "true",
-                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.usgovcloudapi.net')]"
+                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.windows.net')]"
                 }
             }
         },
@@ -341,14 +341,14 @@
                 "osDisk": {
                     "name": "osdisk",
                     "vhd": {
-                        "uri": "[concat('http://',variables('fswstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('sqlwVMName'),'-osdisk.vhd')]"
+                        "uri": "[concat('http://',variables('fswstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('sqlwVMName'),'-osdisk.vhd')]"
                     },
                     "caching": "ReadWrite",
                     "createOption": "FromImage"
                 },
                 "dataDisks": [{
                     "vhd": {
-                        "uri": "[concat('http://',variables('fswstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('sqlwVMName'),'-data-1.vhd')]"
+                        "uri": "[concat('http://',variables('fswstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('sqlwVMName'),'-data-1.vhd')]"
                     },
                     "name": "[concat(parameters('sqlwVMName'),'-data-disk1')]",
                     "caching": "None",
@@ -365,7 +365,7 @@
             "diagnosticsProfile": {
                 "bootDiagnostics": {
                     "enabled": "true",
-                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.usgovcloudapi.net')]"
+                    "storageUri": "[concat('http://',variables('diagstorageNameSQL'),'.blob.core.windows.net')]"
                 }
             }
         },
@@ -397,7 +397,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.usgovcloudapi.net/vhds/',parameters('mgtVMName'), 'disk0.vhd')]"
+              "uri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('mgtVMName'), 'disk0.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -406,7 +406,7 @@
             {
               "name": "myvm-data-disk1",
               "vhd": {
-                "Uri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.usgovcloudapi.net/vhds/',parameters('mgtVMName'), 'disk1.vhd')]"
+                "Uri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.windows.net/vhds/',parameters('mgtVMName'), 'disk1.vhd')]"
               },
               "caching": "None",
               "createOption": "Empty",
@@ -425,7 +425,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.usgovcloudapi.net')]"
+            "storageUri": "[concat('http://',parameters('mgtStorageAccountName'),'.blob.core.windows.net')]"
           }
         }
       }
@@ -467,7 +467,7 @@
                 "osDisk": {
                     "name": "osdisk",
                     "vhd": {
-                        "uri": "[concat('http://',parameters('WebStorageAccountName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('WebVMName'), copyindex(), '-osdisk.vhd')]"
+                        "uri": "[concat('http://',parameters('WebStorageAccountName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('WebVMName'), copyindex(), '-osdisk.vhd')]"
                     },
                     "caching": "ReadWrite",
                     "createOption": "FromImage"
