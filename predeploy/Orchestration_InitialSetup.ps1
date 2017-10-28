@@ -38,13 +38,7 @@ function loginToAzure
 			[int]$lginCount
 		)
 
-	$global:azureUsername = Read-Host "Enter your Azure username"
-	$global:azurePassword = Read-Host -assecurestring "Enter your Azure password"
-
-
-	$AzureAuthCreds = New-Object System.Management.Automation.PSCredential -ArgumentList @($global:azureUsername,$global:azurePassword)
-	$azureEnv = Get-AzureRmEnvironment -Name $EnvironmentName
-	Login-AzureRmAccount -EnvironmentName "AzureUSGovernment" -Credential $AzureAuthCreds
+	Login-AzureRmAccount -EnvironmentName "AzureCloud" 
 
 	if($?) {
 		Write-Host "Login successful!"
@@ -176,14 +170,10 @@ function Generate-Cert() {
 function orchestration
 {
 	Param(
-		[string]$environmentName = "AzureUSGovernment",
-		[string]$location = "USGov Virginia",
+		[string]$environmentName = "AzureCloud",
+		[string]$location = "Canada Central",
 		[Parameter(Mandatory=$true)]
 		[string]$subscriptionId,
-		[Parameter(Mandatory=$true)]
-		[string]$azureUsername,
-		[Parameter(Mandatory=$true)]
-		[SecureString]$azurePassword,
 		[Parameter(Mandatory=$true)]
 		[string]$resourceGroupName,
 		[Parameter(Mandatory=$true)]
@@ -222,7 +212,7 @@ function orchestration
 
             $guid = [Guid]::NewGuid().toString();
 
-            $aadAppName = "Blueprint" + $guid ;
+            $aadAppName = "BlueprintGCWin" + $guid ;
 			# Check if AAD app with $aadAppName was already created
 			$SvcPrincipals = (Get-AzureRmADServicePrincipal -SearchString $aadAppName);
 			if(-not $SvcPrincipals)
@@ -312,14 +302,7 @@ function orchestration
 		$certificate = Get-Content -Path ".\cert.txt" | Out-String
 
 		Write-Host "Set Azure Key Vault Access Policy. Set AzureUserName in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'azureUsername' -Destination 'Software'
-		$azureUsernameSecureString = ConvertTo-SecureString $azureUsername -AsPlainText -Force
-		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'azureUsername' -SecretValue $azureUsernameSecureString
-
-		Write-Host "Set Azure Key Vault Access Policy. Set AzurePassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'azurePassword' -Destination 'Software'
-		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'azurePassword' -SecretValue $azurePassword
-
+		
 		Write-Host "Set Azure Key Vault Access Policy. Set adminUsername in Key Vault: $keyVaultName";
 		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminUsername' -Destination 'Software'
 		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force
@@ -375,7 +358,8 @@ function orchestration
 
 try{
 
-	loginToAzure -lginCount 1
+	#there's no need to loginToAzure function. to be removed in v2
+	#loginToAzure -lginCount 1
 
 	Write-Host "You will now be asked to create credentials for the administrator and sql service accounts. `n"
 
@@ -396,7 +380,7 @@ try{
 	}
 
 
-	orchestration -azureUsername $global:azureUsername -adminUsername $adminUsername -azurePassword $global:azurePassword -adminPassword $passwords.adminPassword -sqlServerServiceAccountPassword $passwords.sqlServerServiceAccountPassword
+	orchestration  -adminUsername $adminUsername -adminPassword $passwords.adminPassword -sqlServerServiceAccountPassword $passwords.sqlServerServiceAccountPassword
 
 }
 catch{
