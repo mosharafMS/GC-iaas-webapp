@@ -32,12 +32,6 @@
         "AutomationAccountName": {
             "type": "string"
         },
-        "AzureUserName": {
-            "type": "string"
-        },
-        "AzurePassword": {
-            "type": "securestring"
-        },
         "SubscriptionId": {
             "type": "string"
         },
@@ -65,14 +59,14 @@
                 "typeHandlerVersion": "[parameters('vmEncryptionSettings').diskEncryptionExtensionVersion]",
                 "autoUpgradeMinorVersion": true,
                 "forceUpdateTag": "[parameters('vmEncryptionSettings').sequenceVersion]",
-                "settings": {
-                    "AADClientID": "[parameters('aadClientID')]",
-                    "KeyVaultURL": "[parameters('vmEncryptionSettings').keyVaultURL]",
-                    "KeyEncryptionKeyURL": "[parameters('keyEncryptionKeyURL')]",
-                    "KeyEncryptionAlgorithm": "[parameters('vmEncryptionSettings').keyEncryptionAlgorithm]",
-                    "VolumeType": "[parameters('vmEncryptionSettings').volumeType]",
-                    "EncryptionOperation": "[parameters('vmEncryptionSettings').encryptionOperation]"
-                },
+              "settings": {
+                "AADClientID": "[parameters('aadClientID')]",
+                "EncryptionOperation": "[parameters('vmEncryptionSettings').encryptionOperation]",
+                "KeyEncryptionAlgorithm": "[parameters('vmEncryptionSettings').keyEncryptionAlgorithm]",
+                "KeyEncryptionKeyURL": "[parameters('keyEncryptionKeyURL')]",
+                "KeyVaultURL": "[parameters('vmEncryptionSettings').keyVaultURL]",
+                "VolumeType": "[parameters('vmEncryptionSettings').volumeType]"
+              },
                 "protectedSettings": {
                     "AADClientSecret": "[parameters('aadClientSecret')]"
                 }
