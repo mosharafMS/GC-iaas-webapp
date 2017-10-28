@@ -38,7 +38,7 @@
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
-    <Content Include="Deploy-AzureResourceGroup.ps1" />
+    <Content Include="deploy.sh" />
     <None Include="DSC\BDCBaselineDSC.ps1.zip" />
     <None Include="DSC\MGTBaselineDSC.ps1.zip" />
     <None Include="DSC\PDCBaselineDSC.ps1.zip" />

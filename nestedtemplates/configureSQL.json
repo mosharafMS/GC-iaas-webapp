@@ -83,12 +83,6 @@
         "ResourceGroupName": {
             "type": "string"
         },
-        "AzureUserName": {
-            "type": "string"
-        },
-        "AzurePassword": {
-            "type": "securestring"
-        },
         "SubscriptionId": {
             "type": "string"
         },
@@ -351,12 +345,6 @@
                     },
                     "ResourceGroupName": {
                         "value": "[parameters('ResourceGroupName')]"
-                    },
-                    "AzureUserName": {
-                        "value": "[parameters('AzureUserName')]"
-                    },
-                    "AzurePassword": {
-                        "value": "[parameters('AzurePassword')]"
                     },
                     "SubscriptionId": {
                         "value": "[parameters('SubscriptionId')]"

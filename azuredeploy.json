@@ -1622,22 +1622,6 @@
                     "ResourceGroupName": {
                         "value": "[resourceGroup().name]"
                     },
-                    "AzureUserName": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[variables('derivedIds').keyVaultId]"
-                            },
-                            "secretName": "azureUsername"
-                        }
-                    },
-                    "AzurePassword": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[variables('derivedIds').keyVaultId]"
-                            },
-                            "secretName": "azurePassword"
-                        }
-                    },
                     "SubscriptionId": {
                         "value": "[subscription().subscriptionId]"
                     },
