@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "GC-iaas-webapp", "GC-iaas-webapp.deployproj", "{9735316D-7363-4E7D-A605-01341674DCBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9735316D-7363-4E7D-A605-01341674DCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9735316D-7363-4E7D-A605-01341674DCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9735316D-7363-4E7D-A605-01341674DCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9735316D-7363-4E7D-A605-01341674DCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A88A9378-E4DC-460D-AA45-8CACE5D449BC}
+	EndGlobalSection
+EndGlobal
