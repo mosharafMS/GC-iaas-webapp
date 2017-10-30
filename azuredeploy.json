@@ -997,7 +997,6 @@
                             },
                             "secretName": "aadTenantId"
                         }
-
                     },
                     "adImagePublisher": {
                       "value": "[variables('vmSettings').dc.imagePublisher]"
@@ -1905,6 +1904,30 @@
                     },
                     "secondarySqlCustomCMDUrl": {
                         "value": "[variables('artifacts').secondarySqlCustomCMDUrl]"
+                    },
+                    "deploymentAppID":{
+                        "reference": {
+                            "keyVault": {
+                                "id": "[variables('derivedIds').keyVaultId]"
+                            },
+                            "secretName": "aadClientID"
+                        }
+                    },
+                    "deploymentAppSecret":{
+                        "reference": {
+                            "keyVault": {
+                                "id": "[variables('derivedIds').keyVaultId]"
+                            },
+                            "secretName": "aadClientSecret"
+                        }
+                    },
+                    "tenantID":{
+                        "reference": {
+                            "keyVault": {
+                                "id": "[variables('derivedIds').keyVaultId]"
+                            },
+                            "secretName": "aadTenantId"
+                        }
                     }
                 }
             }
