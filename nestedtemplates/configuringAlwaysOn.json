@@ -83,12 +83,6 @@
         "ResourceGroupName": {
             "type": "string"
         },
-        "AzureUserName": {
-            "type": "string"
-        },
-        "AzurePassword": {
-            "type": "securestring"
-        },
         "SubscriptionId": {
             "type": "string"
         }
@@ -148,8 +142,8 @@
                     "items": {
                         "adminPassword": "[parameters('adminPassword')]",
                         "sqlServerServiceAccountPassword": "[parameters('sqlServerServiceAccountPassword')]",
-                        "sqlAuthPassword": "[parameters('sqlServerServiceAccountPassword')]",
-                        "AzurePassword": "[parameters('AzurePassword')]"
+                        "sqlAuthPassword": "[parameters('sqlServerServiceAccountPassword')]"
+                      
                     }
                 }
             }

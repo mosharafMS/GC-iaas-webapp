@@ -137,22 +137,14 @@
                         "RemediationScheduleDay": "[parameters('antimalwareInfo').remediationScheduleDay]",
                         "ScanScheduleDay": "[parameters('antimalwareInfo').scanScheduleDay]",
                         "DisableRealtimeMonitoring": "[parameters('antimalwareInfo').disableRealtimeMonitoring]"
-                            /*"MachineName": "[parameters('sqlwVMName')]",
-                            "ResourceGroupName": "[parameters('ResourceGroupName')]",
-                            "AutomationAccountName": "[parameters('AutomationAccountName')]",
-                            "AzureAuthCreds": {
-                                "UserName": "[parameters('AzureUserName')]",
-                                "Password": "PrivateSettingsRef:AzurePassword"
-                            },
-                            "SubscriptionId": "[parameters('SubscriptionId')]",
-                            "EnvironmentName": "[parameters('EnvironmentName')]"*/
+                
 
                     }
                 },
                 "protectedSettings": {
                     "items": {
-                        "adminPassword": "[parameters('adminPassword')]",
-                        "AzurePassword": "[parameters('AzurePassword')]"
+                        "adminPassword": "[parameters('adminPassword')]"
+                  
                     }
                 }
             }
@@ -263,24 +255,16 @@
                             "password": "privateSettingsRef:SqlServerServiceAccountPassword"
                         },
                         "NumberOfDisks": "[parameters('numberOfDisks')]",
-                        "WorkloadType": "[parameters('workloadType')]",
-                        /*"MachineName": "[parameters('sql0VMName')]",
-                        "ResourceGroupName": "[parameters('ResourceGroupName')]",
-                        "AutomationAccountName": "[parameters('AutomationAccountName')]",
-                        "AzureAuthCreds": {
-                            "UserName": "[parameters('AzureUsername')]",
-                            "Password": "PrivateSettingsRef:AzurePassword"
-                        },
-                        "SubscriptionId": "[parameters('SubscriptionId')]",
-                        "EnvironmentName": "[parameters('EnvironmentName')]"*/
+                        "WorkloadType": "[parameters('workloadType')]"
+                      
 
                     }
                 },
                 "protectedSettings": {
                     "items": {
                         "adminPassword": "[parameters('adminPassword')]",
-                        "sqlServerServiceAccountPassword": "[parameters('sqlServerServiceAccountPassword')]",
-                        "AzurePassword": "[parameters('AzurePassword')]"
+                        "sqlServerServiceAccountPassword": "[parameters('sqlServerServiceAccountPassword')]"
+                  
                     }
                 }
             }

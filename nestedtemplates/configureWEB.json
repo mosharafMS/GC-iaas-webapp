@@ -176,7 +176,7 @@
                 },
                 "protectedSettings": {
                     "items": {
-                        "AzurePassword": "[parameters('AzurePassword')]"
+                       
                     }
                 }
             }

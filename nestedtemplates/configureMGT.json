@@ -56,9 +56,6 @@
     "ResourceGroupName": {
         "type": "string"
     },
-    "AzurePassword": {
-        "type": "securestring"
-    },
     "SubscriptionId": {
         "type": "string"
     },
@@ -142,7 +139,7 @@
             },
             "protectedSettings": {
                 "items": {
-                    "AzurePassword": "[parameters('azurePassword')]"
+                    
                 }
             }
         }
@@ -209,12 +206,6 @@
                 },
                 "ResourceGroupName": {
                     "value": "[parameters('ResourceGroupName')]"
-                },
-                "AzureUserName": {
-                    "value": "[parameters('AzureUserName')]"
-                },
-                "AzurePassword": {
-                    "value": "[parameters('AzurePassword')]"
                 },
                 "SubscriptionId": {
                     "value": "[parameters('SubscriptionId')]"

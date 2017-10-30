@@ -1,55 +1,64 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "vmName": {
-            "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
-        "workspaceName": {
-            "type": "string"
-        },
-        "ResourceGroupName": {
-            "type": "string"
-        },
-        "AutomationAccountName": {
-            "type": "string"
-        },
-        "SubscriptionId": {
-            "type": "string"
-        },
-        "EnvironmentName": {
-            "type": "string"
-        },
-        "customScriptBaselineUrl": {
-            "type": "string"
-        },
-        "MachinesToSetPasswordPolicy": {
-            "type": "string"
-        },
-        "SQLPrimaryName": {
-            "type": "string"
-        },
-        "SQLSecondaryName": {
-            "type": "string"
-        },
-        "domainName": {
-            "type": "string"
-        },
-        "AlwaysOnAvailabilityGroupName": {
-            "type": "string"
-        },
-        "secondarySqlCustomCMDUrl": {
-            "type": "string"
-        }
+  "parameters": {
+    "vmName": {
+      "type": "string"
     },
-    "variables": {
-        "scriptFolder": ".",
-        "scriptFileName": "customScriptBaseline.ps1",
-        "scriptParameters": "[concat('-MachineName \"', parameters('vmName'), '\" -ResourceGroupName \"', parameters('ResourceGroupName'), '\" -AutomationAccountName \"', parameters('AutomationAccountName'), '\" -WorkspaceName \"', parameters('workspaceName'), '\" -AzureUserName \"', parameters('AzureUserName'), '\" -AzurePassword \"', parameters('AzurePassword'),'\" -SubscriptionId \"', parameters('SubscriptionId'), '\" -EnvironmentName \"', parameters('EnvironmentName'), '\" -MachinesToSetPasswordPolicy \"', parameters('MachinesToSetPasswordPolicy'), '\" -SQLPrimaryName \"', parameters('SQLPrimaryName'), '\"  -SQLSecondaryName \"', parameters('SQLSecondaryName'), '\" -domainName \"', parameters('domainName'), '\"  -AlwaysOnAvailabilityGroupName \"', parameters('AlwaysOnAvailabilityGroupName'), '\"' )]"
+    "location": {
+      "type": "string"
     },
+    "workspaceName": {
+      "type": "string"
+    },
+    "ResourceGroupName": {
+      "type": "string"
+    },
+    "AutomationAccountName": {
+      "type": "string"
+    },
+    "SubscriptionId": {
+      "type": "string"
+    },
+    "EnvironmentName": {
+      "type": "string"
+    },
+    "customScriptBaselineUrl": {
+      "type": "string"
+    },
+    "MachinesToSetPasswordPolicy": {
+      "type": "string"
+    },
+    "SQLPrimaryName": {
+      "type": "string"
+    },
+    "SQLSecondaryName": {
+      "type": "string"
+    },
+    "domainName": {
+      "type": "string"
+    },
+    "AlwaysOnAvailabilityGroupName": {
+      "type": "string"
+    },
+    "secondarySqlCustomCMDUrl": {
+      "type": "string"
+    },
+    "deploymentAppID": {
+      "type": "string"
+    },
+    "deploymentAppSecret": {
+      "type": "string"
+    },
+    "tenantID": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "scriptFolder": ".",
+    "scriptFileName": "customScriptBaseline.ps1",
+    "scriptParameters": "[concat('-MachineName \"', parameters('vmName'), '\" -ResourceGroupName \"', parameters('ResourceGroupName'), '\" -AutomationAccountName \"', parameters('AutomationAccountName'), '\" -WorkspaceName \"', parameters('workspaceName'), '\" -deploymentAppID \"', parameters('deploymentAppID'), '\" -deploymentAppSecret \"', parameters('deploymentAppSecret'),'\" -SubscriptionId \"', parameters('SubscriptionId'), '\" -EnvironmentName \"', parameters('EnvironmentName'), '\" -MachinesToSetPasswordPolicy \"', parameters('MachinesToSetPasswordPolicy'), '\" -SQLPrimaryName \"', parameters('SQLPrimaryName'), '\"  -SQLSecondaryName \"', parameters('SQLSecondaryName'), '\" -domainName \"', parameters('domainName'), '\"  -AlwaysOnAvailabilityGroupName \"', parameters('AlwaysOnAvailabilityGroupName'), '\"', '-tenantID \"', parameters('tenantID'),'\"' )]"
+  },
     "resources": [
       {
             "type": "Microsoft.Compute/virtualMachines/extensions",

@@ -192,14 +192,14 @@ function orchestration
 
 	try
 	{
-		$Exists = Get-AzureRmSubscription  -SubscriptionId $SubscriptionId
+		$subscription = Get-AzureRmSubscription  -SubscriptionId $SubscriptionId
 		Write-Host "Using existing authentication"
 	}
 	catch {
 
 	}
 
-	if (-not $Exists)
+	if (-not $subscription)
 	{
 		Write-Host "Authenticate to Azure subscription"
 		Add-AzureRmAccount -EnvironmentName $EnvironmentName | Out-String | Write-Verbose
@@ -207,6 +207,16 @@ function orchestration
 
 	Write-Host "Selecting subscription as default"
 	Select-AzureRmSubscription -SubscriptionId $SubscriptionId | Out-String | Write-Verbose
+	$subscription = Get-AzureRmSubscription  -SubscriptionId $SubscriptionId
+
+	#Create the resource group
+	Write-Host "Creating resource group '$($resourceGroupName)' to hold key vault"
+	
+		if (-not (Get-AzureRmResourceGroup -Name $resourceGroupName -Location $location -ErrorAction SilentlyContinue)) {
+			New-AzureRmResourceGroup -Name $resourceGroupName -Location $location  | Out-String | Write-Verbose
+		}
+	
+
 
 	# Create AAD app . Fill in $aadClientSecret variable if AAD app was already created
 
@@ -250,16 +260,17 @@ function orchestration
 					}
 					$aadClientID = $SvcPrincipals[0].ApplicationId;
 			}
+		#make the AAD app owner of the resource group
+		Write-Host "Sleeping for 20 seconds..."
+		start-sleep -Seconds 20
+
+		Write-Host "Assigning owner role on the resoruce group to the AAD application (service principal: $aadClientID)"
+		New-AzureRmRoleAssignment -ServicePrincipalName $aadClientID -ResourceGroupName $resourceGroupName `
+		 -RoleDefinitionName owner 
+		
 
 
 	# Create KeyVault or setup existing keyVault
-
-	Write-Host "Creating resource group '$($resourceGroupName)' to hold key vault"
-
-	if (-not (Get-AzureRmResourceGroup -Name $resourceGroupName -Location $location -ErrorAction SilentlyContinue)) {
-		New-AzureRmResourceGroup -Name $resourceGroupName -Location $location  | Out-String | Write-Verbose
-	}
-
 	#Create a new vault if vault doesn't exist
 	if (-not (Get-AzureRMKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -ErrorAction SilentlyContinue )) {
 		Write-Host "Create a keyVault '$($keyVaultName)' to store the service principal ids and passwords"
@@ -305,7 +316,7 @@ function orchestration
 		
 		Write-Host "Set Azure Key Vault Access Policy. Set adminUsername in Key Vault: $keyVaultName";
 		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminUsername' -Destination 'Software'
-		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force
+		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force 
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'adminUsername' -SecretValue $adminUsernameSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set AdminPassword in Key Vault: $keyVaultName";
@@ -345,6 +356,11 @@ function orchestration
 		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientSecret' -Destination 'Software'
 		$aadClientSecretSecureString = ConvertTo-SecureString $aadClientSecret -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadClientSecret' -SecretValue $aadClientSecretSecureString
+
+		Write-Host "Set Azure Key Vault Access Policy. Set Azure AD tenant id in Key Vault: $keyVaultName";
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadTenantID' -Destination 'Software'
+		$aadTenantIDSecureString = ConvertTo-SecureString $subscription.TenantId  -AsPlainText -Force
+		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadTenantId' -SecretValue $aadTenantIDSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set Key Encryption URL in Key Vault: $keyVaultName";
 		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -Destination 'Software'

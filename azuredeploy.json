@@ -305,28 +305,28 @@
             },
             "defaultValue": "Standard_GRS"
         },
-        "templatesBaseUrl": {
-            "type": "string",
-            "metadata": {
-                "description": "Linked Templates base url"
-            },
-            "defaultValue": "https://raw.githubusercontent.com/Azure/fedramp-iaas-webapp/jomolesk-patch-1/nestedtemplates"
+      "templatesBaseUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "Linked Templates base url"
         },
-        "dscBaseUrl": {
-            "type": "string",
-            "metadata": {
-                "description": "DSC Scripts base url"
-            },
-            "defaultValue": "https://raw.githubusercontent.com/Azure/fedramp-iaas-webapp/jomolesk-patch-1/DSC"
+        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/nestedtemplates/nestedtemplates"
+      },
+      "dscBaseUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "DSC Scripts base url"
         },
-        "scriptsBaseUrl": {
-            "type": "string",
-            "metadata": {
-                "description": "DSC Scripts base url"
-            },
+        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/DSC"
+      },
+      "scriptsBaseUrl": {
+        "type": "string",
+        "metadata": {
+          "description": "DSC Scripts base url"
+        },
 
-            "defaultValue": "https://raw.githubusercontent.com/Azure/fedramp-iaas-webapp/jomolesk-patch-1/custom-scripts"
-        },
+        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/custom-scripts"
+      },
         "sqlServerVersion": {
             "type": "string",
             "allowedValues": [

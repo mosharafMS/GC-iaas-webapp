@@ -5,15 +5,16 @@
         [String]$ResourceGroupName,
         [String]$AutomationAccountName,
         [String]$WorkspaceName,
-        [String]$AzureUserName,
-        [String]$AzurePassword,
         [String]$SubscriptionId,
         [String]$EnvironmentName,
-        [String]$MachinesToSetPasswordPolicy,
+		[String]$MachinesToSetPasswordPolicy,
         [String]$DomainName,
         [String]$SQLPrimaryName,
         [String]$SQLSecondaryName,
-        [String]$AlwaysOnAvailabilityGroupName
+        [String]$AlwaysOnAvailabilityGroupName,
+		[string]$deploymentAppID,
+		[string]$deploymentAppSecret,
+		[string]$tenantID
     )
 
     Disable-AzureRmDataCollection
@@ -52,11 +53,9 @@
 
     Import-Module -Name AzureRM
 
-    $AzureAuthCreds = New-Object System.Management.Automation.PSCredential -ArgumentList @($AzureUserName,(ConvertTo-SecureString -String $AzurePassword -AsPlainText -Force))
-
-
-     $azureEnv = Get-AzureRmEnvironment -Name $EnvironmentName
-     Login-AzureRmAccount -Environment $azureEnv -Credential $AzureAuthCreds
+    $AzureAuthCreds = New-Object System.Management.Automation.PSCredential -ArgumentList @($deploymentAppID ,(ConvertTo-SecureString -String $deploymentAppSecret -AsPlainText -Force))
+     
+    Login-AzureRmAccount -ServicePrincipal -TenantId $tenantID -Credential $AzureAuthCreds
 
     if($SubscriptionId)
     {

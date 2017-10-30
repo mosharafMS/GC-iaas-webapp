@@ -1,18 +1,22 @@
 
-$aadAppName="BlueprintGCWin"
-$resourceGroupName="GCbluePrint"
+Param(
+    [parameter(Mandatory=$true)]
+    [string] $aadAppName,
+    [parameter(Mandatory=$true)]
+    [string] $resourceGroupName
+)
+
+
+
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 
-Connect-AzureAD -
-$SvcPrincipals = (Get-AzureRmADServicePrincipal -SearchString $aadAppName);
+$AADs = (Get-AzureRmADApplication -DisplayNameStartWith $aadAppName);
 if($SvcPrincipals)
 {
-    foreach($svcPrincipal in $SvcPrincipals)
+    foreach($aad in $AADs)
     {
-        Remove-AzureADServicePrincipal -ObjectId $svcPrincipal.Id
-        Start-Sleep -Seconds 5
-        Remove-AzureADApplication -ObjectId $svcPrincipal.ApplicationId 
+             Remove-AzureADApplication -ObjectId $aad.objectId
     }
 }
 
