@@ -1,4 +1,4 @@
-{
+﻿{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -677,171 +677,49 @@
     },
   "resources": [
     {
-      "name": "ProvisionAutomationAccountAndOMSWorkspace",
-      "comments": "Creates an Azure Automation Account and OMS Workspace",
+      "name": "ProvisionStorageAccounts",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
+      "comments": "Creates storage accounts for Active Directory, MGT, WEB, SQL Servers, File Share Witness and Diagnostics.",
+      "dependsOn": [
+        //"Microsoft.Resources/deployments/ProvisionSQLLoadBalancer"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('artifacts').provisioningOMSWorkspaceUrl]",
+          "uri": "[variables('artifacts').provisioningStorageAccountsUrl]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "location": {
+            "value": "[variables('vmSettings').location]"
+          },
+          "webStorageAccountName": {
+            "value": "[variables('resourceNames').storageAccounts.web]"
+          },
+          "webStorageAccountType": {
+            "value": "[parameters('webStorageAccountType')]"
+          },
+          "sqlStorageAccountName": {
+            "value": "[variables('resourceNames').storageAccounts.sql]"
+          },
+          "dcStorageAccountName": {
+            "value": "[variables('resourceNames').storageAccounts.dc]"
+          },
+          "sqlStorageAccountType": {
+            "value": "[parameters('sqlStorageAccountType')]"
+          },
+          "dcStorageAccountType": {
+            "value": "[parameters('dcStorageAccountType')]"
+          },
           "omsWorkspaceName": {
             "value": "[variables('resourceNames').omsWorkspace]"
           },
-          "omsWorkspaceRegion": {
-            "value": "[variables('omsSettings').workspaceRegion]"
+          "mgtStorageAccountName": {
+            "value": "[variables('resourceNames').storageAccounts.mgt]"
           },
-          "serviceTier": {
-            "value": "[variables('omsSettings').serviceTier]"
-          },
-          "dataRetention": {
-            "value": "[variables('omsSettings').dataRetention]"
-          },
-          "omsAutomationAccountName": {
-            "value": "[variables('resourceNames').automationAccount]"
-          },
-          "artifactsLocation": {
-            "value": "[parameters('scriptsBaseUrl')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionRecoveryServicesVault",
-      "comments": "Creates an Azure Recovery Services Vault",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionAutomationAccountAndOMSWorkspace"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').provisioningRCV]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "backupInfo": {
-            "value": "[variables('backupInfo')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionCustomBackup",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionRecoveryServicesVault"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').backupPolicy]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "backupInfo": {
-            "value": "[variables('backupInfo')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionVirtualNetworkNSG",
-      "comments": "Creates Network Secuity Groups and Virtual Network",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionAutomationAccountAndOMSWorkspace"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').virtualNetworkNSGURL]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[variables('vmSettings').location]"
-          },
-          "virtualNetworkName": {
-            "value": "[variables('virtualNetworkNameWithSuffix')]"
-          },
-          "virtualNetworkAddressRange": {
-            "value": "[variables('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[variables('subnetArray')]"
-          },
-          "dcNSGName": {
-            "value": "[variables('resourceNames').nsgs.dc]"
-          },
-          "sqlNSGName": {
-            "value": "[variables('resourceNames').nsgs.sql]"
-          },
-          "webNSGName": {
-            "value": "[variables('resourceNames').nsgs.web]"
-          },
-          "mgtNSGName": {
-            "value": "[variables('resourceNames').nsgs.mgt]"
-          },
-          "lbNSGName": {
-            "value": "[variables('resourceNames').nsgs.lb]"
-          },
-          "appGatewayAddressRange": {
-            "value": "[variables('subnets').appGateway.properties.addressPrefix]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionSQLLoadBalancer",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "comments": "Create Load Balancers for SQL",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionVirtualNetworkNSG"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').sqlLoadBalancerURL]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[variables('vmSettings').location]"
-          },
-          "sqlLBName": {
-            "value": "[variables('lbSettings').sqlLBName]"
-          },
-          "sqlLBFEName": {
-            "value": "[variables('lbSettings').sqlLBFEName]"
-          },
-          "sqlLBIPAddress": {
-            "value": "[variables('lbSettings').ipAddress]"
-          },
-          "sqlSubnetRef": {
-            "value": "[variables('derivedIds').sqlSubnet]"
-          },
-          "sqlLBBEName": {
-            "value": "[variables('lbSettings').sqlLBBEName]"
-          },
-          "sqlLBBEID": {
-            "value": "[variables('derivedIds').sqlBEAddressPoolID]"
-          },
-          "sqllbFEConfigID": {
-            "value": "[variables('derivedIds').sqllbFEConfigID]"
-          },
-          "sqllbProbeID": {
-            "value": "[variables('derivedIds').sqllbProbeID]"
-          },
-          "SQLAOProbe": {
-            "value": "[variables('SQLAOProbe')]"
+          "mgtStorageAccountType": {
+            "value": "[parameters('mgtStorageAccountType')]"
           }
         }
       }

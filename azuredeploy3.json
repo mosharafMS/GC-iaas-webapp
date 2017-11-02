@@ -1,4 +1,4 @@
-{
+﻿{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
@@ -677,171 +677,180 @@
     },
   "resources": [
     {
-      "name": "ProvisionAutomationAccountAndOMSWorkspace",
-      "comments": "Creates an Azure Automation Account and OMS Workspace",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').provisioningOMSWorkspaceUrl]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "omsWorkspaceName": {
-            "value": "[variables('resourceNames').omsWorkspace]"
-          },
-          "omsWorkspaceRegion": {
-            "value": "[variables('omsSettings').workspaceRegion]"
-          },
-          "serviceTier": {
-            "value": "[variables('omsSettings').serviceTier]"
-          },
-          "dataRetention": {
-            "value": "[variables('omsSettings').dataRetention]"
-          },
-          "omsAutomationAccountName": {
-            "value": "[variables('resourceNames').automationAccount]"
-          },
-          "artifactsLocation": {
-            "value": "[parameters('scriptsBaseUrl')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionRecoveryServicesVault",
-      "comments": "Creates an Azure Recovery Services Vault",
+      "name": "ProvisionNICs",
+      "comments": "Creates Network Interfaces for MGT, WEB, and SQL VMs",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionAutomationAccountAndOMSWorkspace"
+       // "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
       ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('artifacts').provisioningRCV]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "backupInfo": {
-            "value": "[variables('backupInfo')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionCustomBackup",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionRecoveryServicesVault"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').backupPolicy]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "backupInfo": {
-            "value": "[variables('backupInfo')]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionVirtualNetworkNSG",
-      "comments": "Creates Network Secuity Groups and Virtual Network",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionAutomationAccountAndOMSWorkspace"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').virtualNetworkNSGURL]",
+          "uri": "[variables('artifacts').provisioningNetworkInterfacesUrl]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "location": {
             "value": "[variables('vmSettings').location]"
           },
-          "virtualNetworkName": {
-            "value": "[variables('virtualNetworkNameWithSuffix')]"
+          "adPDCNicName": {
+            "value": "[variables('resourceNames').nics.adpdc]"
           },
-          "virtualNetworkAddressRange": {
-            "value": "[variables('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[variables('subnetArray')]"
-          },
-          "dcNSGName": {
-            "value": "[variables('resourceNames').nsgs.dc]"
-          },
-          "sqlNSGName": {
-            "value": "[variables('resourceNames').nsgs.sql]"
-          },
-          "webNSGName": {
-            "value": "[variables('resourceNames').nsgs.web]"
-          },
-          "mgtNSGName": {
-            "value": "[variables('resourceNames').nsgs.mgt]"
-          },
-          "lbNSGName": {
-            "value": "[variables('resourceNames').nsgs.lb]"
-          },
-          "appGatewayAddressRange": {
-            "value": "[variables('subnets').appGateway.properties.addressPrefix]"
-          }
-        }
-      }
-    },
-    {
-      "name": "ProvisionSQLLoadBalancer",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "comments": "Create Load Balancers for SQL",
-      "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionVirtualNetworkNSG"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('artifacts').sqlLoadBalancerURL]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[variables('vmSettings').location]"
-          },
-          "sqlLBName": {
-            "value": "[variables('lbSettings').sqlLBName]"
-          },
-          "sqlLBFEName": {
-            "value": "[variables('lbSettings').sqlLBFEName]"
-          },
-          "sqlLBIPAddress": {
-            "value": "[variables('lbSettings').ipAddress]"
+          "adPDCNICIPAddress": {
+            "value": "[variables('vmSettings').dc.ipAddressPDC]"
           },
           "sqlSubnetRef": {
             "value": "[variables('derivedIds').sqlSubnet]"
           },
-          "sqlLBBEName": {
-            "value": "[variables('lbSettings').sqlLBBEName]"
+          "dcSubnetRef": {
+            "value": "[variables('derivedIds').dcSubnet]"
           },
-          "sqlLBBEID": {
+
+          "mgtSubnetRef": {
+            "value": "[variables('derivedIds').mgtSubnet]"
+          },
+          "adBEAddressPoolID": {
+            "value": "[variables('derivedIds').adBEAddressPoolID]"
+          },
+          "adRDPNATRuleID": {
+            "value": "[variables('derivedIds').adRDPNATRuleID]"
+          },
+          "adBDCNicName": {
+            "value": "[variables('resourceNames').nics.adbdc]"
+          },
+          "adBDCNICIPAddress": {
+            "value": "[variables('vmSettings').dc.ipAddressBDC]"
+          },
+          "sqlBEAddressPoolID": {
             "value": "[variables('derivedIds').sqlBEAddressPoolID]"
           },
-          "sqllbFEConfigID": {
-            "value": "[variables('derivedIds').sqllbFEConfigID]"
+          "sqlwNicName": {
+            "value": "[variables('resourceNames').nics.sqlw]"
           },
-          "sqllbProbeID": {
-            "value": "[variables('derivedIds').sqllbProbeID]"
+          "sql0NicName": {
+            "value": "[variables('resourceNames').nics.sql0]"
           },
-          "SQLAOProbe": {
-            "value": "[variables('SQLAOProbe')]"
+          "sql1NicName": {
+            "value": "[variables('resourceNames').nics.sql1]"
+          },
+          "sql0IPAddress": {
+            "value": "[variables('vmSettings').sql.ipAddressSql0]"
+          },
+          "sql1IPAddress": {
+            "value": "[variables('vmSettings').sql.ipAddressSql1]"
+          },
+          "sqlwIPAddress": {
+            "value": "[variables('vmSettings').sqlw.ipAddress]"
+          },
+          "sqlNSGid": {
+            "value": "[variables('derivedIds').sqlNSG]"
+          },
+          "dcNSGid": {
+            "value": "[variables('derivedIds').dcNSG]"
+          },
+          "mgtNICName": {
+            "value": "[variables('resourceNames').nics.mgt]"
+          },
+          "mgtIPAddress": {
+            "value": "[variables('vmSettings').mgt.ipAddress]"
+          },
+          "mgtNSGid": {
+            "value": "[variables('derivedIds').mgtNSG]"
+          },
+          "mgtPublicIPName": {
+            "value": "[variables('resourceNames').publicIPs.mgt]"
+          },
+          "numberOfWebInstances": {
+            "value": "[variables('numberOfWebInstances')]"
+          },
+          "webNICName": {
+            "value": "[variables('resourceNames').nics.web]"
+          },
+          "webNSGid": {
+            "value": "[variables('derivedIds').webNSG]"
+          },
+          "staticIPWEBStart": {
+            "value": "[variables('staticIPWEBStart')]"
+          },
+          "subnetRef": {
+            "value": "[variables('derivedIds').webSubnet]"
+          },
+          "webSubnetAddressRange": {
+            "value": "[variables('subnets').web.properties.addressPrefix]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ProvisionApplicationGateway",
+      "comments": "Creates Application Gateway with WAF settings enabled",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/ProvisionNICs"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('artifacts').applicationGatewayURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "addressPrefix": {
+            "value": "[variables('virtualNetworkAddressRange')]"
+          },
+          "virtualNetworkName": {
+            "value": "[variables('resourceNames').virtualNetworkNameWithSuffix]"
+          },
+          "vmLocation": {
+            "value": "[variables('vmSettings').location]"
+          },
+          "subnetPrefix": {
+            "value": "[variables('subnets').appGateway.properties.addressPrefix]"
+          },
+          "skuName": {
+            "value": "[variables('resourceNames').gatewaySkuName]"
+          },
+          "capacity": {
+            "value": 2
+          },
+          "backendIpsForPathRuleWEB": {
+            "value": "[variables('vmSettings').web.ipAddresses]"
+          },
+          "pathMatch1": {
+            "value": "/WEB"
+          },
+          "subnetName": {
+            "value": "[variables('subnets').appGateway.name]"
+          },
+          "wafEnabled": {
+            "value": "[variables('wafSettings').wafEnabled]"
+          },
+          "wafMode": {
+            "value": "[variables('wafSettings').wafMode]"
+          },
+          "wafRuleSetType": {
+            "value": "[variables('wafSettings').wafRuleSetType]"
+          },
+          "wafRuleSetVersion": {
+            "value": "[variables('wafSettings').wafRuleSetVersion]"
+          },
+          "certData": {
+            "reference": {
+              "keyVault": {
+                "id": "[variables('derivedIds').keyVaultId]"
+              },
+              "secretName": "sslCert"
+            }
+          },
+          "certPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "[variables('derivedIds').keyVaultId]"
+              },
+              "secretName": "sslPassword"
+            }
           }
         }
       }

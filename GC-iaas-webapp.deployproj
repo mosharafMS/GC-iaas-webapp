@@ -27,6 +27,10 @@
   <ItemGroup>
     <None Include="azuredeploy.json" />
     <None Include="azuredeploy.parameters.json" />
+    <None Include="azuredeploy1.json" />
+    <None Include="azuredeploy2.json" />
+    <None Include="azuredeploy3.json" />
+    <None Include="azuredeploy4.json" />
     <None Include="custom-scripts\accountmanagementprincipals.ps1" />
     <None Include="custom-scripts\customScriptBaseline.ps1" />
     <None Include="custom-scripts\deleteProtectedItems.ps1" />
