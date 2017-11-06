@@ -3,6 +3,7 @@ title: Payment Processing Blueprint for PCI DSS-compliant environments
 description: Guidance for deploying a PCI DSS-compliant environment on Microsoft Azure.
 author: simorjay
 ms.date: 09/14/2017
+contributor: duhuynh
 ---
 
 # Payment Processing Blueprint for PCI DSS-compliant environments
