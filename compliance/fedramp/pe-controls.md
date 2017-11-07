@@ -1,7 +1,7 @@
 # Azure Blueprint Automation: Web Applications for FedRAMP
 
 
-> **Note:** These controls are defined by NIST and the U.S. Department of Commerce as part of the NIST Special Publication 800-53 Revision 4. Please refer to NIST 800-53 Rev. 4 for information on testing procedures and guidance for each control.
+> **Note:** These controls are defined by NIST as part of the NIST Special Publication 800-53 Revision 4. Please refer to NIST 800-53 Rev. 4 for information on testing procedures and guidance for each control.
     
     
 
@@ -186,7 +186,7 @@
 |||
 |---|---|
 | **Customer** | Customers do not have physical access to any system resources in Azure datacenters. |
-| **Provider (Microsoft Azure)** | Microsoft Azure further restricts areas within Microsoft datacenters that contain critical systems (e.g., colocations, critical environments, MDF rooms, etc.) through various security mechanisms such as electronic access control, biometric devices, and anti-passback controls. Access to Azure colocations are granted as a separate, higher level of DCAT access than other access areas of the datacenter. In addition, all Azure FTE's and vendors who have access to the Azure Government colocations are required to formally undergo Microsoft's Cloud Screening and US citizenship verification prior to being authorized access to the environment. See PS-03 section for further details regarding the cloud screening for the Azure Government colocations. |
+| **Provider (Microsoft Azure)** | Microsoft Azure further restricts areas within Microsoft datacenters that contain critical systems (e.g., colocations, critical environments, MDF rooms, etc.) through various security mechanisms such as electronic access control, biometric devices, and anti-passback controls. Access to Azure colocations are granted as a separate, higher level of DCAT access than other access areas of the datacenter. |
 
 
  ## NIST 800-53 Control PE-4
