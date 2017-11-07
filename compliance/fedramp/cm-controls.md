@@ -116,7 +116,7 @@
 |||
 |---|---|
 | **Customer** | There are no customer-controlled physical devices within the scope of systems deployed on Azure. |
-| **Provider (Microsoft Azure)** | Microsoft Azure customer content is never stored outside of Microsoft Azure, which is physically located within the continental United States. Microsoft Azure personnel do not travel with devices contained within the Microsoft Azure inventory. As such, this control is not applicable to Microsoft Azure. |
+| **Provider (Microsoft Azure)** | Microsoft Azure customer content is never stored outside of Microsoft Azure. Microsoft Azure personnel do not travel with devices contained within the Microsoft Azure inventory. As such, this control is not applicable to Microsoft Azure. |
 
 
  ### NIST 800-53 Control CM-2 (7).b
