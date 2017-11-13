@@ -24,6 +24,8 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName GCblu
 -TemplateFile .\azuredeploy2.json -TemplateParameterFile .\azuredeploy.parameters.json `
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
 
+restart-azure
+
 #
 # Second deployment - Active Directory VMs Encryption
 #

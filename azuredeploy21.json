@@ -683,7 +683,7 @@
       "comments": "Creates and configures Active Directory VMs, Network Interfaces, and domain",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionAvailabilitySets"
+        //"Microsoft.Resources/deployments/ProvisionAvailabilitySets"
         //"Microsoft.Resources/deployments/ProvisionStorageAccounts"
       ],
       "properties": {
