@@ -29,6 +29,7 @@
     <None Include="azuredeploy.parameters.json" />
     <None Include="azuredeploy1.json" />
     <None Include="azuredeploy2.json" />
+    <None Include="azuredeploy21.json" />
     <None Include="azuredeploy3.json" />
     <None Include="azuredeploy4.json" />
     <None Include="custom-scripts\accountmanagementprincipals.ps1" />
