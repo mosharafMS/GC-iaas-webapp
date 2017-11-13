@@ -682,10 +682,10 @@
       "apiVersion": "2015-01-01",
       "comments": "Creates WEB, MGT, SQL VMs. The number of WEB VMs is determined by the numberOfWebInstances parameter.",
       "dependsOn": [
-        "Microsoft.Resources/deployments/ProvisionNICs",
-        "Microsoft.Resources/deployments/ProvisionStorageAccounts",
-        "Microsoft.Resources/deployments/ProvisionAvailabilitySets",
-        "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
+        //"Microsoft.Resources/deployments/ProvisionNICs",
+       // "Microsoft.Resources/deployments/ProvisionStorageAccounts",
+       // "Microsoft.Resources/deployments/ProvisionAvailabilitySets",
+       // "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
       ],
       "properties": {
         "mode": "Incremental",

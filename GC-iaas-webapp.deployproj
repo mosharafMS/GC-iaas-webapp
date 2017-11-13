@@ -67,6 +67,7 @@
     <None Include="nestedtemplates\preparingSQLAO.json" />
     <None Include="nestedtemplates\preparingSqlServerAObypass.json" />
     <None Include="nestedtemplates\provisionAndConfigureAD.json" />
+    <None Include="nestedtemplates\provisionAndConfigureADEncryption.json" />
     <None Include="nestedtemplates\provisioningApplicationGateway.json" />
     <None Include="nestedtemplates\provisioningAutoAccOMSWorkspace.json" />
     <None Include="nestedtemplates\provisioningAutomationSchedule.json" />
