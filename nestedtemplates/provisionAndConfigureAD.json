@@ -291,18 +291,18 @@
                   },
                   "osDisk": {
                       "name": "osdisk",
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
-                      },
+                      //"vhd": {
+                      //    "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
+                      //},
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
                   },
                   "dataDisks": [{
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
-                      },
-                      "name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
-                      "createOption": "empty",
+                      //"vhd": {
+                      //    "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
+                      //},
+                      //"name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
+                      "createOption": "Empty",
                       "caching": "None",
                       "diskSizeGB": 128,
                       "lun": 0
