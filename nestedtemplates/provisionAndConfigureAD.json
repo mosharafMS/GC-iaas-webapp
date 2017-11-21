@@ -228,16 +228,16 @@
                   },
                   "osDisk": {
                       "name": "osdisk",
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
-                      },
+                     // "vhd": {
+                     //     "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
+                     // },
                       "caching": "ReadWrite",
                       "createOption": "FromImage"
                   },
                   "dataDisks": [{
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
-                      },
+                     // "vhd": {
+                    //      "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
+                     // },
                       "name": "[concat(parameters('adPDCVMName'),'-data-disk1')]",
                       "createOption": "empty",
                       "caching": "None",

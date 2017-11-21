@@ -17,13 +17,16 @@
   },
   "resources": [
     {
-        "type": "Microsoft.Compute/availabilitySets",
-        "name": "[parameters('adAvailabilitySetName')]",
-        "apiVersion": "2015-06-15",
-        "tags": {
-            "Project": "BluePrint"
-        },
-        "location": "[parameters('location')]"
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('adAvailabilitySetName')]",
+      "apiVersion": "2015-06-15",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "sku": {
+        "name": "Aligned"
+      },
+      "location": "[parameters('location')]"
     },
     {
         "type": "Microsoft.Compute/availabilitySets",

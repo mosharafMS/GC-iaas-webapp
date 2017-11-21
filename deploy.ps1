@@ -24,9 +24,6 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName GCblu
 -TemplateFile .\azuredeploy2.json -TemplateParameterFile .\azuredeploy.parameters.json `
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
 
-#Restart-AzureRmVM -Name AZ-PDC-VMprod -ResourceGroupName GCbluePrint
-#Restart-AzureRmVM -Name AZ-BDC-VMprod -ResourceGroupName GCbluePrint
-
 
 #
 # Third deployment - Networking
@@ -43,7 +40,7 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName GCblu
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
 
 #
-# Second deployment - Active Directory VMs Encryption
+# Final deployment - Active Directory VMs Encryption
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName GCbluePrint `
 -TemplateFile .\azuredeploy21.json -TemplateParameterFile .\azuredeploy.parameters.json `

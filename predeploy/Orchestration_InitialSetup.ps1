@@ -274,7 +274,8 @@ function orchestration
 	#Create a new vault if vault doesn't exist
 	if (-not (Get-AzureRMKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -ErrorAction SilentlyContinue )) {
 		Write-Host "Create a keyVault '$($keyVaultName)' to store the service principal ids and passwords"
-		New-AzureRMKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForTemplateDeployment -Location $location | Out-String | Write-Verbose
+		#New-AzureRMKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForTemplateDeployment -Location $location | Out-String | Write-Verbose
+        New-AzureRMKeyVault -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -EnabledForTemplateDeployment -Location $location -sku Premium | Out-String | Write-Verbose 
 		Write-Host "Created a new KeyVault named $keyVaultName to store encryption keys";
 
 		# Specify privileges to the vault for the AAD application - https://msdn.microsoft.com/en-us/library/mt603625.aspx
