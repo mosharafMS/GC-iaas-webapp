@@ -26,7 +26,11 @@
       "sku": {
         "name": "Aligned"
       },
-      "location": "[parameters('location')]"
+      "location": "[parameters('location')]",
+      "properties": {
+        "platformFaultDomainCount": "3",
+        "platformUpdateDomainCount": "3"
+      }
     },
     {
         "type": "Microsoft.Compute/availabilitySets",
