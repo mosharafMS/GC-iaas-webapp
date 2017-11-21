@@ -197,7 +197,7 @@
         }
       },
       {
-          "apiVersion": "2016-03-30",
+          "apiVersion": "2017-03-30",
           "type": "Microsoft.Compute/virtualMachines",
           "name": "[parameters('adPDCVMName')]",
           "location": "[parameters('location')]",
@@ -226,21 +226,11 @@
                       "sku": "[parameters('adImageSKU')]",
                       "version": "latest"
                   },
-                  "osDisk": {
-                      "name": "osdisk",
-                     // "vhd": {
-                     //     "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
-                     // },
-                     // "caching": "ReadWrite",
-                      "createOption": "FromImage"
-                  },
+                "osDisk": {
+                  "createOption": "FromImage"
+                },
                   "dataDisks": [{
-                     // "vhd": {
-                    //      "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
-                     // },
-                      //"name": "[concat(parameters('adPDCVMName'),'-data-disk1')]",
-                      "createOption": "empty",
-                      //"caching": "None",
+                      "createOption": "Empty",
                       "diskSizeGB": 128,
                       "lun": 0
                   }]
@@ -260,7 +250,7 @@
           "resources": []
       },
       {
-          "apiVersion": "2016-03-30",
+          "apiVersion": "2017-03-30",
           "type": "Microsoft.Compute/virtualMachines",
           "name": "[parameters('adBDCVMName')]",
           "location": "[parameters('location')]",
@@ -290,20 +280,10 @@
                       "version": "latest"
                   },
                   "osDisk": {
-                      "name": "osdisk",
-                      //"vhd": {
-                      //    "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
-                      //},
-                     // "caching": "ReadWrite",
                       "createOption": "FromImage"
                   },
-                  "dataDisks": [{
-                      //"vhd": {
-                      //    "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
-                      //},
-                      //"name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
+                  "dataDisks": [{                      
                       "createOption": "Empty",
-                      //"caching": "None",
                       "diskSizeGB": 128,
                       "lun": 0
                   }]
@@ -325,7 +305,7 @@
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
-            "apiVersion": "2015-06-15",
+            "apiVersion": "2017-03-30",
             "tags": {
                 "Project": "BluePrint"
             },
