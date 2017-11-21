@@ -227,7 +227,7 @@
                       "version": "latest"
                   },
                   "osDisk": {
-                     // "name": "osdisk",
+                      "name": "osdisk",
                      // "vhd": {
                      //     "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
                      // },
@@ -290,7 +290,7 @@
                       "version": "latest"
                   },
                   "osDisk": {
-                     // "name": "osdisk",
+                      "name": "osdisk",
                       //"vhd": {
                       //    "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
                       //},
