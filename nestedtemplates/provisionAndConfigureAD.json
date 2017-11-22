@@ -453,41 +453,6 @@
                     }
                 }
             }
-        },
-        {
-            "name": "UpdatingDNSwithBackupADVM",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/ConfiguringBackupADVM"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "virtualNetworkName": {
-                        "value": "[parameters('virtualNetworkNameWithSuffix')]"
-                    },
-                    "virtualNetworkAddressRange": {
-                        "value": "[parameters('virtualNetworkAddressRange')]"
-                    },
-                    "subnets": {
-                        "value": "[parameters('subnets')]"
-                    },
-                    "DNSServerAddress": {
-                        "value": [
-                            "[parameters('adPDCNICIPAddress')]",
-                            "[parameters('adBDCNICIPAddress')]"
-                        ]
-                    }
-                }
-            }
         }
     ],
     "outputs": {}
