@@ -1964,7 +1964,8 @@
       "apiVersion": "2015-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/ProvisionAvailabilitySets",
-        "Microsoft.Resources/deployments/ProvisionStorageAccounts"
+        "Microsoft.Resources/deployments/ProvisionStorageAccounts",
+        "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
       ],
       "properties": {
         "mode": "Incremental",
