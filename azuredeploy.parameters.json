@@ -6,7 +6,7 @@
       "value": "AzureCloud"
     },
     "keyVaultName": {
-      "value": "GCKeystore"
+      "value": "GCKeystoreAQ"
     },
     "keyVaultResourceGroupName": {
       "value": "GCbluePrint"
