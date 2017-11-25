@@ -152,9 +152,7 @@
             "name": "backupMGTLoop",
             "count": "[length(variables('vmNames').VMs)]"
         },
-        "dependsOn": [
-           
-        ],
+        
         "properties": {
             "mode": "Incremental",
             "templateLink": {

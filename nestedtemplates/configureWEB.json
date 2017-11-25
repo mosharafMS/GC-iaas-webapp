@@ -189,9 +189,7 @@
                 "name": "backupWebLoop",
                 "count": "[parameters('numberOfWebInstances')]"
             },
-            "dependsOn": [
-                
-            ],
+            
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
