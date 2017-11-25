@@ -498,7 +498,7 @@
                 "count": "[length(variables('vmNames').VMs)]"
             },
             "dependsOn": [
-                "encryptADLoop"
+               // "encryptADLoop"
             ],
             "properties": {
                 "mode": "Incremental",

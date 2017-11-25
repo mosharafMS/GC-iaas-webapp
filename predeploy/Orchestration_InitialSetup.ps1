@@ -1,5 +1,5 @@
 #requires -RunAsAdministrator
-#requires -Modules AzureRM
+
 
 
 
