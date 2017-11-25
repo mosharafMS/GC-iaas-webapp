@@ -153,7 +153,7 @@
             "count": "[length(variables('vmNames').VMs)]"
         },
         "dependsOn": [
-            "encryptMGTLoop"
+           
         ],
         "properties": {
             "mode": "Incremental",
