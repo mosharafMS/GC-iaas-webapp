@@ -185,7 +185,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enable account managers to monitor use of information system accounts. OMS can be configured to send alerts when atypical activity is suspected or other predefined events occur. |
+| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enable account managers to monitor use of information system accounts. OMS can be configured to send alerts when atypical activity is suspected or other predefined events occur. [Documentation Here](https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard)|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -227,7 +227,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the following system account types: Azure Active Directory users, Windows OS users, SQL Server service account. Azure Active Directory account management actions generate an event in the Azure activity log; OS-level account management actions generate an event in the system log. These logs collected by Log Analytics and stored in the OMS repository. OMS can be configured to send alerts when predefined events occur.  |
+| **Customer** | This Azure Blueprint implements the following system account types: Azure Active Directory users, Windows OS users, SQL Server service account. Azure Active Directory account management actions generate an event in the Azure activity log; OS-level account management actions generate an event in the system log. These logs collected by Log Analytics and stored in the OMS repository. OMS can be configured to send alerts when predefined events occur. [Documentation Here](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -255,7 +255,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the following system account types: Azure Active Directory users, Windows OS users, SQL Server service account. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups. These role-based schemes can be extended by the customer to meet mission needs. |
+| **Customer** | This Azure Blueprint implements the following system account types: Azure Active Directory users, Windows OS users, SQL Server service account. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups. These role-based schemes can be extended by the customer to meet mission needs. [Documentation Here](https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard)|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -339,7 +339,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enables account managers to monitor access attempts against deployed resources. |
+| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enables account managers to monitor access attempts against deployed resources. [Documentation Here](https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -353,7 +353,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enable account managers to monitor access attempts against deployed resources. This solution can be configured to send alerts when atypical activity is suspected or other predefined events occur. |
+| **Customer** | This Azure Blueprint implements the OMS Security and Audit solution's Identity and Access dashboard. This dashboard enable account managers to monitor access attempts against deployed resources. This solution can be configured to send alerts when atypical activity is suspected or other predefined events occur. [Documentation Here](https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard) | |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -381,7 +381,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint enforces logical access authorizations using role-based access control enforced by Azure Active Directory by assigning users to roles, Active Directory by assigning users to security groups, and Windows OS-level controls. Azure Active Directory roles assigned to users or groups control logical access  to resources within Azure at the resource, group, or subscription level. Active Directory security groups control logical access to OS-level resources and functions. |
+| **Customer** | This Azure Blueprint enforces logical access authorizations using role-based access control enforced by Azure Active Directory by assigning users to roles, Active Directory by assigning users to security groups, and Windows OS-level controls. Azure Active Directory roles assigned to users or groups control logical access  to resources within Azure at the resource, group, or subscription level. Active Directory security groups control logical access to OS-level resources and functions. [Documentation Here](https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -465,7 +465,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements role-based access control which can be configured to separate duties according to organization requirements. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups. |
+| **Customer** | This Azure Blueprint implements role-based access control which can be configured to separate duties according to organization requirements. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups. [Documentation Here](https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -479,7 +479,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups.  |
+| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned. Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles; Active Directory account privileges are implemented using role-based access control by assigning users to security groups. [Documentation Here](https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -577,7 +577,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned. Virtual machine OS-level protections do not allow software to execute at a higher privilege level than users executing the software. |
+| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned. Virtual machine OS-level protections do not allow software to execute at a higher privilege level than users executing the software. [Documentation Here](https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -591,7 +591,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Deployed VMs and Azure diagnostics storage accounts are connected sources to Log Analytics ensuring that execution of privileged functions is audited. |
+| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Deployed VMs and Azure diagnostics storage accounts are connected sources to Log Analytics ensuring that execution of privileged functions is audited. [Documentation Here](https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -605,7 +605,8 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned.  |
+| **Customer** | This Azure Blueprint implements role-based access control to restrict users to only privileges explicitly assigned. [Documentation Here](https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure
+) |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
