@@ -31,7 +31,7 @@
 
 |||
 |---|---|
-| **Customer** | Audit capability for this Azure Blueprint is provided by Azure Monitor and the Log Analytics service in OMS. Azure Monitor provides detailed audit logs about activity associated with deployed resources. These and OS-level logs are collected by Log Analytics and stored in the OMS repository. Log Analytics correlates audit data across resources deployed by this solution and can be extended to the customer-deployed web application. |
+| **Customer** | Audit capability for this Azure Blueprint is provided by Azure Monitor and the Log Analytics service in OMS. Azure Monitor provides detailed audit logs about activity associated with deployed resources. These and OS-level logs are collected by Log Analytics and stored in the OMS repository. Log Analytics correlates audit data across resources deployed by this solution and can be extended to the customer-deployed web application. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/" target="_blank">Documentation Here.</a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -59,7 +59,7 @@
 
 |||
 |---|---|
-| **Customer** | Events audited by this Azure Blueprint include information sufficient to determine when events occur, the source of the event, the outcome of the event, and other detailed information that supports investigation of security incidents. |
+| **Customer** | Events audited by this Azure Blueprint include information sufficient to determine when events occur, the source of the event, the outcome of the event, and other detailed information that supports investigation of security incidents. <a href="https://docs.microsoft.com/en-us/azure/security/azure-log-audit" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -73,7 +73,7 @@
 
 |||
 |---|---|
-| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. |
+| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. <a href="https://docs.microsoft.com/en-us/azure/security/azure-log-audit#types-of-logs-in-azure" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -101,7 +101,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint relies on built-in audit capabilities of Azure, Windows Server, and SQL Server. These audit solutions capture audit records with sufficient detail to satisfy the requirements of this control. |
+| **Customer** | This Azure Blueprint relies on built-in audit capabilities of Azure, Windows Server, and SQL Server. These audit solutions capture audit records with sufficient detail to satisfy the requirements of this control. <a href="https://docs.microsoft.com/en-us/azure/security/azure-log-audit" target="_blank">Documentation Here. </a>   |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
