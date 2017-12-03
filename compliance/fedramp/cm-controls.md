@@ -31,7 +31,7 @@
 
 |||
 |---|---|
-| **Customer** | The Azure Resource Manager templates and accompanying resources that comprise this Azure Blueprint represent a "configuration as code" baseline for the deployed architecture. The solution is provided though GitHub, which can be used for configuration control. The solution includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. |
+| **Customer** | The Azure Resource Manager templates and accompanying resources that comprise this Azure Blueprint represent a "configuration as code" baseline for the deployed architecture. The solution is provided though GitHub, which can be used for configuration control. The solution includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -87,7 +87,7 @@
 
 |||
 |---|---|
-| **Customer** | The Azure Resource Manager templates and accompanying resources that comprise this Azure Blueprint represent a "configuration as code" baseline for the deployed architecture. The solution is provided though GitHub, which can be used for configuration control. In the Azure portal, an automation script is available for all deployed resources and provides an always up-to-date representation of those resources.  |
+| **Customer** | The Azure Resource Manager templates and accompanying resources that comprise this Azure Blueprint represent a "configuration as code" baseline for the deployed architecture. The solution is provided though GitHub, which can be used for configuration control. In the Azure portal, an automation script is available for all deployed resources and provides an always up-to-date representation of those resources. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -395,7 +395,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles providing strict control over which users can view and control deployed resources. Active Directory account privileges are implemented using role-based access control by assigning users to security groups. These security groups control the actions that users can take with respect to operating system configuration. These role-based schemes can be extended by the customer to meet mission needs. |
+| **Customer** | Azure Active Directory account privileges are implemented using role-based access control by assigning users to roles providing strict control over which users can view and control deployed resources. Active Directory account privileges are implemented using role-based access control by assigning users to security groups. These security groups control the actions that users can take with respect to operating system configuration. These role-based schemes can be extended by the customer to meet mission needs. See Source Code.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -437,7 +437,7 @@
 
 |||
 |---|---|
-| **Customer** | Virtual machines deployed by this Azure Blueprint implement Windows AppLocker to specify which users can install and/or run particular applications. Further, all Windows operating system updates are digitally singed. |
+| **Customer** | Virtual machines deployed by this Azure Blueprint implement Windows AppLocker to specify which users can install and/or run particular applications. Further, all Windows operating system updates are digitally singed. <a href="https://docs.microsoft.com/en-us/windows/device-security/applocker/select-types-of-rules-to-create" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -479,7 +479,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. These declarative PowerShell scripts define and configure the resources to which they are applied. The baseline DSC included for resources deployed by this solution can be extended by the customer to meet mission needs. |
+| **Customer** | This Azure Blueprint includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. These declarative PowerShell scripts define and configure the resources to which they are applied. The baseline DSC included for resources deployed by this solution can be extended by the customer to meet mission needs. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -493,7 +493,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. The baselines is automatically applied to virtual machines during deployment using the custom script virtual machine extension. |
+| **Customer** | This Azure Blueprint includes a Desired State Configuration (DSC) baseline for each deployed virtual machine. The baselines is automatically applied to virtual machines during deployment using the custom script virtual machine extension. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -521,7 +521,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the Automation DSC. Automation DSC aligns machine configurations with a specific organization-defined configuration. |
+| **Customer** | This Azure Blueprint deploys the Automation DSC. Automation DSC aligns machine configurations with a specific organization-defined configuration. <a href="https://docs.microsoft.com/en-us/azure/automation/tutorial-configure-servers-desired-state" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -535,7 +535,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys Azure Automation DSC. Automation DSC aligns machine configurations with a specific organization-defined configuration and continually monitors for changes. |
+| **Customer** | This Azure Blueprint deploys Azure Automation DSC. Automation DSC aligns machine configurations with a specific organization-defined configuration and continually monitors for changes. <a href="https://docs.microsoft.com/en-us/azure/automation/tutorial-configure-servers-desired-state" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -563,7 +563,7 @@
 
 |||
 |---|---|
-| **Customer** | The resources deployed by this Azure Blueprint are configured to provide the least functionality for their intended purpose. A Desired State Configuration (DSC) baseline is included for each deployed virtual machine. These declarative PowerShell scripts define and configure the resources to which they are applied. The baseline DSC included for resources deployed by this solution can be extended by the customer to further limit functionality to meet mission needs. |
+| **Customer** | The resources deployed by this Azure Blueprint are configured to provide the least functionality for their intended purpose. A Desired State Configuration (DSC) baseline is included for each deployed virtual machine. These declarative PowerShell scripts define and configure the resources to which they are applied. The baseline DSC included for resources deployed by this solution can be extended by the customer to further limit functionality to meet mission needs. See Source Code.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -675,7 +675,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources and can be customized to tag and group resources for inventory management. Resources deployed by this solution are given a specific resource tag that can be associated with the system boundary. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources and can be customized to tag and group resources for inventory management. Resources deployed by this solution are given a specific resource tag that can be associated with the system boundary. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview#tags" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -689,7 +689,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources available for review in the Azure portal. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources available for review in the Azure portal. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -703,7 +703,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. The resources blade in the Azure portal lists all deployed resources, providing an always up-to-date inventory as resources are deployed and removed. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. The resources blade in the Azure portal lists all deployed resources, providing an always up-to-date inventory as resources are deployed and removed. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -717,7 +717,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. The resources blade in the Azure portal lists all deployed resources, providing an always up-to-date inventory as resources are deployed and removed. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. The resources blade in the Azure portal lists all deployed resources, providing an always up-to-date inventory as resources are deployed and removed. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -759,7 +759,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure resource tags are key / value pairs that can be employed to categorize resources for accountability and/or management purposes. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure resource tags are key / value pairs that can be employed to categorize resources for accountability and/or management purposes. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -773,7 +773,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources. Resources deployed by this solution are given a specific resource tag that can be associated with the system boundary. |
+| **Customer** | This Azure Blueprint deploys all resources to an Azure Resource Manager resource group. Azure Resource Manager provides an always up-to-date list of deployed resources. Resources deployed by this solution are given a specific resource tag that can be associated with the system boundary. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -843,7 +843,7 @@
 
 |||
 |---|---|
-| **Customer** | Windows and SQL Server licenses are included for the resources deployed by this Azure Blueprint. This is a built-in feature of Azure. Organizations with existing software license agreements may consider deploying alternative license models. |
+| **Customer** | Windows and SQL Server licenses are included for the resources deployed by this Azure Blueprint. This is a built-in feature of Azure. Organizations with existing software license agreements may consider deploying alternative license models. <a href="https://azure.microsoft.com/en-ca/pricing/licensing-faq/" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 

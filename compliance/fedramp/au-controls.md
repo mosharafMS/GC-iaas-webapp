@@ -115,7 +115,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Activity Log events use a detailed schema that contains fields for more than 20 types of audit information. In addition to Activity Log, this Azure Blueprint deploys the Log Analytics solution in OMS which supports a diverse set of data sources including Windows logs, Linux logs, Azure Diagnostics logs, and customer logs.  |
+| **Customer** | Azure Activity Log events use a detailed schema that contains fields for more than 20 types of audit information. In addition to Activity Log, this Azure Blueprint deploys the Log Analytics solution in OMS which supports a diverse set of data sources including Windows logs, Linux logs, Azure Diagnostics logs, and customer logs. <a href="https://docs.microsoft.com/en-us/azure/security/azure-log-audit" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -129,7 +129,7 @@
 
 |||
 |---|---|
-| **Customer** | All virtual machines deployed by this Azure Blueprint are joined to the deployed Active Directory domain. All domain-joined virtual machines implement a group policy that can be configured to centrally manage the OS-level audit system configuration. |
+| **Customer** | All virtual machines deployed by this Azure Blueprint are joined to the deployed Active Directory domain. All domain-joined virtual machines implement a group policy that can be configured to centrally manage the OS-level audit system configuration. See Source Code.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -157,7 +157,7 @@
 
 |||
 |---|---|
-| **Customer** | Service status for Azure Monitor and Log Analytics is available on the Azure status website and the service health blade in the Azure portal. Alerts can be configured through Log Analytics to provide notification of other types of audit processing failures. |
+| **Customer** | Service status for Azure Monitor and Log Analytics is available on the Azure status website and the service health blade in the Azure portal. Alerts can be configured through Log Analytics to provide notification of other types of audit processing failures. <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-activity-log-alerts" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -199,7 +199,7 @@
 
 |||
 |---|---|
-| **Customer** | Service status for Azure is available on the service health blade in the Azure portal. Alerts can be configured through Log Analytics to provide notification of other types of audit processing failures. |
+| **Customer** | Service status for Azure is available on the service health blade in the Azure portal. Alerts can be configured through Log Analytics to provide notification of other types of audit processing failures. <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-activity-log-alerts" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -255,7 +255,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS to centralize audit data across deployed resources, supporting organization-wide situational awareness. Customers may chose to further integrate Log Analytics with other systems. |
+| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS to centralize audit data across deployed resources, supporting organization-wide situational awareness. Customers may chose to further integrate Log Analytics with other systems. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -269,7 +269,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS to centralize audit data across deployed resources, supporting centralized  review, analysis, and reporting. |
+| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS to centralize audit data across deployed resources, supporting centralized  review, analysis, and reporting. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -283,7 +283,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. The Security and Audit dashboard provides high-level insight into the security state of deployed resources using data available across deployed OMS solutions, integrating log data and vulnerability data from baseline and patch assessment. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. The Security and Audit dashboard provides high-level insight into the security state of deployed resources using data available across deployed OMS solutions, integrating log data and vulnerability data from baseline and patch assessment. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -311,7 +311,7 @@
 
 |||
 |---|---|
-| **Customer** | Windows virtual machines deployed by this Azure Blueprint implement OS-level permissions that restrict the actions a user can take with respect audit information. Within Azure, users or groups of users can be assigned to roles (e.g., owner, contributor, reader, or a custom role) to restrict the actions available with respect to any resources or deployed solutions, including Log Analytics.  |
+| **Customer** | Windows virtual machines deployed by this Azure Blueprint implement OS-level permissions that restrict the actions a user can take with respect audit information. Within Azure, users or groups of users can be assigned to roles (e.g., owner, contributor, reader, or a custom role) to restrict the actions available with respect to any resources or deployed solutions, including Log Analytics. <a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-configure" target="_blank">Documentation Here. </a>|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -339,7 +339,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. Once collected, the data is available for alerting, analysis, and export. |
+| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. Once collected, the data is available for alerting, analysis, and export. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -353,7 +353,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. The content and time ordering of audit records are not altered when collected by Log Analytics. |
+| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. The content and time ordering of audit records are not altered when collected by Log Analytics. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -367,7 +367,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. Once collected, the data is available for alerting, analysis, and export. Log Analytics includes a powerful query language to extract data stored in the repository. |
+| **Customer** | This Azure Blueprint implements the Log Analytics solution in OMS. Log Analytics provides monitoring services for OMS by collecting data from managed resources into a central repository. Once collected, the data is available for alerting, analysis, and export. Log Analytics includes a powerful query language to extract data stored in the repository. <a href="https://docs.loganalytics.io/index" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -437,7 +437,7 @@
 
 |||
 |---|---|
-| **Customer** | Logical access controls are used to protect audit information and tools within this Azure Blueprint from unauthorized access, modification, and deletion. Azure Active Directory enforces approved logical access using role-based group memberships. The ability to view audit information and use auditing tools can be limited to users that require those permissions. |
+| **Customer** | Logical access controls are used to protect audit information and tools within this Azure Blueprint from unauthorized access, modification, and deletion. Azure Active Directory enforces approved logical access using role-based group memberships. The ability to view audit information and use auditing tools can be limited to users that require those permissions. <a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-what-is" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -451,7 +451,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Deployed VMs and Azure diagnostics storage accounts are connected sources to Log Analytics and retained separately from their origin. Data is collected by OMS in near real-time. |
+| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Deployed VMs and Azure diagnostics storage accounts are connected sources to Log Analytics and retained separately from their origin. Data is collected by OMS in near real-time. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-overview" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -465,7 +465,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Log Analytics ensures that incoming data is from a trusted source by validating certificates and the data integrity with Azure authentication. |
+| **Customer** | This Azure Blueprint implements the Log Analytics service in OMS. Log Analytics ensures that incoming data is from a trusted source by validating certificates and the data integrity with Azure authentication. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-security#certifications-and-attestations" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -494,7 +494,7 @@
 
 |||
 |---|---|
-| **Customer** | Audit capability for this Azure Blueprint is provided by Azure Monitor and the Log Analytics service in OMS. Azure Monitor provides detailed audit logs about activity associated with deployed resources. These and OS-level logs are collected by Log Analytics and stored in the OMS repository. These logs contained detailed records of information system events and can help protect against non-repudiation. Further, access to log data is restricted using role-based access control to prevent unauthored modification or deletion of log data. |
+| **Customer** | Audit capability for this Azure Blueprint is provided by Azure Monitor and the Log Analytics service in OMS. Azure Monitor provides detailed audit logs about activity associated with deployed resources. These and OS-level logs are collected by Log Analytics and stored in the OMS repository. These logs contained detailed records of information system events and can help protect against non-repudiation. Further, access to log data is restricted using role-based access control to prevent unauthored modification or deletion of log data. <a href="https://docs.microsoft.com/en-us/azure/active-directory/active-directory-manage-groups" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -522,7 +522,7 @@
 
 |||
 |---|---|
-| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. |
+| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. <a href="https://docs.microsoft.com/en-us/azure/monitoring-and-diagnostics/monitoring-overview-activity-logs target=_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -536,7 +536,7 @@
 
 |||
 |---|---|
-| **Customer** | Access to audit functions is restricted using role-based access control within Azure and at the virtual machine OS-level. The configuration of events selected to be audited by resources deployed by this Azure Blueprint can be configured by users with appropriate role-based authorization. |
+| **Customer** | Access to audit functions is restricted using role-based access control within Azure and at the virtual machine OS-level. The configuration of events selected to be audited by resources deployed by this Azure Blueprint can be configured by users with appropriate role-based authorization. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-audit" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -550,7 +550,7 @@
 
 |||
 |---|---|
-| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. |
+| **Customer** | Events audited by this Azure Blueprint include those audited by Azure activity logs for deployed resources, OS-level logs, Active Directory logs, and SQL Server logs. Customers may select additional events to be audited to meet mission needs. <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-audit" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -578,5 +578,5 @@
 
 |||
 |---|---|
-| **Customer** | Access to audit functions is restricted using role-based access control within Azure and at the virtual machine OS-level. The configuration of events selected to be audited by resources deployed by this Azure Blueprint can be configured by users with appropriate role-based authorization. |
+| **Customer** | Access to audit functions is restricted using role-based access control within Azure and at the virtual machine OS-level. The configuration of events selected to be audited by resources deployed by this Azure Blueprint can be configured by users with appropriate role-based authorization. <a href="https://docs.microsoft.com/en-us/azure/active-directory/role-based-access-control-what-is" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |

@@ -185,7 +185,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Application Gateway and network security groups are deployed to restrict external connectivity to resources deployed by this Azure Blueprint. Rulesets applied to network security groups are configured using a deny-by-default scheme. |
+| **Customer** | Azure Application Gateway and network security groups are deployed to restrict external connectivity to resources deployed by this Azure Blueprint. Rulesets applied to network security groups are configured using a deny-by-default scheme. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
