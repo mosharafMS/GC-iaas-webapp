@@ -31,7 +31,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint separates user functionality from system management functionality through enforcement of logical access controls and system architecture. User functionality is limited to customer-deployed web application interfaces. Interfaces for system management functionality are separate from user interfaces. All management connectivity is through a secure bastion host (jumpbox) located in a management subnet with network security group rules to limit access to production resources as appropriate. |
+| **Customer** | This Azure Blueprint separates user functionality from system management functionality through enforcement of logical access controls and system architecture. User functionality is limited to customer-deployed web application interfaces. Interfaces for system management functionality are separate from user interfaces. All management connectivity is through a secure bastion host (jumpbox) located in a management subnet with network security group rules to limit access to production resources as appropriate. See Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -45,7 +45,7 @@
 
 |||
 |---|---|
-| **Customer** | The virtual machines deployed by this Azure Blueprint run Windows operating systems. Windows maintains separate execution domains for each executing process by assigning a private virtual address space to each process. Additionally, the solution implements an architecture and access controls designed to isolate security functionality where necessary. |
+| **Customer** | The virtual machines deployed by this Azure Blueprint run Windows operating systems. Windows maintains separate execution domains for each executing process by assigning a private virtual address space to each process. Additionally, the solution implements an architecture and access controls designed to isolate security functionality where necessary. See Architecture Diagram.  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -73,7 +73,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys an Application Gateway that include a web application firewall and load balancing capabilities. Deployed virtual machines supporting the web tier, database tier, and Active Directory are deployed in a scalable availability set. |
+| **Customer** | This Azure Blueprint deploys an Application Gateway that include a web application firewall and load balancing capabilities. Deployed virtual machines supporting the web tier, database tier, and Active Directory are deployed in a scalable availability set. See Architecture Diagram.  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -101,7 +101,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys an Application Gateway, load balancer, and configures network security group rules to control commutations at external boundaries and between internal subnets. Application Gateway, load balancer, and network security group event and diagnostic logs are collected by OMS Log Analytics to allow customer monitoring. |
+| **Customer** | This Azure Blueprint deploys an Application Gateway, load balancer, and configures network security group rules to control commutations at external boundaries and between internal subnets. Application Gateway, load balancer, and network security group event and diagnostic logs are collected by OMS Log Analytics to allow customer monitoring. <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-data-sources" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -115,7 +115,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate web subnet, database subnet, Active Directory subnet, and management subnet. Subnets are logically separated by network security group rules applied to the individual subnets to restrict traffic between subnets to only that necessary for system and management functionality (e.g., external traffic cannot access the database, management, or Active Directory subnets). |
+| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate web subnet, database subnet, Active Directory subnet, and management subnet. Subnets are logically separated by network security group rules applied to the individual subnets to restrict traffic between subnets to only that necessary for system and management functionality (e.g., external traffic cannot access the database, management, or Active Directory subnets). See Source Code and Architecture Diagram.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -129,7 +129,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys an Application Gateway to manage external connections to a customer-deployed web application. External connections for management access are restricted to a bastion host / jumpbox deployed in a management subnet with network security rules applied to restrict external connections to authorized IP addresses. |
+| **Customer** | This Azure Blueprint deploys an Application Gateway to manage external connections to a customer-deployed web application. External connections for management access are restricted to a bastion host / jumpbox deployed in a management subnet with network security rules applied to restrict external connections to authorized IP addresses. See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -143,7 +143,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox. |
+| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox.  See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -157,7 +157,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox. Management of these interfaces is enabled through software-defined networking. |
+| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox. Management of these interfaces is enabled through software-defined networking.  See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -171,7 +171,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox. Management of these interfaces is enabled through software-defined networking. |
+| **Customer** | This Azure Blueprint deploys two public IP addresses: one associated with the Application Gateway; one associated with the management bastion host / jumpbox. Management of these interfaces is enabled through software-defined networking.  See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -185,7 +185,7 @@
 
 |||
 |---|---|
-| **Customer** | The web application gateway deployed by this Azure Blueprint is configured with an HTTPS listener, ensuing confidentiality and integrity of communications sessions. Remote Desktop connections to the jumpbox are also encrypted providing confidentiality and integrity. |
+| **Customer** | The web application gateway deployed by this Azure Blueprint is configured with an HTTPS listener, ensuing confidentiality and integrity of communications sessions. Remote Desktop connections to the jumpbox are also encrypted providing confidentiality and integrity. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -227,7 +227,7 @@
 
 |||
 |---|---|
-| **Customer** | Rulesets applied to network security groups deployed by this Azure Blueprint are configured using a deny-by-default scheme. |
+| **Customer** | Rulesets applied to network security groups deployed by this Azure Blueprint are configured using a deny-by-default scheme. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -283,7 +283,7 @@
 
 |||
 |---|---|
-| **Customer** | Virtual machines deployed by this Azure Blueprint are configured with a host-based firewall enabled. |
+| **Customer** | Virtual machines deployed by this Azure Blueprint are configured with a host-based firewall enabled. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -297,7 +297,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate management subnet for customer deployment of information security tools and support components. Subnets are logically separated by network security group rules. |
+| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate management subnet for customer deployment of information security tools and support components. Subnets are logically separated by network security group rules. See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -339,7 +339,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate web subnet, database subnet, Active Directory subnet, and management subnet. Subnets are logically separated by network security group rules applied to the individual subnets to restrict traffic between subnets to only that necessary for system and management functionality. |
+| **Customer** | This Azure Blueprint deploys resources in an architecture with a separate web subnet, database subnet, Active Directory subnet, and management subnet. Subnets are logically separated by network security group rules applied to the individual subnets to restrict traffic between subnets to only that necessary for system and management functionality. See Source Code and Architecture Diagram. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -367,7 +367,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint configures resources to communicate using only secure protocols. The WAF component of the Application Gateway is configured to accept communicators from external uses over HTTPS/TLS and communicate with the backend pool only over HTTPS/TLS. SQL Server is configured to communicate only over HTTPS/TLS. Remote Desktop services are configured to use secure connections. |
+| **Customer** | This Azure Blueprint configures resources to communicate using only secure protocols. The WAF component of the Application Gateway is configured to accept communicators from external uses over HTTPS/TLS and communicate with the backend pool only over HTTPS/TLS. SQL Server is configured to communicate only over HTTPS/TLS. Remote Desktop services are configured to use secure connections. See Source Code.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -395,7 +395,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys an Azure Key Vault. Azure Key Vault helps safeguard cryptographic keys and secrets used by cloud applications and services. Azure Key Vault can generate keys using a FIPS 140-2 level 2 hardware security module (HSM) key generation capability. |
+| **Customer** | This Azure Blueprint deploys an Azure Key Vault. Azure Key Vault helps safeguard cryptographic keys and secrets used by cloud applications and services. Azure Key Vault can generate keys using a FIPS 140-2 level 2 hardware security module (HSM) key generation capability. <a href="https://docs.microsoft.com/en-ca/azure/key-vault/key-vault-whatis" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -409,7 +409,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Key Vault is used to store cryptographic keys and secrets used in this Azure Blueprint. Key Vault streamlines the key management process for keys that access and encrypt data. The following authenticators are stored in Key Vault: Azure password for deploy account, virtual machine administrator password, SQL Server service account password. |
+| **Customer** | Azure Key Vault is used to store cryptographic keys and secrets used in this Azure Blueprint. Key Vault streamlines the key management process for keys that access and encrypt data. The following authenticators are stored in Key Vault: Azure password for deploy account, virtual machine administrator password, SQL Server service account password. <a href="https://docs.microsoft.com/en-ca/azure/key-vault/key-vault-whatis" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -423,7 +423,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Key Vault is used to produce, control, and distribute cryptographic keys. Azure Key Vault can generate keys using a FIPS 140-2 level 2 hardware security module (HSM) key generation capability. Keys are stored and managed within securely encrypted containers within Azure Key Vault. |
+| **Customer** | Azure Key Vault is used to produce, control, and distribute cryptographic keys. Azure Key Vault can generate keys using a FIPS 140-2 level 2 hardware security module (HSM) key generation capability. Keys are stored and managed within securely encrypted containers within Azure Key Vault. <a href="https://docs.microsoft.com/en-ca/azure/key-vault/key-vault-whatis" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -451,7 +451,7 @@
 
 |||
 |---|---|
-| **Customer** | Windows authentication, remote desktop, and BitLocker are employed by this Azure Blueprint. These components can be configured to rely on FIPS 140 validated cryptographic modules. |
+| **Customer** | Windows authentication, remote desktop, and BitLocker are employed by this Azure Blueprint. These components can be configured to rely on FIPS 140 validated cryptographic modules. <a href="https://technet.microsoft.com/en-us/library/cc770833(v=ws.11).aspx" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -633,7 +633,7 @@
 
 |||
 |---|---|
-| **Customer** | Remote access to resources deployed by this Azure Blueprint, including the Azure portal, remote desktop connection, and web application gateway, are secured using TLS. TLS provides authenticity for communications at the session level. |
+| **Customer** | Remote access to resources deployed by this Azure Blueprint, including the Azure portal, remote desktop connection, and web application gateway, are secured using TLS. TLS provides authenticity for communications at the session level. <a href="https://docs.microsoft.com/en-us/azure/security/azure-security-management" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -647,7 +647,7 @@
 
 |||
 |---|---|
-| **Customer** | Remote access to resources deployed by this Azure Blueprint, including the Azure portal, remote desktop connection, and web application gateway, are secured using TLS. The Azure portal and remote desktop sessions invalidate session identifiers upon logout. Web session invalidation is enforced through Azure Application Gateway - Web Application Firewall (WAF) rules. The WAF applies cookie affinity per session and performs session timeout after 30 minutes (configurable post deployment to organization specific rules) of inactivity from the client. |
+| **Customer** | Remote access to resources deployed by this Azure Blueprint, including the Azure portal, remote desktop connection, and web application gateway, are secured using TLS. The Azure portal and remote desktop sessions invalidate session identifiers upon logout. Web session invalidation is enforced through Azure Application Gateway - Web Application Firewall (WAF) rules. The WAF applies cookie affinity per session and performs session timeout after 30 minutes (configurable post deployment to organization specific rules) of inactivity from the client. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -689,7 +689,7 @@
 
 |||
 |---|---|
-| **Customer** | Virtual machines deployed by this Azure Blueprint implement disk encryption to protect the confidentiality and integrity of information at rest. Azure disk encryption for Windows is implemented using the BitLocker feature of Windows. SQL Server is configured to use Transparent Data Encryption (TDE), which performs real-time encryption and decryption of data and log files to protect information at rest. TDE provides assurance that stored data has not been subject to unauthorized access. Customer may elect to implement additional application-level controls to protect the integrity of stored information. Confidentiality and integrity of all storage blobs deployed by this Azure Blueprint are protected through use of Azure Storage Service Encryption (SSE). SSE safeguards data at rest within Azure storage accounts using 256-bit AES encryption. |
+| **Customer** | Virtual machines deployed by this Azure Blueprint implement disk encryption to protect the confidentiality and integrity of information at rest. Azure disk encryption for Windows is implemented using the BitLocker feature of Windows. SQL Server is configured to use Transparent Data Encryption (TDE), which performs real-time encryption and decryption of data and log files to protect information at rest. TDE provides assurance that stored data has not been subject to unauthorized access. Customer may elect to implement additional application-level controls to protect the integrity of stored information. Confidentiality and integrity of all storage blobs deployed by this Azure Blueprint are protected through use of Azure Storage Service Encryption (SSE). SSE safeguards data at rest within Azure storage accounts using 256-bit AES encryption. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 

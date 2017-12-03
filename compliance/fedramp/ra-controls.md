@@ -143,7 +143,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Baseline Assessment assesses a set of registry keys, audit policy settings, and security policy settings along with Microsoft's recommended values for these settings. Update Assessment assesses the status of available updates on all deployed virtual machines. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Baseline Assessment assesses a set of registry keys, audit policy settings, and security policy settings along with Microsoft's recommended values for these settings. Update Assessment assesses the status of available updates on all deployed virtual machines. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-baseline" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -157,7 +157,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Identified issues are assigned a severity rating. Common Configuration Enumeration (CCE) IDs are provided for Baseline Assessment rules.  |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Identified issues are assigned a severity rating. Common Configuration Enumeration (CCE) IDs are provided for Baseline Assessment rules. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-baseline" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -213,7 +213,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. The criteria against which these solutions assess is automatically updated. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. The criteria against which these solutions assess is automatically updated. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-baseline" target="_blank">Documentation Here. </a>|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -227,7 +227,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. The criteria against which these solutions assess is automatically updated. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. The criteria against which these solutions assess is automatically updated. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-baseline" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -241,7 +241,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Update Assessment performs assessment against both Windows and Linux virtual machines. Baseline assessment performs assessment against Windows virtual machines using a Microsoft developed baseline based on industry best practices. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. Within the solution, two security domains, Update Assessment and Baseline Assessment, are available. Update Assessment performs assessment against both Windows and Linux virtual machines. Baseline assessment performs assessment against Windows virtual machines using a Microsoft developed baseline based on industry best practices. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-baseline" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -269,7 +269,7 @@
 
 |||
 |---|---|
-| **Customer** | The Microsoft Monitoring Agent service, which is configured on virtual machines deployed by this Azure Blueprint, is configured as an automatic service with necessary privileges for assessment activities. |
+| **Customer** | The Microsoft Monitoring Agent service, which is configured on virtual machines deployed by this Azure Blueprint, is configured as an automatic service with necessary privileges for assessment activities. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/operations-management-suite-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -283,7 +283,7 @@
 
 |||
 |---|---|
-| **Customer** | OMS provides the capability to create customized dashboard tiles to analyze data collected by Log Analytics and the Microsoft Monitoring Agent. These tiles can be customized to show trends over time. |
+| **Customer** | OMS provides the capability to create customized dashboard tiles to analyze data collected by Log Analytics and the Microsoft Monitoring Agent. These tiles can be customized to show trends over time.  <a href="https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-windows-agents" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -311,5 +311,5 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. The Security and Audit dashboard provides high-level insight into the security state of deployed resources using data available across deployed OMS solutions. |
+| **Customer** | This Azure Blueprint deploys the OMS Security and Audit solution. This solution provides a comprehensive view of security posture. The Security and Audit dashboard provides high-level insight into the security state of deployed resources using data available across deployed OMS solutions. <a href="https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-security-getting-started#oms-security-and-audit-dashboard" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |

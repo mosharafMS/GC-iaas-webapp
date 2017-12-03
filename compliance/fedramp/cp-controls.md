@@ -353,7 +353,7 @@
 
 |||
 |---|---|
-| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region; six copies of all data are maintained on separate nodes across two datacenters. |
+| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region; six copies of all data are maintained on separate nodes across two datacenters. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#geo-redundant-storage" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -367,7 +367,7 @@
 
 |||
 |---|---|
-| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). Physical security controls are implemented uniformly across Azure datacenters. |
+| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). Physical security controls are implemented uniformly across Azure datacenters. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#geo-redundant-storage" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -381,7 +381,7 @@
 
 |||
 |---|---|
-| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region. Primary and secondary regions are paired to ensure necessary distance between datacenters to ensure availability in the event of an area-wide outage or disaster. |
+| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region. Primary and secondary regions are paired to ensure necessary distance between datacenters to ensure availability in the event of an area-wide outage or disaster. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#geo-redundant-storage" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -395,7 +395,7 @@
 
 |||
 |---|---|
-| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region. Customers must ensure the Azure data replication model is compatible with contingency objectives. |
+| **Customer** | All storage accounts deployed by this Azure Blueprint are replicated to ensure high availability using geo-redundant storage (GRS). GRS ensures that data is replicated to a secondary region. Customers must ensure the Azure data replication model is compatible with contingency objectives. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#geo-redundant-storage" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -423,7 +423,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -437,7 +437,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, equipment provisioning is managed transparently by Azure. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, equipment provisioning is managed transparently by Azure. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -451,7 +451,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. Security safeguards are uniformly implemented at Azure datacenters. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. Security safeguards are uniformly implemented at Azure datacenters. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -465,7 +465,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. Azure datacenters are geographically separated. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. Azure datacenters are geographically separated. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -493,7 +493,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, resource availability is managed transparently by Azure. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, resource availability is managed transparently by Azure. See Source Code.|
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -507,7 +507,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, physical resource preparation is managed transparently by Azure. |
+| **Customer** | This Azure Blueprint contains guidance on how this solution can be deployed simultaneously in multiple regions and configured to provide full redundancy at an alternate processing site. When deploying to an alternate Azure region, physical resource preparation is managed transparently by Azure. See Source Code. |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -633,7 +633,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys a Recovery Services Vault. User-level information in the deployed SQL database is implemented using the SQL VM IaaS extension. |
+| **Customer** | This Azure Blueprint deploys a Recovery Services Vault. User-level information in the deployed SQL database is implemented using the SQL VM IaaS extension. <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -647,7 +647,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys a Recovery Services Vault. An Azure Backup policy is established for all virtual machines implementing a daily, weekly, monthly, and yearly backup image retention.  |
+| **Customer** | This Azure Blueprint deploys a Recovery Services Vault. An Azure Backup policy is established for all virtual machines implementing a daily, weekly, monthly, and yearly backup image retention. <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -675,7 +675,7 @@
 
 |||
 |---|---|
-| **Customer** | Confidentiality and integrity of all storage blobs deployed by this Azure Blueprint are protected through use of Azure SSE, which uses 256-bit AES encryption for all data-at-rest. |
+| **Customer** | Confidentiality and integrity of all storage blobs deployed by this Azure Blueprint are protected through use of Azure SSE, which uses 256-bit AES encryption for all data-at-rest. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-service-encryption" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -689,7 +689,7 @@
 
 |||
 |---|---|
-| **Customer** | Azure Recovery Services Vaults uses online storage; there is no customer backup media within the scope of systems deployed on Azure. |
+| **Customer** | Azure Recovery Services Vaults uses online storage; there is no customer backup media within the scope of systems deployed on Azure. <a href="https://docs.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Microsoft Azure monitors backups on a continuous basis using system generated alerts which notify Microsoft Azure operations team of any failed or incomplete backups. In addition to system-generated alerts, restoration tests are performed for all backups owned by Microsoft Azure at least every 12 months using the BCDR Manager tool. The integrity of data is automatically confirmed upon completion of the backup. <br /> At any one time, Microsoft Azure SQL DB keeps three replicas of data, one primary replica and two secondary replicas. Microsoft Azure SQL DB uses a quorum based commit scheme where data is written to the primary and one secondary replica before the transaction is considered committed. If the hardware fails on the primary replica, Microsoft Azure SQL DB detects the failure and fails over to the secondary replica. In case of a physical loss of a replica, Microsoft Azure SQL DB creates a new replica automatically. Therefore, there are at least two physical transaction consistent copies of customer data in the datacenter. Microsoft Azure SQL DB will not write transactions to the database unless primary and secondary replicas are made. |
 
 
@@ -731,7 +731,7 @@
 
 |||
 |---|---|
-| **Customer** | All deployed storage accounts within this Azure Blueprint, including those used for backup, implement geo-redundant storage, ensuring six copies of all data are maintained on separate nodes across two data centers. |
+| **Customer** | All deployed storage accounts within this Azure Blueprint, including those used for backup, implement geo-redundant storage, ensuring six copies of all data are maintained on separate nodes across two data centers. <a href="https://docs.microsoft.com/en-us/azure/storage/common/storage-redundancy#geo-redundant-storage" target="_blank">Documentation Here. </a> |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
@@ -759,7 +759,7 @@
 
 |||
 |---|---|
-| **Customer** | This Azure Blueprint deploys SQL Server in an Always On Availability Group. SQL Server maintains a transaction log that supports transaction recovery in the event of a system failure. |
+| **Customer** | This Azure Blueprint deploys SQL Server in an Always On Availability Group. SQL Server maintains a transaction log that supports transaction recovery in the event of a system failure. <a href="https://docs.microsoft.com/en-us/sql/relational-databases/logs/the-transaction-log-sql-server" target="_blank">Documentation Here. </a>  |
 | **Provider (Microsoft Azure)** | Not Applicable |
 
 
