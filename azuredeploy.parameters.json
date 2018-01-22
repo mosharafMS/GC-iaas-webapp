@@ -6,10 +6,10 @@
       "value": "AzureCloud"
     },
     "keyVaultName": {
-      "value": "GCKeystoreAQ"
+      "value": "GCKeystoreAQ1"
     },
     "keyVaultResourceGroupName": {
-      "value": "GCbluePrint"
+      "value": "GCbluePrint1"
     },
     "domainName": {
       "value": "GCblueprint.local"

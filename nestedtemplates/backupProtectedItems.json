@@ -19,7 +19,7 @@
   "resources": [
     {
       "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
-      "apiVersion": "2017-11-15",
+      "apiVersion": "2017-07-01",
       "tags": {
         "Project": "BluePrint"
       },
