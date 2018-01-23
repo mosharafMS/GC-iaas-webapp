@@ -80,7 +80,7 @@
     "bdcModulesURL": {
       "type": "string"
     },
-   // "configuringBackupADVMURL": {
+   // "xconfiguringBackupADVMURL": {
    //   "type": "string"
    // },
     "adBDCNICIPAddress": {
