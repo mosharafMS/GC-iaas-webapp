@@ -84,6 +84,7 @@
     <None Include="overview.md" />
     <None Include="predeploy\Orchestration_InitialSetup.ps1" />
     <None Include="README.md" />
+    <None Include="predeploy\AzureDiskEncryptionPrereq.ps1" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
   <ProjectExtensions>
