@@ -28,8 +28,9 @@ Restart-AzureRmVM -ResourceGroupName "GCbluePrint" -Name "AZ-BDC-VMprod" -Verbos
 $aadClientID = 'a2658975-d953-49e8-adfa-4b4e16e6f602'
 $aadClientSecret = 'c19a37df-7323-4d10-b255-00c6be6b96fa'
 $diskEncryptionKeyVaultUrl = 'https://gckeystoreaq.vault.azure.net/'
-$keyVaultResourceId = 'https://gckeystoreaq.vault.azure.net/keys/keyEncryptionKeyURL/c188e07f796d42a5901363660bb609a5'
-Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-PDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -VolumeType All
+$keyVaultResourceId = '/subscriptions/3a4af7b3-b7ac-463d-9940-1d80445961a8/resourceGroups/GCbluePrint/providers/Microsoft.KeyVault/vaults/GCKeystoreAQ'
+Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-PDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -VolumeType All -Verbose -Force
+Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-BDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -VolumeType All -Verbose -Force
 
 #
 # Provision Domain Controllers Backups
