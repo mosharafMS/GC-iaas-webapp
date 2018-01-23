@@ -29,6 +29,7 @@
     <None Include="azuredeploy.parameters.json" />
     <None Include="azuredeploy02.json" />
     <None Include="azuredeploy03.json" />
+    <None Include="azuredeploy04.json" />
     <None Include="custom-scripts\accountmanagementprincipals.ps1" />
     <None Include="custom-scripts\customScriptBaseline.ps1" />
     <None Include="custom-scripts\deleteProtectedItems.ps1" />
