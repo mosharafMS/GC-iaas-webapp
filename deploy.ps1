@@ -31,3 +31,13 @@ Restart-AzureRmVM -ResourceGroupName "GCbluePrint" -Name "AZ-BDC-VMprod" -Verbos
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy03.json -TemplateParameterFile .\azuredeploy.parameters.json `
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+
+#
+#
+#
+#
+# Everything else
+#
+New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+-TemplateFile .\azuredeploy04.json -TemplateParameterFile .\azuredeploy.parameters.json `
+-Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
