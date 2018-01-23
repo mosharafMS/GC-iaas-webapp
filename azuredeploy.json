@@ -1,352 +1,355 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-      "environmentName": {
-        "type": "string",
-        "defaultValue": "AzureCloud",
-        "metadata": {
-          "description": "Assign the environment for Azure (Azure Commercial or Gov)"
-        }
-      },
-        "keyVaultName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of key vault used to store encrypted values for deployment. This key vault is created during predeployment steps."
-            }
-        },
-        "keyVaultResourceGroupName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of the resource group that holds the key vault above"
-            }
-        },
-        "domainName": {
-            "type": "string",
-            "defaultValue": "contoso.local",
-            "metadata": {
-                "description": "Name of domain"
-            }
-        },
-        "configureSQLAO": {
-          "type": "string",
-          "defaultValue": "yes",
-          "allowedValues": [
-            "yes",
-            "no"
-          ],
-          "metadata": {
-              "description": "Choose to skip SQL Always On configuration"
-          }
-        },
-        "environmentPrefix": {
-            "type": "string",
-            "metadata": {
-                "description": "Prefix for environement (production or staging). You can change the allowed values based on your preference."
-            },
-            "defaultValue": ""
-        },
-        "numberOfWebInstances": {
-            "type": "int",
-            "defaultValue": 2,
-            "minValue": 2,
-            "maxValue": 5
-        },
-        "useExistingKek": {
-            "type": "string",
-            "defaultValue": "kek",
-            "allowedValues": [
-                "nokek",
-                "kek"
-            ],
-            "metadata": {
-                "description": "Select kek if the secret should be encrypted with a key encryption key and pass explicit keyEncryptionKeyURL. For nokek, you can keep keyEncryptionKeyURL empty."
-            }
-        },
-        "encryptionEnabled": {
-            "type": "bool",
-            "defaultValue": true
-        },
-        "adVMSize": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_D1_v2",
-                "Standard_D2_v2",
-                "Standard_D3_v2",
-                "Standard_D4_v2",
-                "Standard_D5_v2",
-                "Standard_D11_v2",
-                "Standard_D12_v2",
-                "Standard_D13_v2",
-                "Standard_D14_v2",
-                "Standard_D15_v2",
-                "Standard_D1",
-                "Standard_D2",
-                "Standard_D3",
-                "Standard_D4",
-                "Standard_D11",
-                "Standard_D12",
-                "Standard_D13",
-                "Standard_D14",
-                "Standard_DS1",
-                "Standard_DS2",
-                "Standard_DS3",
-                "Standard_DS4",
-                "Standard_DS11",
-                "Standard_DS12",
-                "Standard_DS13",
-                "Standard_DS14",
-                "Standard_DS1_v2",
-                "Standard_DS2_v2",
-                "Standard_DS3_v2",
-                "Standard_DS4_v2",
-                "Standard_DS5_v2",
-                "Standard_DS11_v2",
-                "Standard_DS12_v2",
-                "Standard_DS13_v2",
-                "Standard_DS14_v2",
-                "Standard_DS15_v2",
-                "Standard_GS1",
-                "Standard_GS2",
-                "Standard_GS3",
-                "Standard_GS4",
-                "Standard_GS4",
-                "Standard_GS5"
-            ],
-            "metadata": {
-                "description": "The size of the AD VMs Created"
-            },
-            "defaultValue": "Standard_D1_v2"
-        },
-        "sqlVMSize": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_DS1",
-                "Standard_DS2",
-                "Standard_D2_v2",
-                "Standard_DS3",
-                "Standard_DS4",
-                "Standard_DS11",
-                "Standard_DS12",
-                "Standard_DS13",
-                "Standard_DS14",
-                "Standard_DS1_v2",
-                "Standard_DS2_v2",
-                "Standard_DS3_v2",
-                "Standard_DS4_v2",
-                "Standard_DS5_v2",
-                "Standard_DS11_v2",
-                "Standard_DS12_v2",
-                "Standard_DS13_v2",
-                "Standard_DS14_v2",
-                "Standard_DS15_v2",
-                "Standard_GS1",
-                "Standard_GS2",
-                "Standard_GS3",
-                "Standard_GS4",
-                "Standard_GS4",
-                "Standard_GS5"
-            ],
-            "metadata": {
-                "description": "The size of the SQL VMs Created"
-            },
-            "defaultValue": "Standard_D2_v2"
-        },
-        "webVMSize": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_DS1",
-                "Standard_DS2",
-                "Standard_DS3",
-                "Standard_DS4",
-                "Standard_D2_v2",
-                "Standard_DS11",
-                "Standard_DS12",
-                "Standard_DS13",
-                "Standard_DS14",
-                "Standard_DS1_v2",
-                "Standard_DS2_v2",
-                "Standard_DS3_v2",
-                "Standard_DS4_v2",
-                "Standard_DS5_v2",
-                "Standard_DS11_v2",
-                "Standard_DS12_v2",
-                "Standard_DS13_v2",
-                "Standard_DS14_v2",
-                "Standard_DS15_v2",
-                "Standard_GS1",
-                "Standard_GS2",
-                "Standard_GS3",
-                "Standard_GS4",
-                "Standard_GS4",
-                "Standard_GS5"
-            ],
-            "metadata": {
-                "description": "The size of the SQL VMs Created"
-            },
-            "defaultValue": "Standard_D2_v2"
-        },
-        "mgtVMSize": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_DS1",
-                "Standard_D1_v2",
-                "Standard_DS2",
-                "Standard_DS3",
-                "Standard_DS4",
-                "Standard_DS11",
-                "Standard_DS12",
-                "Standard_DS13",
-                "Standard_DS14",
-                "Standard_DS1_v2",
-                "Standard_DS2_v2",
-                "Standard_DS3_v2",
-                "Standard_DS4_v2",
-                "Standard_DS5_v2",
-                "Standard_DS11_v2",
-                "Standard_DS12_v2",
-                "Standard_DS13_v2",
-                "Standard_DS14_v2",
-                "Standard_DS15_v2",
-                "Standard_GS1",
-                "Standard_GS2",
-                "Standard_GS3",
-                "Standard_GS4",
-                "Standard_GS4",
-                "Standard_GS5"
-            ],
-            "metadata": {
-                "description": "The size of the SQL VMs Created"
-            },
-            "defaultValue": "Standard_D1_v2"
-        },
-        "witnessVMSize": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_DS1",
-                "Standard_DS2",
-                "Standard_D1_v2",
-                "Standard_DS3",
-                "Standard_DS4",
-                "Standard_DS11",
-                "Standard_DS12",
-                "Standard_DS13",
-                "Standard_DS14",
-                "Standard_DS1_v2",
-                "Standard_DS2_v2",
-                "Standard_DS3_v2",
-                "Standard_DS4_v2",
-                "Standard_DS5_v2",
-                "Standard_DS11_v2",
-                "Standard_DS12_v2",
-                "Standard_DS13_v2",
-                "Standard_DS14_v2",
-                "Standard_DS15_v2",
-                "Standard_GS1",
-                "Standard_GS2",
-                "Standard_GS3",
-                "Standard_GS4",
-                "Standard_GS4",
-                "Standard_GS5"
-            ],
-            "metadata": {
-                "description": "The size of the SQL Witness VM Created"
-            },
-            "defaultValue": "Standard_D1_v2"
-        },
-        "sqlStorageAccountType": {
-            "type": "string",
-            "allowedValues": [
-                "Premium_LRS",
-                "Standard_LRS",
-                "Standard_GRS"
-            ],
-            "metadata": {
-                "description": "The type of the Sql Server Storage Account created"
-            },
-            "defaultValue": "Standard_GRS"
-        },
-        "dcStorageAccountType": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_LRS",
-                "Standard_GRS",
-                "Standard_RAGRS",
-                "Premium_LRS"
-            ],
-            "metadata": {
-                "description": "The type of the DC Storage Account created"
-            },
-            "defaultValue": "Standard_GRS"
-        },
-        "webStorageAccountType": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_LRS",
-                "Standard_GRS",
-                "Standard_RAGRS",
-                "Premium_LRS"
-            ],
-            "metadata": {
-                "description": "The type of the DC Storage Account created"
-            },
-            "defaultValue": "Standard_GRS"
-        },
-        "mgtStorageAccountType": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_LRS",
-                "Standard_GRS",
-                "Standard_RAGRS",
-                "Premium_LRS"
-            ],
-            "metadata": {
-                "description": "The type of the DC Storage Account created"
-            },
-            "defaultValue": "Standard_GRS"
-        },
-      "templatesBaseUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "Linked Templates base url"
-        },
-        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/nestedtemplates/nestedtemplates"
-      },
-      "dscBaseUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "DSC Scripts base url"
-        },
-        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/DSC"
-      },
-      "scriptsBaseUrl": {
-        "type": "string",
-        "metadata": {
-          "description": "DSC Scripts base url"
-        },
-
-        "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/custom-scripts"
-      },
-        "sqlServerVersion": {
-            "type": "string",
-            "allowedValues": [
-                "SQL2016-WS2012R2"
-            ],
-            "metadata": {
-                "description": "The Sql Server Version"
-            },
-            "defaultValue": "SQL2016-WS2012R2"
-        },
-        "gatewaySkuName": {
-            "type": "string",
-            "defaultValue": "WAF_Medium",
-            "allowedValues": [
-                "Standard_Small",
-                "WAF_Medium",
-                "WAF_Large"
-            ]
-        }
+  "parameters": {
+    "environmentName": {
+      "type": "string",
+      "defaultValue": "AzureCloud",
+      "metadata": {
+        "description": "Assign the environment for Azure (Azure Commercial or Gov)"
+      }
     },
+    "workspaceRegion": {
+      "type": "string"
+    },
+    "keyVaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of key vault used to store encrypted values for deployment. This key vault is created during predeployment steps."
+      }
+    },
+    "keyVaultResourceGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the resource group that holds the key vault above"
+      }
+    },
+    "domainName": {
+      "type": "string",
+      "defaultValue": "contoso.local",
+      "metadata": {
+        "description": "Name of domain"
+      }
+    },
+    "configureSQLAO": {
+      "type": "string",
+      "defaultValue": "yes",
+      "allowedValues": [
+        "yes",
+        "no"
+      ],
+      "metadata": {
+        "description": "Choose to skip SQL Always On configuration"
+      }
+    },
+    "environmentPrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Prefix for environement (production or staging). You can change the allowed values based on your preference."
+      },
+      "defaultValue": ""
+    },
+    "numberOfWebInstances": {
+      "type": "int",
+      "defaultValue": 2,
+      "minValue": 2,
+      "maxValue": 5
+    },
+    "useExistingKek": {
+      "type": "string",
+      "defaultValue": "kek",
+      "allowedValues": [
+        "nokek",
+        "kek"
+      ],
+      "metadata": {
+        "description": "Select kek if the secret should be encrypted with a key encryption key and pass explicit keyEncryptionKeyURL. For nokek, you can keep keyEncryptionKeyURL empty."
+      }
+    },
+    "encryptionEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "adVMSize": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_D1_v2",
+        "Standard_D2_v2",
+        "Standard_D3_v2",
+        "Standard_D4_v2",
+        "Standard_D5_v2",
+        "Standard_D11_v2",
+        "Standard_D12_v2",
+        "Standard_D13_v2",
+        "Standard_D14_v2",
+        "Standard_D15_v2",
+        "Standard_D1",
+        "Standard_D2",
+        "Standard_D3",
+        "Standard_D4",
+        "Standard_D11",
+        "Standard_D12",
+        "Standard_D13",
+        "Standard_D14",
+        "Standard_DS1",
+        "Standard_DS2",
+        "Standard_DS3",
+        "Standard_DS4",
+        "Standard_DS11",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14",
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2",
+        "Standard_GS1",
+        "Standard_GS2",
+        "Standard_GS3",
+        "Standard_GS4",
+        "Standard_GS4",
+        "Standard_GS5"
+      ],
+      "metadata": {
+        "description": "The size of the AD VMs Created"
+      },
+      "defaultValue": "Standard_D1_v2"
+    },
+    "sqlVMSize": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_DS1",
+        "Standard_DS2",
+        "Standard_D2_v2",
+        "Standard_DS3",
+        "Standard_DS4",
+        "Standard_DS11",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14",
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2",
+        "Standard_GS1",
+        "Standard_GS2",
+        "Standard_GS3",
+        "Standard_GS4",
+        "Standard_GS4",
+        "Standard_GS5"
+      ],
+      "metadata": {
+        "description": "The size of the SQL VMs Created"
+      },
+      "defaultValue": "Standard_D2_v2"
+    },
+    "webVMSize": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_DS1",
+        "Standard_DS2",
+        "Standard_DS3",
+        "Standard_DS4",
+        "Standard_D2_v2",
+        "Standard_DS11",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14",
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2",
+        "Standard_GS1",
+        "Standard_GS2",
+        "Standard_GS3",
+        "Standard_GS4",
+        "Standard_GS4",
+        "Standard_GS5"
+      ],
+      "metadata": {
+        "description": "The size of the SQL VMs Created"
+      },
+      "defaultValue": "Standard_D2_v2"
+    },
+    "mgtVMSize": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_DS1",
+        "Standard_D1_v2",
+        "Standard_DS2",
+        "Standard_DS3",
+        "Standard_DS4",
+        "Standard_DS11",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14",
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2",
+        "Standard_GS1",
+        "Standard_GS2",
+        "Standard_GS3",
+        "Standard_GS4",
+        "Standard_GS4",
+        "Standard_GS5"
+      ],
+      "metadata": {
+        "description": "The size of the SQL VMs Created"
+      },
+      "defaultValue": "Standard_D1_v2"
+    },
+    "witnessVMSize": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_DS1",
+        "Standard_DS2",
+        "Standard_D1_v2",
+        "Standard_DS3",
+        "Standard_DS4",
+        "Standard_DS11",
+        "Standard_DS12",
+        "Standard_DS13",
+        "Standard_DS14",
+        "Standard_DS1_v2",
+        "Standard_DS2_v2",
+        "Standard_DS3_v2",
+        "Standard_DS4_v2",
+        "Standard_DS5_v2",
+        "Standard_DS11_v2",
+        "Standard_DS12_v2",
+        "Standard_DS13_v2",
+        "Standard_DS14_v2",
+        "Standard_DS15_v2",
+        "Standard_GS1",
+        "Standard_GS2",
+        "Standard_GS3",
+        "Standard_GS4",
+        "Standard_GS4",
+        "Standard_GS5"
+      ],
+      "metadata": {
+        "description": "The size of the SQL Witness VM Created"
+      },
+      "defaultValue": "Standard_D1_v2"
+    },
+    "sqlStorageAccountType": {
+      "type": "string",
+      "allowedValues": [
+        "Premium_LRS",
+        "Standard_LRS",
+        "Standard_GRS"
+      ],
+      "metadata": {
+        "description": "The type of the Sql Server Storage Account created"
+      },
+      "defaultValue": "Standard_GRS"
+    },
+    "dcStorageAccountType": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "The type of the DC Storage Account created"
+      },
+      "defaultValue": "Standard_GRS"
+    },
+    "webStorageAccountType": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "The type of the DC Storage Account created"
+      },
+      "defaultValue": "Standard_GRS"
+    },
+    "mgtStorageAccountType": {
+      "type": "string",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_RAGRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "The type of the DC Storage Account created"
+      },
+      "defaultValue": "Standard_GRS"
+    },
+    "templatesBaseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Linked Templates base url"
+      },
+      "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/nestedtemplates/nestedtemplates"
+    },
+    "dscBaseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "DSC Scripts base url"
+      },
+      "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/DSC"
+    },
+    "scriptsBaseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "DSC Scripts base url"
+      },
+
+      "defaultValue": "https://raw.githubusercontent.com/mosharafMS/GC-iaas-webapp/master/custom-scripts"
+    },
+    "sqlServerVersion": {
+      "type": "string",
+      "allowedValues": [
+        "SQL2016-WS2012R2"
+      ],
+      "metadata": {
+        "description": "The Sql Server Version"
+      },
+      "defaultValue": "SQL2016-WS2012R2"
+    },
+    "gatewaySkuName": {
+      "type": "string",
+      "defaultValue": "WAF_Medium",
+      "allowedValues": [
+        "Standard_Small",
+        "WAF_Medium",
+        "WAF_Large"
+      ]
+    }
+  },
     "variables": {
         "appID": "aadClientID",
         "appSecret": "aadClientSecret",
@@ -370,7 +373,7 @@
         "RDPNAT": "RDP",
         "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
         "omsSettings": {
-          "workspaceRegion": "[resourceGroup().location]",
+          "workspaceRegion": "[parameters('workspaceRegion')]",
           "serviceTier": "PerNode",
           "dataRetention": 365
         },
