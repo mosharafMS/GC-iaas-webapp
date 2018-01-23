@@ -808,9 +808,9 @@
           "bdcModulesURL": {
             "value": "[variables('artifacts').bdcModulesURL]"
           },
-         // "configuringBackupADVMURL": {
-         //   "value": "[variables('artifacts').configuringBackupADVMURL]"
-         // },
+          "configuringBackupADVMURL": {
+            "value": "[variables('artifacts').configuringBackupADVMURL]"
+          },
           "adBDCNICIPAddress": {
             "value": "[variables('vmSettings').dc.ipAddressBDC]"
           },
