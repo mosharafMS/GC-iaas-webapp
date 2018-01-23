@@ -7,7 +7,7 @@
 $subscriptionId = '3a4af7b3-b7ac-463d-9940-1d80445961a8'
 Set-AzureRmContext -SubscriptionId $subscriptionId
 $timestamp = Get-Date -Format "yyyy-MM-dd_hh-mm-ss"
-$resourceGroupName = 'GCbluePrint'
+$resourceGroupName = 'GCbluePrintUser1'
 
 #
 # Provision Basic Services / OMS Workspaces
@@ -40,11 +40,15 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $reso
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
 
 #
-#
-#
-#
-# Everything else
+# App GW, other VMs
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy04.json -TemplateParameterFile .\azuredeploy.parameters.json `
 -Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+
+#
+# Everything else
+#
+#New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+#-TemplateFile .\azuredeploy05.json -TemplateParameterFile .\azuredeploy.parameters.json `
+#-Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
