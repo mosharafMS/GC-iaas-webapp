@@ -9,10 +9,10 @@
       "value": "CanadaCentral"
     },
     "keyVaultName": {
-      "value": "GCKeystoreAQ1"
+      "value": "GCKeystoreAQ"
     },
     "keyVaultResourceGroupName": {
-      "value": "GCbluePrint1"
+      "value": "GCbluePrint"
     },
     "domainName": {
       "value": "GCblueprint.local"

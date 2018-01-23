@@ -399,62 +399,6 @@
             }
         },
         {
-            "name": "ConfiguringBackupADVM",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
-            "dependsOn": [
-                "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[parameters('configuringBackupADVMURL')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "adBDCVMName": {
-                        "value": "[parameters('adBDCVMName')]"
-                    },
-                    "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
-                    },
-                    "domainName": {
-                        "value": "[parameters('domainName')]"
-                    },
-                    "bdcConfigurationFunction": {
-                        "value": "[parameters('bdcConfigurationFunction')]"
-                    },
-                    "bdcModulesURL": {
-                        "value": "[parameters('bdcModulesURL')]"
-                    },
-                    "adPDCNICIPAddress": {
-                        "value": "[parameters('adPDCNICIPAddress')]"
-                    },
-                    "antimalwareInfo": {
-                        "value": "[parameters('antimalwareInfo')]"
-                    },
-                    "workspaceName": {
-                        "value": "[parameters('workspaceName')]"
-                    },
-                    "ResourceGroupName": {
-                        "value": "[parameters('ResourceGroupName')]"
-                    },
-                    "AutomationAccountName": {
-                        "value": "[parameters('AutomationAccountName')]"
-                    },
-                    "SubscriptionId": {
-                        "value": "[parameters('SubscriptionId')]"
-                    },
-                    "EnvironmentName": {
-                        "value": "[parameters('EnvironmentName')]"
-                    }
-                }
-            }
-        },
-      {
         "name": "UpdatingDNSwithBackupADVM",
         "type": "Microsoft.Resources/deployments",
         "apiVersion": "2015-01-01",
@@ -488,34 +432,7 @@
             }
           }
         }
-      },
-        {
-            "name": "[concat('BackupVM-',variables('vmNames').VMs[copyIndex()].Name)]",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
-            "copy": {
-                "name": "backupADLoop",
-                "count": "[length(variables('vmNames').VMs)]"
-            },
-            "dependsOn": [
-             
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[parameters('backupInfo').backupTemplateUrl]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "backupInfo": {
-                        "value": "[parameters('backupInfo')]"
-                    },
-                    "vmName": {
-                        "value": "[variables('vmNames').VMs[copyIndex()].Name]"
-                    }
-                }
-            }
-        }
+      }
     ],
     "outputs": {}
 }
