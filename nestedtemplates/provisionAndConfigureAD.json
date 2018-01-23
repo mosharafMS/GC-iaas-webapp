@@ -1,6 +1,6 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
     "adPDCVMName": {
       "type": "string"
@@ -129,310 +129,375 @@
       "type": "string"
     }
   },
-    "variables": {
-        "dcstorageName": "[parameters('dcStorageAccountName')]",
-        "diagstorageNameDC": "[concat(parameters('dcStorageAccountName'), 'diag')]",
-        "domainJoinUserName": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
-        "vmNames": {
-            "VMs": [{
-                    "Name": "[parameters('adPDCVMName')]"
-                },
-                {
-                    "Name": "[parameters('adBDCVMName')]"
-                }
-            ]
-        }
-    },
-    "resources": [
-      {
-        "name": "[parameters('adPDCNicName')]",
-        "type": "Microsoft.Network/networkInterfaces",
-        "location": "[parameters('location')]",
-        "apiVersion": "2015-06-15",
-        "tags": {
-          "Project": "BluePrint"
-        },
-        "properties": {
-          "ipConfigurations": [
-            {
-              "name": "ipconfig1",
-              "properties": {
-                "privateIPAllocationMethod": "Static",
-                "privateIPAddress": "[parameters('adPDCNICIPAddress')]",
-                "subnet": {
-                  "id": "[parameters('dcSubnetRef')]"
-                }
-              }
-            }
-          ],
-          "networkSecurityGroup": {
-            "id": "[parameters('dcNSGid')]"
-          }
-        }
-      },
-      {
-        "name": "[parameters('adBDCNicName')]",
-        "type": "Microsoft.Network/networkInterfaces",
-        "location": "[parameters('location')]",
-        "apiVersion": "2015-06-15",
-        "tags": {
-          "Project": "BluePrint"
-        },
-        "properties": {
-          "ipConfigurations": [
-            {
-              "name": "ipconfig1",
-              "properties": {
-                "privateIPAllocationMethod": "Static",
-                "privateIPAddress": "[parameters('adBDCNICIPAddress')]",
-                "subnet": {
-                  "id": "[parameters('dcSubnetRef')]"
-                }
-              }
-            }
-          ],
-          "networkSecurityGroup": {
-            "id": "[parameters('dcNSGid')]"
-          }
-        }
-      },
-      {
-          "apiVersion": "2016-03-30",
-          "type": "Microsoft.Compute/virtualMachines",
-          "name": "[parameters('adPDCVMName')]",
-          "location": "[parameters('location')]",
-          "tags": {
-              "Project": "BluePrint"
-          },
-          "dependsOn": [
-              "[resourceId('Microsoft.Network/networkInterfaces', parameters('adPDCNicName'))]"
-          ],
-          "properties": {
-              "hardwareProfile": {
-                  "vmSize": "[parameters('adVMSize')]"
-              },
-              "availabilitySet": {
-                  "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('adAvailabilitySetName'))]"
-              },
-              "osProfile": {
-                  "computername": "[parameters('adPDCVMName')]",
-                  "adminUsername": "[parameters('adminUsername')]",
-                  "adminPassword": "[parameters('adminPassword')]"
-              },
-              "storageProfile": {
-                  "imageReference": {
-                      "publisher": "[parameters('adImagePublisher')]",
-                      "offer": "[parameters('adImageOffer')]",
-                      "sku": "[parameters('adImageSKU')]",
-                      "version": "latest"
-                  },
-                  "osDisk": {
-                      "name": "osdisk",
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
-                      },
-                      "caching": "ReadWrite",
-                      "createOption": "FromImage"
-                  },
-                  "dataDisks": [{
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
-                      },
-                      "name": "[concat(parameters('adPDCVMName'),'-data-disk1')]",
-                      "createOption": "empty",
-                      "caching": "None",
-                      "diskSizeGB": 128,
-                      "lun": 0
-                  }]
-              },
-              "networkProfile": {
-                  "networkInterfaces": [{
-                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces',parameters('adPDCNicName'))]"
-                  }]
-              },
-              "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                      "enabled": "true",
-                      "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
-                  }
-              }
-          },
-          "resources": []
-      },
-      {
-          "apiVersion": "2016-03-30",
-          "type": "Microsoft.Compute/virtualMachines",
-          "name": "[parameters('adBDCVMName')]",
-          "location": "[parameters('location')]",
-          "tags": {
-              "Project": "BluePrint"
-          },
-          "dependsOn": [
-              "[resourceId('Microsoft.Network/networkInterfaces', parameters('adBDCNicName'))]"
-          ],
-          "properties": {
-              "hardwareProfile": {
-                  "vmSize": "[parameters('adVMSize')]"
-              },
-              "availabilitySet": {
-                  "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('adAvailabilitySetName'))]"
-              },
-              "osProfile": {
-                  "computername": "[parameters('adBDCVMName')]",
-                  "adminUsername": "[parameters('adminUsername')]",
-                  "adminPassword": "[parameters('adminPassword')]"
-              },
-              "storageProfile": {
-                  "imageReference": {
-                      "publisher": "[parameters('adImagePublisher')]",
-                      "offer": "[parameters('adImageOffer')]",
-                      "sku": "[parameters('adImageSKU')]",
-                      "version": "latest"
-                  },
-                  "osDisk": {
-                      "name": "osdisk",
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
-                      },
-                      "caching": "ReadWrite",
-                      "createOption": "FromImage"
-                  },
-                  "dataDisks": [{
-                      "vhd": {
-                          "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
-                      },
-                      "name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
-                      "createOption": "empty",
-                      "caching": "None",
-                      "diskSizeGB": 128,
-                      "lun": 0
-                  }]
-              },
-              "networkProfile": {
-                  "networkInterfaces": [{
-                      "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', parameters('adBDCNicName'))]"
-                  }]
-              },
-              "diagnosticsProfile": {
-                  "bootDiagnostics": {
-                      "enabled": "true",
-                      "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
-                  }
-              }
-          },
-          "resources": []
-      },
+  "variables": {
+    "dcstorageName": "[parameters('dcStorageAccountName')]",
+    "diagstorageNameDC": "[concat(parameters('dcStorageAccountName'), 'diag')]",
+    "domainJoinUserName": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
+    "vmNames": {
+      "VMs": [
         {
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
-            "apiVersion": "2015-06-15",
-            "tags": {
-                "Project": "BluePrint"
-            },
-            "location": "[parameters('location')]",
-            "dependsOn": [
-              "[concat('Microsoft.Compute/virtualMachines/', parameters('adPDCVMName'))]"
-            ],
+          "Name": "[parameters('adPDCVMName')]"
+        },
+        {
+          "Name": "[parameters('adBDCVMName')]"
+        }
+      ]
+    }
+  },
+  "resources": [
+    {
+      "name": "[parameters('adPDCNicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[parameters('location')]",
+      "apiVersion": "2015-06-15",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
             "properties": {
-                "publisher": "Microsoft.Powershell",
-                "type": "DSC",
-                "typeHandlerVersion": "2.19",
-                "autoUpgradeMinorVersion": false,
-                "settings": {
-                    "modulesURL": "[parameters('pdcModulesURL')]",
-                    "configurationFunction": "[parameters('pdcConfigurationFunction')]",
-                    "properties": {
-                        "domainName": "[parameters('domainName')]",
-                        "adminCreds": {
-                            "userName": "[parameters('adminUsername')]",
-                            "password": "PrivateSettingsRef:adminPassword"
-                        },
-                        "ExclusionPath": "[parameters('antimalwareInfo').exclusionPath.ad]",
-                        "ExclusionExtension": "[parameters('antimalwareInfo').exclusionExtension.ad]",
-                        "ExclusionProcess": "[parameters('antimalwareInfo').exclusionProcess.ad]",
-                        "RealTimeScanDirection": "[parameters('antimalwareInfo').realTimeScanDirection]",
-                        "RemediationScheduleDay": "[parameters('antimalwareInfo').remediationScheduleDay]",
-                        "ScanScheduleDay": "[parameters('antimalwareInfo').scanScheduleDay]",
-                        "DisableRealtimeMonitoring": "[parameters('antimalwareInfo').disableRealtimeMonitoring]"
-                    }
-                },
-                "protectedSettings": {
-                    "items": {
-                        "adminPassword": "[parameters('adminPassword')]"
-                        
-                    }
-                }
+              "privateIPAllocationMethod": "Static",
+              "privateIPAddress": "[parameters('adPDCNICIPAddress')]",
+              "subnet": {
+                "id": "[parameters('dcSubnetRef')]"
+              }
             }
-        },
-        {
-            "name": "UpdatingDNStoPrimaryADVM",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2015-01-01",
-            "dependsOn": [
-                "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('adPDCVMName'), 'PDCBaselineDSC')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "virtualNetworkName": {
-                        "value": "[parameters('virtualNetworkNameWithSuffix')]"
-                    },
-                    "virtualNetworkAddressRange": {
-                        "value": "[parameters('virtualNetworkAddressRange')]"
-                    },
-                    "subnets": {
-                        "value": "[parameters('subnets')]"
-                    },
-                    "DNSServerAddress": {
-                        "value": [
-                            "[parameters('adPDCNICIPAddress')]"
-                        ]
-                    }
-                }
-            }
-        },
-        {
-        "name": "UpdatingDNSwithBackupADVM",
-        "type": "Microsoft.Resources/deployments",
-        "apiVersion": "2015-01-01",
-        "dependsOn": [
-          "Microsoft.Resources/deployments/ConfiguringBackupADVM"
+          }
         ],
-        "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-            "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
-            "contentVersion": "1.0.0.0"
-          },
-          "parameters": {
-            "location": {
-              "value": "[parameters('location')]"
-            },
-            "virtualNetworkName": {
-              "value": "[parameters('virtualNetworkNameWithSuffix')]"
-            },
-            "virtualNetworkAddressRange": {
-              "value": "[parameters('virtualNetworkAddressRange')]"
-            },
-            "subnets": {
-              "value": "[parameters('subnets')]"
-            },
-            "DNSServerAddress": {
-              "value": [
-                "[parameters('adPDCNICIPAddress')]",
-                "[parameters('adBDCNICIPAddress')]"
-              ]
+        "networkSecurityGroup": {
+          "id": "[parameters('dcNSGid')]"
+        }
+      }
+    },
+    {
+      "name": "[parameters('adBDCNicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[parameters('location')]",
+      "apiVersion": "2015-06-15",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Static",
+              "privateIPAddress": "[parameters('adBDCNICIPAddress')]",
+              "subnet": {
+                "id": "[parameters('dcSubnetRef')]"
+              }
             }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "[parameters('dcNSGid')]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('adPDCVMName')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('adPDCNicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('adVMSize')]"
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('adAvailabilitySetName'))]"
+        },
+        "osProfile": {
+          "computername": "[parameters('adPDCVMName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('adImagePublisher')]",
+            "offer": "[parameters('adImageOffer')]",
+            "sku": "[parameters('adImageSKU')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "osdisk",
+            "vhd": {
+              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          },
+          "dataDisks": [
+            {
+              "vhd": {
+                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
+              },
+              "name": "[concat(parameters('adPDCVMName'),'-data-disk1')]",
+              "createOption": "empty",
+              "caching": "None",
+              "diskSizeGB": 128,
+              "lun": 0
+            }
+          ]
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces',parameters('adPDCNicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
+          }
+        }
+      },
+      "resources": []
+    },
+    {
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('adBDCVMName')]",
+      "location": "[parameters('location')]",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('adBDCNicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('adVMSize')]"
+        },
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets',parameters('adAvailabilitySetName'))]"
+        },
+        "osProfile": {
+          "computername": "[parameters('adBDCVMName')]",
+          "adminUsername": "[parameters('adminUsername')]",
+          "adminPassword": "[parameters('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('adImagePublisher')]",
+            "offer": "[parameters('adImageOffer')]",
+            "sku": "[parameters('adImageSKU')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "osdisk",
+            "vhd": {
+              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
+          },
+          "dataDisks": [
+            {
+              "vhd": {
+                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
+              },
+              "name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
+              "createOption": "empty",
+              "caching": "None",
+              "diskSizeGB": 128,
+              "lun": 0
+            }
+          ]
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId(resourceGroup().name,'Microsoft.Network/networkInterfaces', parameters('adBDCNicName'))]"
+            }
+          ]
+        },
+        "diagnosticsProfile": {
+          "bootDiagnostics": {
+            "enabled": "true",
+            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
+          }
+        }
+      },
+      "resources": []
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
+      "apiVersion": "2015-06-15",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('adPDCVMName'))]"
+      ],
+      "properties": {
+        "publisher": "Microsoft.Powershell",
+        "type": "DSC",
+        "typeHandlerVersion": "2.19",
+        "autoUpgradeMinorVersion": false,
+        "settings": {
+          "modulesURL": "[parameters('pdcModulesURL')]",
+          "configurationFunction": "[parameters('pdcConfigurationFunction')]",
+          "properties": {
+            "domainName": "[parameters('domainName')]",
+            "adminCreds": {
+              "userName": "[parameters('adminUsername')]",
+              "password": "PrivateSettingsRef:adminPassword"
+            },
+            "ExclusionPath": "[parameters('antimalwareInfo').exclusionPath.ad]",
+            "ExclusionExtension": "[parameters('antimalwareInfo').exclusionExtension.ad]",
+            "ExclusionProcess": "[parameters('antimalwareInfo').exclusionProcess.ad]",
+            "RealTimeScanDirection": "[parameters('antimalwareInfo').realTimeScanDirection]",
+            "RemediationScheduleDay": "[parameters('antimalwareInfo').remediationScheduleDay]",
+            "ScanScheduleDay": "[parameters('antimalwareInfo').scanScheduleDay]",
+            "DisableRealtimeMonitoring": "[parameters('antimalwareInfo').disableRealtimeMonitoring]"
+          }
+        },
+        "protectedSettings": {
+          "items": {
+            "adminPassword": "[parameters('adminPassword')]"
+
           }
         }
       }
-    ],
-    "outputs": {}
+    },
+    {
+      "name": "UpdatingDNStoPrimaryADVM",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('adPDCVMName'), 'PDCBaselineDSC')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "virtualNetworkName": {
+            "value": "[parameters('virtualNetworkNameWithSuffix')]"
+          },
+          "virtualNetworkAddressRange": {
+            "value": "[parameters('virtualNetworkAddressRange')]"
+          },
+          "subnets": {
+            "value": "[parameters('subnets')]"
+          },
+          "DNSServerAddress": {
+            "value": [
+              "[parameters('adPDCNICIPAddress')]"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "ConfiguringBackupADVM",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('configuringBackupADVMURL')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "adBDCVMName": {
+            "value": "[parameters('adBDCVMName')]"
+          },
+          "adminPassword": {
+            "value": "[parameters('adminPassword')]"
+          },
+          "domainName": {
+            "value": "[parameters('domainName')]"
+          },
+          "bdcConfigurationFunction": {
+            "value": "[parameters('bdcConfigurationFunction')]"
+          },
+          "bdcModulesURL": {
+            "value": "[parameters('bdcModulesURL')]"
+          },
+          "adPDCNICIPAddress": {
+            "value": "[parameters('adPDCNICIPAddress')]"
+          },
+          "antimalwareInfo": {
+            "value": "[parameters('antimalwareInfo')]"
+          },
+          "workspaceName": {
+            "value": "[parameters('workspaceName')]"
+          },
+          "ResourceGroupName": {
+            "value": "[parameters('ResourceGroupName')]"
+          },
+          "AutomationAccountName": {
+            "value": "[parameters('AutomationAccountName')]"
+          },
+          "SubscriptionId": {
+            "value": "[parameters('SubscriptionId')]"
+          },
+          "EnvironmentName": {
+            "value": "[parameters('EnvironmentName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "UpdatingDNSwithBackupADVM",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/ConfiguringBackupADVM"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "location": {
+            "value": "[parameters('location')]"
+          },
+          "virtualNetworkName": {
+            "value": "[parameters('virtualNetworkNameWithSuffix')]"
+          },
+          "virtualNetworkAddressRange": {
+            "value": "[parameters('virtualNetworkAddressRange')]"
+          },
+          "subnets": {
+            "value": "[parameters('subnets')]"
+          },
+          "DNSServerAddress": {
+            "value": [
+              "[parameters('adPDCNICIPAddress')]",
+              "[parameters('adBDCNICIPAddress')]"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {}
 }
