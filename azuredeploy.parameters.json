@@ -6,7 +6,7 @@
       "value": "AzureCloud"
     },
     "workspaceRegion": {
-      "value": "CanadaCentral"
+      "value": "canadacentral"
     },
     "keyVaultName": {
       "value": "GCKeystoreUser1"
