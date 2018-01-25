@@ -288,3 +288,8 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Specific to the GC bleuprint ARM template
+cert.pfx
+cert.txt
+*parameters.testing
