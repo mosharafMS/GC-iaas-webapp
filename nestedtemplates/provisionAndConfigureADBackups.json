@@ -1,6 +1,6 @@
 ﻿{
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
     "adPDCVMName": {
       "type": "string"
@@ -129,20 +129,21 @@
       "type": "string"
     }
   },
-    "variables": {
-        "dcstorageName": "[parameters('dcStorageAccountName')]",
-        "diagstorageNameDC": "[concat(parameters('dcStorageAccountName'), 'diag')]",
-        "domainJoinUserName": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
-        "vmNames": {
-            "VMs": [{
-                    "Name": "[parameters('adPDCVMName')]"
-                },
-                {
-                    "Name": "[parameters('adBDCVMName')]"
-                }
-            ]
+  "variables": {
+    "dcstorageName": "[parameters('dcStorageAccountName')]",
+    "diagstorageNameDC": "[concat(parameters('dcStorageAccountName'), 'diag')]",
+    "domainJoinUserName": "[concat(parameters('domainName'), '\\', parameters('adminUsername'))]",
+    "vmNames": {
+      "VMs": [
+        {
+          "Name": "[parameters('adPDCVMName')]"
+        },
+        {
+          "Name": "[parameters('adBDCVMName')]"
         }
-    },
+      ]
+    }
+  },
   "resources": [
     {
       "name": "[concat('BackupVM-',variables('vmNames').VMs[copyIndex()].Name)]",
@@ -153,7 +154,7 @@
         "count": "[length(variables('vmNames').VMs)]"
       },
       "dependsOn": [
-        "encryptADLoop"
+
       ],
       "properties": {
         "mode": "Incremental",
@@ -170,42 +171,7 @@
           }
         }
       }
-    },
-    {
-      "name": "UpdatingDNSwithBackupADVM",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "dependsOn": [
-        
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[parameters('updateVnetWithDNSTemplateURL')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "location": {
-            "value": "[parameters('location')]"
-          },
-          "virtualNetworkName": {
-            "value": "[parameters('virtualNetworkNameWithSuffix')]"
-          },
-          "virtualNetworkAddressRange": {
-            "value": "[parameters('virtualNetworkAddressRange')]"
-          },
-          "subnets": {
-            "value": "[parameters('subnets')]"
-          },
-          "DNSServerAddress": {
-            "value": [
-              "[parameters('adPDCNICIPAddress')]",
-              "[parameters('adBDCNICIPAddress')]"
-            ]
-          }
-        }
-      }
     }
   ],
-    "outputs": {}
+  "outputs": {}
 }

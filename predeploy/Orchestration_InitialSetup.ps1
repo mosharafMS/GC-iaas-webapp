@@ -1,7 +1,5 @@
-#requires -RunAsAdministrator
-
-
-
+#Requires -Modules AzureRM,AzureRM.Profile
+#Requires -RunAsAdministrator
 
 <#
 .Description
@@ -17,11 +15,11 @@ Must meet complexity requirements
 #>
 
 Write-Host "`n `n AZURE BLUEPRINT MULTI-TIER WEB APPLICATION SOLUTION FOR FEDRAMP: Pre-Deployment Script `n" -foregroundcolor green
-Write-Host "This script can be used for creating the necessary preliminary resources to deploy a multi-tier web application architecture with pre-configured security controls to help customers achieve compliance with FedRAMP requirements. See https://github.com/AppliedIS/azure-blueprint#pre-deployment for more information. `n " -foregroundcolor yellow
+Write-Host "This script can be used for creating the necessary preliminary resources to deploy a multi-tier web application architecture with pre-configured security controls to help customers achieve compliance with FedRAMP requirements. See https://github.com/mosharafMS/GC-iaas-webapp for more information. `n " -foregroundcolor yellow
 
-Write-Host "Press any key to continue ..."
+Write-Host "Press Enter key to continue ..."
+Read-Host
 
-$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 Write-Host "`n LOGIN TO AZURE `n" -foregroundcolor green
 $global:azureUsername = $null
@@ -232,11 +230,14 @@ function orchestration
 					$defaultHomePage = 'http://contoso.com';
 					$now = [System.DateTime]::Now;
 					$oneYearFromNow = $now.AddYears(1);
-					$aadClientSecret = [Guid]::NewGuid();
+					$aadPassword=[Guid]::NewGuid().ToString()
+					$aadClientSecret = ConvertTo-SecureString $aadPassword  -AsPlainText -Force
 
 					Write-Host "Creating new AAD application ($aadAppName)";
 					$ADApp = New-AzureRmADApplication -DisplayName $aadAppName -HomePage $defaultHomePage -IdentifierUris $identifierUri  -StartDate $now -EndDate $oneYearFromNow -Password $aadClientSecret;
 					$servicePrincipal = New-AzureRmADServicePrincipal -ApplicationId $ADApp.ApplicationId;
+					Write-Host "Sleeping for 20 seconds..." -ForegroundColor Yellow					
+					Start-Sleep 20 #sleep for 20 seconds
 					$SvcPrincipals = (Get-AzureRmADServicePrincipal -SearchString $aadAppName);
 					if(-not $SvcPrincipals)
 					{
@@ -261,9 +262,6 @@ function orchestration
 					$aadClientID = $SvcPrincipals[0].ApplicationId;
 			}
 		#make the AAD app owner of the resource group
-		Write-Host "Sleeping for 20 seconds..."
-		start-sleep -Seconds 20
-
 		Write-Host "Assigning owner role on the resoruce group to the AAD application (service principal: $aadClientID)"
 		New-AzureRmRoleAssignment -ServicePrincipalName $aadClientID -ResourceGroupName $resourceGroupName `
 		 -RoleDefinitionName owner 
@@ -301,7 +299,7 @@ function orchestration
 				if(-not $kek)
 				{
 						Write-Host "Creating new key encryption key named:$keyEncryptionKeyName in Key Vault: $keyVaultName";
-						$kek = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name $keyEncryptionKeyName -Destination Software -ErrorAction SilentlyContinue;
+						$kek = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name $keyEncryptionKeyName -Destination HSM -ErrorAction SilentlyContinue;
 						Write-Host "Created  key encryption key named:$keyEncryptionKeyName in Key Vault: $keyVaultName";
 				}
 
@@ -316,55 +314,55 @@ function orchestration
 		Write-Host "Set Azure Key Vault Access Policy. Set AzureUserName in Key Vault: $keyVaultName";
 		
 		Write-Host "Set Azure Key Vault Access Policy. Set adminUsername in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminUsername' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminUsername' -Destination 'HSM'
 		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force 
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'adminUsername' -SecretValue $adminUsernameSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set AdminPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminPassword' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminPassword' -Destination 'HSM'
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'adminPassword' -SecretValue $adminPassword
 
 		Write-Host "Set Azure Key Vault Access Policy. Set SqlServerServiceAccountPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sqlServerServiceAccountPassword' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sqlServerServiceAccountPassword' -Destination 'HSM'
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sqlServerServiceAccountPassword' -SecretValue $sqlServerServiceAccountPassword
 
 		Write-Host "Set Azure Key Vault Access Policy. Set sslCert in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslCert' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslCert' -Destination 'HSM'
 		$sslCertSecureString = ConvertTo-SecureString "$certificate" -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslCert' -SecretValue $sslCertSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set sslCertPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslPassword' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslPassword' -Destination 'HSM'
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslPassword' -SecretValue $secureCertPassword
 
 		Write-Host "Set Azure Key Vault Access Policy. Set domain in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'domain' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'domain' -Destination 'HSM'
 		$domainSecureString = ConvertTo-SecureString $domain -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'domain' -SecretValue $domainSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set guid in Key Vault: $keyVaultName";
 		$guid = new-guid
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'guid' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'guid' -Destination 'HSM'
 		$guidSecureString = ConvertTo-SecureString $guid -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'guid' -SecretValue $guidSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set Application Client ID in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientID' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientID' -Destination 'HSM'
 		$aadClientIDSecureString = ConvertTo-SecureString $aadClientID -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadClientID' -SecretValue $aadClientIDSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set Application Client Secret in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientSecret' -Destination 'Software'
-		$aadClientSecretSecureString = ConvertTo-SecureString $aadClientSecret -AsPlainText -Force
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientSecret' -Destination 'HSM'
+		$aadClientSecretSecureString =  $aadClientSecret 
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadClientSecret' -SecretValue $aadClientSecretSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set Azure AD tenant id in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadTenantID' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadTenantID' -Destination 'HSM'
 		$aadTenantIDSecureString = ConvertTo-SecureString $subscription.TenantId  -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadTenantId' -SecretValue $aadTenantIDSecureString
 
 		Write-Host "Set Azure Key Vault Access Policy. Set Key Encryption URL in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -Destination 'Software'
+		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -Destination 'HSM'
 		$keyEncryptionKeyUrlSecureString = ConvertTo-SecureString $keyEncryptionKeyUrl -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -SecretValue $keyEncryptionKeyUrlSecureString
 	}
@@ -381,8 +379,7 @@ try{
 	Write-Host "You will now be asked to create credentials for the administrator and sql service accounts. `n"
 
 	Write-Host "Press any key to continue ..."
-
-	$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+	cmd /c pause | out-null
 
 	Write-Host "`n CREATE CREDENTIALS `n" -foregroundcolor green
 

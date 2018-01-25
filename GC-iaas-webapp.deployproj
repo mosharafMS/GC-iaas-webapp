@@ -25,13 +25,12 @@
   <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
   <!-- vertag<:>end -->
   <ItemGroup>
-    <None Include="azuredeploy.json" />
+    <None Include="azuredeploy01.json" />
     <None Include="azuredeploy.parameters.json" />
-    <None Include="azuredeploy1.json" />
-    <None Include="azuredeploy2.json" />
-    <None Include="azuredeploy21.json" />
-    <None Include="azuredeploy3.json" />
-    <None Include="azuredeploy4.json" />
+    <None Include="azuredeploy02.json" />
+    <None Include="azuredeploy03.json" />
+    <None Include="azuredeploy04.json" />
+    <None Include="azuredeploy05.json" />
     <None Include="custom-scripts\accountmanagementprincipals.ps1" />
     <None Include="custom-scripts\customScriptBaseline.ps1" />
     <None Include="custom-scripts\deleteProtectedItems.ps1" />
@@ -64,6 +63,7 @@
     <None Include="nestedtemplates\configuringBackupADVM.json" />
     <None Include="nestedtemplates\configuringVMAzureDiskEncryption-kek.json" />
     <None Include="nestedtemplates\configuringVMAzureDiskEncryption-nokek.json" />
+    <None Include="nestedtemplates\provisionAndConfigureADBackups.json" />
     <None Include="nestedtemplates\networkInterfaces.json" />
     <None Include="nestedtemplates\preparingSQLAO.json" />
     <None Include="nestedtemplates\preparingSqlServerAObypass.json" />
@@ -85,6 +85,7 @@
     <None Include="overview.md" />
     <None Include="predeploy\Orchestration_InitialSetup.ps1" />
     <None Include="README.md" />
+    <None Include="predeploy\AzureDiskEncryptionPrereq.ps1" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
   <ProjectExtensions>

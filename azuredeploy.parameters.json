@@ -5,11 +5,14 @@
     "environmentName": {
       "value": "AzureCloud"
     },
+    "workspaceRegion": {
+      "value": "canadacentral"
+    },
     "keyVaultName": {
-      "value": "GCKeystoreAQ"
+      "value": "GCKeystoreUser1"
     },
     "keyVaultResourceGroupName": {
-      "value": "GCbluePrint"
+      "value": "GCbluePrintUser1"
     },
     "domainName": {
       "value": "GCblueprint.local"
