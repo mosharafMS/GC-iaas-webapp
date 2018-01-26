@@ -292,4 +292,5 @@ __pycache__/
 # Specific to the GC bleuprint ARM template
 cert.pfx
 cert.txt
+GC-iaas-webapp.deployproj
 *parameters.testing
