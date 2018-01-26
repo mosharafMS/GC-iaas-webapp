@@ -6,13 +6,13 @@
       "type": "string"
     },
     "webAvailabilitySetName": {
-        "type": "string"
+      "type": "string"
     },
     "adAvailabilitySetName": {
-        "type": "string"
+      "type": "string"
     },
     "sqlAvailabilitySetName": {
-        "type": "string"
+      "type": "string"
     }
   },
   "resources": [
@@ -33,30 +33,36 @@
       }
     },
     {
-        "type": "Microsoft.Compute/availabilitySets",
-        "name": "[parameters('sqlAvailabilitySetName')]",
-        "apiVersion": "2017-03-30",
-        "tags": {
-            "Project": "BluePrint"
-        },
-        "location": "[parameters('location')]",
-        "properties": {
-            "platformFaultDomainCount": "3",
-            "platformUpdateDomainCount": "3"
-        }
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('sqlAvailabilitySetName')]",
+      "apiVersion": "2017-03-30",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "sku": {
+        "name": "Classic"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "platformFaultDomainCount": "3",
+        "platformUpdateDomainCount": "3"
+      }
     },
     {
-        "type": "Microsoft.Compute/availabilitySets",
-        "name": "[parameters('webAvailabilitySetName')]",
-        "apiVersion": "2017-03-30",
-        "tags": {
-            "Project": "BluePrint"
-        },
-        "location": "[parameters('location')]",
-        "properties": {
-            "platformFaultDomainCount": "2",
-            "platformUpdateDomainCount": "2"
-        }
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('webAvailabilitySetName')]",
+      "apiVersion": "2017-03-30",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "sku": {
+        "name": "Classic"
+      },
+      "location": "[parameters('location')]",
+      "properties": {
+        "platformFaultDomainCount": "2",
+        "platformUpdateDomainCount": "2"
+      }
     }
   ],
   "outputs": {}
