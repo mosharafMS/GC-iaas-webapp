@@ -24,7 +24,7 @@
         "Project": "BluePrint"
       },
       "sku": {
-        "name": "Aligned"
+        "name": "Classic"
       },
       "location": "[parameters('location')]",
       "properties": {
