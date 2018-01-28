@@ -5,12 +5,12 @@
 
 #Login-AzureRmAccount
 
-#$subscriptionId = 'xxxxxxxxxxxxxxxxxxxx'
+#$subscriptionId = '60b6165a-8669-47a2-860c-6ef475127364'
 #Set-AzureRmContext -SubscriptionId $subscriptionId
 $timestamp = Get-Date -Format "yyyy-MM-dd_hh-mm-ss"
-$resourceGroupName = 'GCBlueprint'
-$keyvaultName="GCBlueprint1982"
-$parametersFile='.\azuredeploy.parameters.testing'
+$resourceGroupName = 'GCBlueprintUser1'
+$keyvaultName="GCKeystoreUser1"
+$parametersFile='.\azuredeploy.parameters.json'
 
 #
 # Provision Basic Services / OMS Workspaces

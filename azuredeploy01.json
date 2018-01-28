@@ -9,7 +9,7 @@
         "description": "Assign the environment for Azure (Azure Commercial or Gov)"
       }
     },
-    "workspaceRegion": {
+    "omsWorkspaceRegion": {
       "type": "string"
     },
     "keyVaultName": {
@@ -372,11 +372,11 @@
         "staticIPWEBStart": 5,
         "RDPNAT": "RDP",
         "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
-        "omsSettings": {
-          "workspaceRegion": "[parameters('workspaceRegion')]",
-          "serviceTier": "PerNode",
-          "dataRetention": 365
-        },
+      "omsSettings": {
+        "omsWorkspaceRegion": "[parameters('omsWorkspaceRegion')]",
+        "serviceTier": "PerNode",
+        "dataRetention": 365
+      },
         "vmSettings": {
             "location": "[resourceGroup().location]",
             "dc": {
@@ -696,7 +696,7 @@
             "value": "[variables('resourceNames').omsWorkspace]"
           },
           "omsWorkspaceRegion": {
-            "value": "[variables('omsSettings').workspaceRegion]"
+            "value": "[variables('omsSettings').omsWorkspaceRegion]"
           },
           "serviceTier": {
             "value": "[variables('omsSettings').serviceTier]"
