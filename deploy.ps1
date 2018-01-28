@@ -17,7 +17,7 @@ $parametersFile='.\azuredeploy.parameters.json'
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy01.json -TemplateParameterFile $parametersFile `
--Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+-Mode Incremental -Verbose 
 #
 # Provision Domain Controllers
 #
