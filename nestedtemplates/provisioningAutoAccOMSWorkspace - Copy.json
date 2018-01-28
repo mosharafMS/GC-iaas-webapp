@@ -119,7 +119,7 @@
     {
       "name": "[parameters('omsAutomationAccountName')]",
       "type": "Microsoft.Automation/automationAccounts",
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-10-31",
       "location": "[parameters('omsWorkspaceRegion')]",
       "properties": {
         "sku": {
@@ -130,33 +130,33 @@
         {
           "name": "[variables('assets').aaVariables.OMSWorkspaceId.name]",
           "type": "variables",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-10-31",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
           ],
           "tags": {},
           "properties": {
             "description": "[variables('assets').aaVariables.OMSWorkspaceId.description]",
-            "value": "[concat('\"',reference(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName')), '2016-03-01').customerId,'\"')]"
+            "value": "[concat('\"',reference(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName')), '2015-11-01-preview').customerId,'\"')]"
           }
         },
         {
           "name": "[variables('assets').aaVariables.OMSWorkspaceKey.name]",
           "type": "variables",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-10-31",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
           ],
           "tags": {},
           "properties": {
             "description": "Remote file for the passphrase",
-            "value": "[concat('\"',listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName')), '2016-03-01').primarySharedKey,'\"')]"
+            "value": "[concat('\"',listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName')), '2015-11-01-preview').primarySharedKey,'\"')]"
           }
         },
         {
           "name": "[variables('assets').aaVariables.AzureSubscriptionId.name]",
           "type": "variables",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-10-31",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
           ],
@@ -169,7 +169,7 @@
         {
           "name": "[variables('assets').aaVariables.HybridWorkerGroupName.name]",
           "type": "variables",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-10-31",
           "dependsOn": [
             "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
           ],
@@ -184,7 +184,7 @@
       ]
     },
     {
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-10-31",
       "type": "Microsoft.Automation/automationAccounts/modules",
       "name": "[concat(parameters('omsAutomationAccountName'), '/', variables('azureRmProfile').name)]",
       "location": "[parameters('omsWorkspaceRegion')]",
@@ -198,7 +198,7 @@
       }
     },
     {
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-10-31",
       "type": "Microsoft.Automation/automationAccounts/modules",
       "name": "[concat(parameters('omsAutomationAccountName'), '/', variables('asrScripts').modules[copyIndex()].Name)]",
       "location": "[resourceGroup().location]",
@@ -216,9 +216,31 @@
         }
       }
     },
-    
+    /*{
+            "apiVersion": "2015-10-31",
+            "type": "Microsoft.Automation/automationAccounts/runbooks",
+            "name": "[concat(parameters('omsAutomationAccountName'), '/', variables('asrScripts').runbooks[copyIndex()].Name)]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
+            ],
+            "copy": {
+                "name": "runbooksLoop",
+                "count": "[length(variables('asrScripts').runbooks)]"
+            },
+            "properties": {
+                "description": "[variables('asrScripts').runbooks[copyIndex()].description]",
+                "runbookType": "[variables('asrScripts').runbooks[copyIndex()].type]",
+                "logProgress": false,
+                "logVerbose": true,
+                "publishContentLink": {
+                    "uri": "[variables('asrScripts').runbooks[copyIndex()].url]",
+                    "version": "[variables('asrScripts').runbooks[copyIndex()].version]"
+                }
+            }
+        },*/
     {
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-11-01-preview",
       "location": "[parameters('omsWorkspaceRegion')]",
       "name": "[parameters('omsWorkspaceName')]",
       "type": "Microsoft.OperationalInsights/workspaces",
@@ -236,7 +258,7 @@
         {
           "name": "AzureActivityLog",
           "type": "datasources",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -248,7 +270,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'SoftwareUpdateFailed1')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -261,7 +283,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'HyperV1')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
           "dependsOn": [
@@ -275,7 +297,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'HyperV2')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
           "dependsOn": [
@@ -289,7 +311,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'HyperV3')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
           "dependsOn": [
@@ -305,7 +327,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'SoftwareUpdateFailed2')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -320,7 +342,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'Network1')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -335,7 +357,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'Network2')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -350,7 +372,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'NTFS1')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -365,7 +387,7 @@
         {
           "name": "[concat(parameters('omsWorkspaceName'), '/', 'NTFS2')]",
           "type": "Microsoft.OperationalInsights/workspaces/savedSearches",
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "dependsOn": [
             "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]"
           ],
@@ -378,7 +400,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk1",
           "dependsOn": [
@@ -393,7 +415,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk2",
           "dependsOn": [
@@ -408,7 +430,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk3",
           "dependsOn": [
@@ -423,7 +445,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk4",
           "dependsOn": [
@@ -438,7 +460,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk5",
           "dependsOn": [
@@ -453,7 +475,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk6",
           "dependsOn": [
@@ -468,7 +490,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk7",
           "dependsOn": [
@@ -483,7 +505,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LogicalDisk8",
           "dependsOn": [
@@ -498,7 +520,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Memory1",
           "dependsOn": [
@@ -513,7 +535,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Memory2",
           "dependsOn": [
@@ -528,7 +550,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Network1",
           "dependsOn": [
@@ -543,7 +565,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Network2",
           "dependsOn": [
@@ -558,7 +580,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Network3",
           "dependsOn": [
@@ -573,7 +595,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "CPU1",
           "dependsOn": [
@@ -588,7 +610,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "CPU2",
           "dependsOn": [
@@ -603,7 +625,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "System",
           "dependsOn": [
@@ -623,7 +645,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Application",
           "dependsOn": [
@@ -643,7 +665,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Microsoft-Windows-Hyper-V-VMMS-Admin",
           "dependsOn": [
@@ -666,7 +688,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent1",
           "dependsOn": [
@@ -681,7 +703,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent2",
           "dependsOn": [
@@ -696,7 +718,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent3",
           "dependsOn": [
@@ -711,7 +733,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent4",
           "dependsOn": [
@@ -726,7 +748,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent5",
           "dependsOn": [
@@ -741,7 +763,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent6",
           "dependsOn": [
@@ -756,7 +778,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Hyper-VAzureReplicationAgent7",
           "dependsOn": [
@@ -771,7 +793,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Linux",
           "dependsOn": [
@@ -805,7 +827,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "LinuxPerfCollection",
           "dependsOn": [
@@ -817,7 +839,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "IISLog",
           "dependsOn": [
@@ -829,7 +851,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "Syslog",
           "dependsOn": [
@@ -858,7 +880,7 @@
           }
         },
         {
-          "apiVersion": "2016-03-01",
+          "apiVersion": "2015-11-01-preview",
           "type": "datasources",
           "name": "SyslogCollection",
           "dependsOn": [
@@ -875,7 +897,7 @@
     {
       "name": "[concat(parameters('omsWorkspaceName'), '/Automation')]",
       "type": "microsoft.operationalinsights/workspaces/linkedservices",
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-11-01-preview",
       "tags": {},
       "dependsOn": [
         "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]",
@@ -886,7 +908,7 @@
       }
     },
     {
-      "apiVersion": "2016-03-01",
+      "apiVersion": "2015-11-01-preview",
       "type": "Microsoft.OperationsManagement/solutions",
       "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
       "location": "[parameters('omsWorkspaceRegion')]",
@@ -921,7 +943,7 @@
     "outputs": {
         "OMSWorkspaceKey": {
             "type": "string",
-            "value": "[reference(Concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'), '/variables/', variables('assets').aaVariables.OMSWorkspaceKey.name), '2016-03-01').value]"
+            "value": "[reference(Concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'), '/variables/', variables('assets').aaVariables.OMSWorkspaceKey.name), '2015-10-31').value]"
         }
     }
 }
