@@ -119,7 +119,7 @@
             "name": "[parameters('omsAutomationAccountName')]",
             "type": "Microsoft.Automation/automationAccounts",
             "apiVersion": "2015-10-31",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('omsWorkspaceRegion')]",
             "properties": {
                 "sku": {
                     "name": "OMS"
