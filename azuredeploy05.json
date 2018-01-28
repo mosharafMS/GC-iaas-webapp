@@ -9,7 +9,7 @@
         "description": "Assign the environment for Azure (Azure Commercial or Gov)"
       }
     },
-    "workspaceRegion": {
+    "omsWorkspaceRegion": {
       "type": "string"
     },
     "keyVaultName": {
@@ -373,7 +373,7 @@
     "RDPNAT": "RDP",
     "SQLAOProbe": "SQLAlwaysOnEndPointProbe",
     "omsSettings": {
-      "workspaceRegion": "[parameters('workspaceRegion')]",
+      "omsWorkspaceRegion": "[parameters('omsWorkspaceRegion')]",
       "serviceTier": "PerNode",
       "dataRetention": 365
     },

@@ -5,7 +5,7 @@
 
 #Login-AzureRmAccount
 
-#$subscriptionId = '60b6165a-8669-47a2-860c-6ef475127364'
+#$subscriptionId = 'xxx'
 #Set-AzureRmContext -SubscriptionId $subscriptionId
 $timestamp = Get-Date -Format "yyyy-MM-dd_hh-mm-ss"
 $resourceGroupName = 'GCBlueprintUser1'
@@ -23,7 +23,7 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $reso
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy02.json -TemplateParameterFile $parametersFile `
--Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+-Mode Incremental -Verbose 
 
 Restart-AzureRmVM -ResourceGroupName $resourceGroupName -Name "AZ-PDC-VMprod" -Verbose
 Restart-AzureRmVM -ResourceGroupName $resourceGroupName -Name "AZ-BDC-VMprod" -Verbose
