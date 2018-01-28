@@ -199,7 +199,7 @@
             "apiVersion": "2015-10-31",
             "type": "Microsoft.Automation/automationAccounts/modules",
             "name": "[concat(parameters('omsAutomationAccountName'), '/', variables('asrScripts').modules[copyIndex()].Name)]",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('omsWorkspaceRegion')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]",
                 "[resourceId('Microsoft.Automation/automationAccounts/modules/', parameters('omsAutomationAccountName'), variables('azureRmProfile').name)]"
