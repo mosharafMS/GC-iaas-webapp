@@ -905,38 +905,38 @@
                 "resourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
             }
         },
-        {
-            "apiVersion": "2015-11-01-preview",
-            "type": "Microsoft.OperationsManagement/solutions",
-            "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
-            "location": "[parameters('omsWorkspaceRegion')]",
-            "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('batch1').solutions[copyIndex()].Name)]",
-            "dependsOn": [
-                "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]",
-                "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
-            ],
-            "copy": {
-                "name": "solutionCopy",
-                "count": "[length(variables('batch1').solutions)]"
-            },
-            "properties": {
-                "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('omsWorkspaceName'))]",
-                "referencedResources": [
-                    "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.AzureSubscriptionId.name)]",
-                    "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.OMSWorkspaceId.name)]",
-                    "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.OMSWorkspaceKey.name)]"
-                ],
-                "containedResources": [
-                    "[resourceId('Microsoft.OperationalInsights/workspaces/views/', parameters('omsWorkspaceName'), concat(variables('batch1').solutions[copyIndex()].Name))]"
-                ]
-            },
-            "plan": {
-                "name": "[variables('batch1').solutions[copyIndex()].name]",
-                "product": "[concat('OMSGallery/', variables('batch1').solutions[copyIndex()].marketplaceName)]",
-                "promotionCode": "",
-                "publisher": "Microsoft"
-            }
+      {
+        "apiVersion": "2015-11-01-preview",
+        "type": "Microsoft.OperationsManagement/solutions",
+        "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
+        "location": "[resourceGroup().location]",
+        "id": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.OperationsManagement/solutions/', variables('batch1').solutions[copyIndex()].Name)]",
+        "dependsOn": [
+          "[concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName'))]",
+          "[concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'))]"
+        ],
+        "copy": {
+          "name": "solutionCopy",
+          "count": "[length(variables('batch1').solutions)]"
+        },
+        "properties": {
+          "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('omsWorkspaceName'))]",
+          "referencedResources": [
+            "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.AzureSubscriptionId.name)]",
+            "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.OMSWorkspaceId.name)]",
+            "[resourceId('Microsoft.Automation/automationAccounts/variables/', parameters('omsAutomationAccountName'), variables('assets').aaVariables.OMSWorkspaceKey.name)]"
+          ],
+          "containedResources": [
+            "[resourceId('Microsoft.OperationalInsights/workspaces/views/', parameters('omsWorkspaceName'), concat(variables('batch1').solutions[copyIndex()].Name))]"
+          ]
+        },
+        "plan": {
+          "name": "[variables('batch1').solutions[copyIndex()].name]",
+          "product": "[concat('OMSGallery/', variables('batch1').solutions[copyIndex()].marketplaceName)]",
+          "promotionCode": "",
+          "publisher": "Microsoft"
         }
+      }
     ],
     "outputs": {
         "OMSWorkspaceKey": {
