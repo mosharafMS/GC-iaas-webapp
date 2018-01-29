@@ -8,8 +8,8 @@
 #$subscriptionId = 'xxx'
 #Set-AzureRmContext -SubscriptionId $subscriptionId
 $timestamp = Get-Date -Format "yyyy-MM-dd_hh-mm-ss"
-$resourceGroupName = 'GCBlueprintUser1'
-$keyvaultName="GCKeystoreUser1"
+$resourceGroupName = 'GCBlueprintUser2'
+$keyvaultName="GCKeystoreUser2"
 $parametersFile='.\azuredeploy.parameters.json'
 
 #
@@ -57,7 +57,7 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $reso
 
 
 
-#$keyVaultResourceId = '/subscriptions/3a4af7b3-b7ac-463d-9940-1d80445961a8/resourceGroups/GCbluePrintUser1/providers/Microsoft.KeyVault/vaults/GCKeystoreUser1'
+#$keyVaultResourceId = '/subscriptions/3a4af7b3-b7ac-463d-9940-1d80445961a8/resourceGroups/GCbluePrintUser2/providers/Microsoft.KeyVault/vaults/GCKeystoreUser2'
 
 $keyvault=Get-AzureRmKeyVault -VaultName $keyvaultName
 $aadClientID= (Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClientID").SecretValueText

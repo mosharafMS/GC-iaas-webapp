@@ -124,6 +124,7 @@
     "sqlVMSize": {
       "type": "string",
       "allowedValues": [
+        "Standard_D2_v2",
         "Standard_DS1",
         "Standard_DS2",
         "Standard_D2_v2",
@@ -158,6 +159,7 @@
     "webVMSize": {
       "type": "string",
       "allowedValues": [
+        "Standard_D2_v2",
         "Standard_DS1",
         "Standard_DS2",
         "Standard_DS3",
@@ -192,6 +194,7 @@
     "mgtVMSize": {
       "type": "string",
       "allowedValues": [
+        "Standard_D2_v2",
         "Standard_DS1",
         "Standard_D1_v2",
         "Standard_DS2",
@@ -226,6 +229,7 @@
     "witnessVMSize": {
       "type": "string",
       "allowedValues": [
+        "Standard_D2_v2",
         "Standard_DS1",
         "Standard_DS2",
         "Standard_D1_v2",
