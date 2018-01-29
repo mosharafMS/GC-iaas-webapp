@@ -692,7 +692,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-       // "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
+        // "Microsoft.Resources/deployments/ProvisionAndConfigureAD"
       ],
       "properties": {
         "mode": "Incremental",
@@ -788,6 +788,79 @@
           },
           "webSubnetAddressRange": {
             "value": "[variables('subnets').web.properties.addressPrefix]"
+          }
+        }
+      }
+    },
+    {
+      "name": "ProvisionApplicationGateway",
+      "comments": "Creates Application Gateway with WAF settings enabled",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/ProvisionNICs"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('artifacts').applicationGatewayURL]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "addressPrefix": {
+            "value": "[variables('virtualNetworkAddressRange')]"
+          },
+          "virtualNetworkName": {
+            "value": "[variables('resourceNames').virtualNetworkNameWithSuffix]"
+          },
+          "vmLocation": {
+            "value": "[variables('vmSettings').location]"
+          },
+          "subnetPrefix": {
+            "value": "[variables('subnets').appGateway.properties.addressPrefix]"
+          },
+          "skuName": {
+            "value": "[variables('resourceNames').gatewaySkuName]"
+          },
+          "capacity": {
+            "value": 2
+          },
+          "backendIpsForPathRuleWEB": {
+            "value": "[variables('vmSettings').web.ipAddresses]"
+          },
+          "pathMatch1": {
+            "value": "/WEB"
+          },
+          "subnetName": {
+            "value": "[variables('subnets').appGateway.name]"
+          },
+          "wafEnabled": {
+            "value": "[variables('wafSettings').wafEnabled]"
+          },
+          "wafMode": {
+            "value": "[variables('wafSettings').wafMode]"
+          },
+          "wafRuleSetType": {
+            "value": "[variables('wafSettings').wafRuleSetType]"
+          },
+          "wafRuleSetVersion": {
+            "value": "[variables('wafSettings').wafRuleSetVersion]"
+          },
+          "certData": {
+            "reference": {
+              "keyVault": {
+                "id": "[variables('derivedIds').keyVaultId]"
+              },
+              "secretName": "sslCert"
+            }
+          },
+          "certPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "[variables('derivedIds').keyVaultId]"
+              },
+              "secretName": "sslPassword"
+            }
           }
         }
       }
