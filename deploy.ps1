@@ -35,21 +35,21 @@ Start-Sleep -Seconds 120
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy03.json -TemplateParameterFile $parametersFile `
--Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+-Mode Incremental -Verbose 
 
 #
 # App GW, other VMs
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy04.json -TemplateParameterFile $parametersFile `
--Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+-Mode Incremental -Verbose 
 
 #
 # Everything else
 #
-#New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
-#-TemplateFile .\azuredeploy05.json -TemplateParameterFile .\azuredeploy.parameters.json `
-#-Mode Incremental -DeploymentDebugLogLevel ResponseContent -Verbose 
+New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+-TemplateFile .\azuredeploy05.json -TemplateParameterFile .\azuredeploy.parameters.json `
+-Mode Incremental -Verbose 
 
 #
 # Encryption

@@ -36,16 +36,16 @@
       "value": "Standard_D2_v2"
     },
     "sqlVMSize": {
-      "value": "Standard_DS3_v2"
+      "value": "Standard_D2_v2"
     },
     "webVMSize": {
-      "value": "Standard_DS1_v2"
+      "value": "Standard_D2_v2"
     },
     "mgtVMSize": {
-      "value": "Standard_DS2_v2"
+      "value": "Standard_D2_v2"
     },
     "witnessVMSize": {
-      "value": "Standard_D1_v2"
+      "value": "Standard_D2_v2"
     },
     "sqlStorageAccountType": {
       "value": "Standard_GRS"
