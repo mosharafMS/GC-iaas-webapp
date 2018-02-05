@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -74,10 +74,7 @@
     "adPDCNICIPAddress": {
       "type": "string"
     },
-    "bdcCreateConfigurationFunction": {
-      "type": "string"
-    },
-    "bdcConfigureConfigurationFunction": {
+    "bdcConfigurationFunction": {
       "type": "string"
     },
     "bdcModulesURL": {
@@ -116,16 +113,19 @@
     "ResourceGroupName": {
       "type": "string"
     },
-    "AzureUserName": {
-      "type": "string"
-    },
-    "AzurePassword": {
-      "type": "securestring"
-    },
     "SubscriptionId": {
       "type": "string"
     },
     "provisioningHybridworkersUrl": {
+      "type": "string"
+    },
+    "deploymentAppID": {
+      "type": "string"
+    },
+    "deploymentAppSecret": {
+      "type": "string"
+    },
+    "tenantID": {
       "type": "string"
     }
   },
@@ -151,7 +151,7 @@
       "location": "[parameters('location')]",
       "apiVersion": "2015-06-15",
       "tags": {
-        "Project": "Blueprint"
+        "Project": "BluePrint"
       },
       "properties": {
         "ipConfigurations": [
@@ -177,7 +177,7 @@
       "location": "[parameters('location')]",
       "apiVersion": "2015-06-15",
       "tags": {
-        "Project": "Blueprint"
+        "Project": "BluePrint"
       },
       "properties": {
         "ipConfigurations": [
@@ -198,12 +198,12 @@
       }
     },
     {
-      "apiVersion": "2017-12-01",
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('adPDCVMName')]",
       "location": "[parameters('location')]",
       "tags": {
-        "Project": "Blueprint"
+        "Project": "BluePrint"
       },
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces', parameters('adPDCNicName'))]"
@@ -230,7 +230,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
+              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adPDCVMName'),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -238,7 +238,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
+                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adPDCVMName'),'data-1.vhd')]"
               },
               "name": "[concat(parameters('adPDCVMName'),'-data-disk1')]",
               "createOption": "empty",
@@ -258,19 +258,19 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.usgovcloudapi.net')]"
+            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
           }
         }
       },
       "resources": []
     },
     {
-      "apiVersion": "2017-12-01",
+      "apiVersion": "2016-03-30",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('adBDCVMName')]",
       "location": "[parameters('location')]",
       "tags": {
-        "Project": "Blueprint"
+        "Project": "BluePrint"
       },
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces', parameters('adBDCNicName'))]"
@@ -297,7 +297,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
+              "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/',parameters('adBDCVMName'),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -305,7 +305,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.usgovcloudapi.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
+                "uri": "[concat('http://',variables('dcstorageName'),'.blob.core.windows.net/',parameters('vmContainerName'),'/', parameters('adBDCVMName'),'data-1.vhd')]"
               },
               "name": "[concat(parameters('adBDCVMName'),'-data-disk1')]",
               "createOption": "empty",
@@ -325,56 +325,18 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.usgovcloudapi.net')]"
+            "storageUri": "[concat('http://',variables('diagstorageNameDC'),'.blob.core.windows.net')]"
           }
         }
       },
-      "resources": [
-        {
-          "type": "extensions",
-          "name": "BDCBaselineDSC",
-          "apiVersion": "2016-03-30",
-          "tags": {
-            "Project": "Blueprint"
-          },
-          "location": "[parameters('location')]",
-          "dependsOn": [
-            "[concat('Microsoft.Compute/virtualMachines/', parameters('adBDCVMName'))]"
-          ],
-          "properties": {
-            "publisher": "Microsoft.Powershell",
-            "type": "DSC",
-            "typeHandlerVersion": "2.19",
-            "autoUpgradeMinorVersion": true,
-            "settings": {
-              "modulesURL": "[parameters('bdcModulesURL')]",
-              "configurationFunction": "[parameters('bdcCreateConfigurationFunction')]",
-              "Properties": {
-                "DNSServer": "[parameters('adPDCNICIPAddress')]",
-                "ExclusionPath": "[parameters('antimalwareInfo').exclusionPath.ad]",
-                "ExclusionExtension": "[parameters('antimalwareInfo').exclusionExtension.ad]",
-                "ExclusionProcess": "[parameters('antimalwareInfo').exclusionProcess.ad]",
-                "RealTimeScanDirection": "[parameters('antimalwareInfo').realTimeScanDirection]",
-                "RemediationScheduleDay": "[parameters('antimalwareInfo').remediationScheduleDay]",
-                "ScanScheduleDay": "[parameters('antimalwareInfo').scanScheduleDay]",
-                "DisableRealtimeMonitoring": "[parameters('antimalwareInfo').disableRealtimeMonitoring]"
-              },
-              "protectedSettings": {
-                "items": {
-                  "AzurePassword": "[parameters('AzurePassword')]"
-                }
-              }
-            }
-          }
-        }
-      ]
+      "resources": []
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
       "apiVersion": "2015-06-15",
       "tags": {
-        "Project": "Blueprint"
+        "Project": "BluePrint"
       },
       "location": "[parameters('location')]",
       "dependsOn": [
@@ -405,8 +367,8 @@
         },
         "protectedSettings": {
           "items": {
-            "adminPassword": "[parameters('adminPassword')]",
-            "AzurePassword": "[parameters('AzurePassword')]"
+            "adminPassword": "[parameters('adminPassword')]"
+
           }
         }
       }
@@ -450,7 +412,6 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('adBDCVMName'), 'BDCBaselineDSC')]",
         "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM"
       ],
       "properties": {
@@ -466,17 +427,14 @@
           "adBDCVMName": {
             "value": "[parameters('adBDCVMName')]"
           },
-          "adminUsername": {
-            "value": "[parameters('adminUsername')]"
-          },
           "adminPassword": {
             "value": "[parameters('adminPassword')]"
           },
           "domainName": {
             "value": "[parameters('domainName')]"
           },
-          "bdcConfigureConfigurationFunction": {
-            "value": "[parameters('bdcConfigureConfigurationFunction')]"
+          "bdcConfigurationFunction": {
+            "value": "[parameters('bdcConfigurationFunction')]"
           },
           "bdcModulesURL": {
             "value": "[parameters('bdcModulesURL')]"
@@ -495,12 +453,6 @@
           },
           "AutomationAccountName": {
             "value": "[parameters('AutomationAccountName')]"
-          },
-          "AzureUserName": {
-            "value": "[parameters('AzureUserName')]"
-          },
-          "AzurePassword": {
-            "value": "[parameters('AzurePassword')]"
           },
           "SubscriptionId": {
             "value": "[parameters('SubscriptionId')]"
@@ -542,33 +494,6 @@
               "[parameters('adPDCNICIPAddress')]",
               "[parameters('adBDCNICIPAddress')]"
             ]
-          }
-        }
-      }
-    },
-    {
-      "name": "[concat('BackupVM-',variables('vmNames').VMs[copyIndex()].Name)]",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "copy": {
-        "name": "backupADLoop",
-        "count": "[length(variables('vmNames').VMs)]"
-      },
-      "dependsOn": [
-        "UpdatingDNSwithBackupADVM"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[parameters('backupInfo').backupTemplateUrl]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "backupInfo": {
-            "value": "[parameters('backupInfo')]"
-          },
-          "vmName": {
-            "value": "[variables('vmNames').VMs[copyIndex()].Name]"
           }
         }
       }
