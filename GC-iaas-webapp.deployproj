@@ -64,7 +64,6 @@
     <None Include="nestedtemplates\configuringBackupADVM.json" />
     <None Include="nestedtemplates\configuringVMAzureDiskEncryption-kek.json" />
     <None Include="nestedtemplates\configuringVMAzureDiskEncryption-nokek.json" />
-    <None Include="nestedtemplates\provisionAndConfigureAD-orig.json" />
     <None Include="nestedtemplates\provisionAndConfigureADBackups.json" />
     <None Include="nestedtemplates\networkInterfaces.json" />
     <None Include="nestedtemplates\preparingSQLAO.json" />
