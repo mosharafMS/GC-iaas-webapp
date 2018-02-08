@@ -8,9 +8,9 @@
 #$subscriptionId = 'xxx'
 #Set-AzureRmContext -SubscriptionId $subscriptionId
 $timestamp = Get-Date -Format "yyyy-MM-dd_hh-mm-ss"
-$resourceGroupName = 'GCBlueprintUser2'
-$keyvaultName="GCKeystoreUser2"
-$parametersFile='.\azuredeploy.parameters.json'
+$resourceGroupName = 'GCBlueprint'
+$keyvaultName="GCBlueprint1982"
+$parametersFile='.\azuredeploy.parameters.testing'
 
 #
 # Provision Basic Services / OMS Workspaces
@@ -55,9 +55,6 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $reso
 # Encryption
 #
 
-
-
-#$keyVaultResourceId = '/subscriptions/3a4af7b3-b7ac-463d-9940-1d80445961a8/resourceGroups/GCbluePrintUser2/providers/Microsoft.KeyVault/vaults/GCKeystoreUser2'
 
 $keyvault=Get-AzureRmKeyVault -VaultName $keyvaultName
 $aadClientID= (Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClientID").SecretValueText

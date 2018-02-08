@@ -692,9 +692,7 @@
       "apiVersion": "2015-01-01",
       "comments": "Configures MGT VM with custom settings",
       "dependsOn": [
-        //"Microsoft.Resources/deployments/ProvisionVirtualMachines"
-
-      ],
+              ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -777,7 +775,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        //"Microsoft.Resources/deployments/ProvisionVirtualMachines"
+      
       ],
       "properties": {
         "mode": "Incremental",
@@ -896,7 +894,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        //"Microsoft.Resources/deployments/ProvisionVirtualMachines"
+       
       ],
       "properties": {
         "mode": "Incremental",
