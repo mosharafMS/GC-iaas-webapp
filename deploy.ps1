@@ -48,7 +48,7 @@ New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $reso
 # Everything else
 #
 New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
--TemplateFile .\azuredeploy05.json -TemplateParameterFile .\azuredeploy.parameters.json `
+-TemplateFile .\azuredeploy05.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
 #
