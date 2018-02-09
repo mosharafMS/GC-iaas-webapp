@@ -40,6 +40,7 @@
     <None Include="custom-scripts\setPasswordPolicy.ps1" />
     <None Include="custom-scripts\settimezonelogsize.ps1" />
     <None Include="custom-scripts\SQL0CustomCMD.sql" />
+    <None Include="Delivery-docs\Azure Key Vault.pptx" />
     <None Include="deploy.ps1" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
