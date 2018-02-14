@@ -12,9 +12,6 @@ This Azure Blueprint solution is comprised of JSON configuration files and Power
 
 2. Run the pre-deployment PowerShell script: azure-blueprint/predeploy/Orchestration_InitialSetup.ps1. [Read more about pre-deployment.](#pre-deployment)
 
-3. Click the button below, sign into the Azure portal, enter the required ARM template parameters, and click **Purchase**. [Read more about deployment.](#deployment)
-
-	[![Deploy to Azure](http://azuredeploy.net/AzureGov.png)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Ffedramp-iaas-webapp%2Fmaster%2Fazuredeploy.json)
 
 ### PRE-DEPLOYMENT
 
@@ -22,7 +19,7 @@ During pre-deployment, you will confirm that your Azure subscription and local w
 
 #### Azure subscription requirements
 
-This Azure Blueprint solution is designed to deploy to Azure Government. The solution does not currently support Azure commercial regions. For customers with a multi-tenant environment, the account used to deploy must be a member of the Azure Active Directory instance that is associated with the subscription where this solution will be deployed.
+ The solution does not currently support Azure commercial regions. For customers with a multi-tenant environment, the account used to deploy must be a member of the Azure Active Directory instance that is associated with the subscription where this solution will be deployed.
 
 #### Local workstation requirements
 
@@ -68,29 +65,6 @@ Note the resource group name, and Key Vault name, and domain name; these will be
 ### DEPLOYMENT
 
 During this phase, an Azure Resource Manager (ARM) template will deploy Azure resources to your subscription and perform configuration activities.
-
-After clicking the Deploy to Azure Gov button, the Azure portal will open and prompt you for the following settings:
-
-**Basics**
-* **Subscription**: Choose the same subscription used during the pre-deployment phase
-* **Resource group**: Select 'Use existing' and choose the resource group created during pre-deployment
-* **Location**: Select 'CanadaCentral'
-
-**Settings**
-* **Key Vault Name**: Name of the Key Vault created during pre-deployment
-* **Key Vault Resource Group Name**: Name of the resource group created during pre-deployment
-* **Domain Name**: Name of the domain used to generate the self-signed SSL certificate
-
-All other settings contain default values that may be optionally adjusted by the user.
-
-#### Deployment instructions
-
-1. Click the button below.
-
-	[![Deploy to Azure](http://azuredeploy.net/AzureGov.png)](https://portal.azure.us/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Ffedramp-iaas-webapp%2Fmaster%2Fazuredeploy.json)
-2. Enter the settings above.
-3. Review the terms and conditions and click **I agree to the terms and conditions stated above**.
-4. Click **Purchase**.
 
 #### Monitoring deployment status
 This solution uses multiple nested templates to deploy and configure the resources shown in the architecture diagram. The full deployment will take approximately 120 minutes. You can monitor the deployment from Azure Portal. When complete, there will be 49 items deployed to the resource group. If you encounter deployment errors, check the [troubleshooting](#troubleshooting) section below.
