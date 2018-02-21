@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "environmentName": {
-      "value": "AzureCloud"
+      "value": "AzureCloud" 
     },
     "omsWorkspaceRegion": {
       "value": "canadacentral"
