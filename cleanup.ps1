@@ -7,16 +7,29 @@ Param(
 )
 
 
+try
+{
+    $subscription = Get-AzureRmSubscription  
+    Write-Host "----Using existing authentication-----"
+}
+catch {
 
+}
+
+if (-not $subscription)
+{
+    Write-Host "Authenticate to Azure subscription"
+    Add-AzureRmAccount
+}
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 
-$AADs = (Get-AzureRmADApplication -DisplayNameStartWith $aadAppName);
-if($SvcPrincipals)
+$AADs=(Get-AzureRmADApplication -DisplayNameStartWith $aadAppName)
+foreach($aad in $AADs)
 {
-    foreach($aad in $AADs)
-    {
-             Remove-AzureADApplication -ObjectId $aad.objectId
+    try{
+    Remove-AzureADApplication -ObjectId $aad.ObjectId -ErrorAction SilentlyContinue
     }
+    catch{}
 }
 

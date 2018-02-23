@@ -133,7 +133,7 @@
             "name": "appGatewaySslCert",
             "properties": {
               "data": "[parameters('certData')]",
-              "password": "[parameters('certPassword')]"
+              "password": null
             }
           }
         ],

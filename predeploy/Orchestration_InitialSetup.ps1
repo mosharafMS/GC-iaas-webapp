@@ -1,5 +1,5 @@
 #Requires -Modules AzureRM,AzureRM.Profile
-#Requires -RunAsAdministrator
+
 
 <#
 .Description
@@ -20,40 +20,6 @@ Write-Host "This script can be used for creating the necessary preliminary resou
 Write-Host "Press Enter key to continue ..."
 Read-Host
 
-
-Write-Host "`n LOGIN TO AZURE `n" -foregroundcolor green
-$global:azureUsername = $null
-$global:azurePassword = $null
-
-
-########################################################################################################################
-# LOGIN TO AZURE FUNCTION
-########################################################################################################################
-function loginToAzure
-{
-	Param(
-			[Parameter(Mandatory=$true)]
-			[int]$lginCount
-		)
-
-	Login-AzureRmAccount -EnvironmentName "AzureCloud" 
-
-	if($?) {
-		Write-Host "Login successful!"
-	} else {
-		if($lginCount -lt 3){
-			$lginCount = $lginCount + 1
-
-			Write-Host "Invalid Credentials! Try Logging in again"
-
-			loginToAzure -lginCount $lginCount
-		} else{
-
-			Throw "Your credentials are incorrect or invalid exceeding maximum retries. Make sure you are using your Azure Government account information"
-
-		}
-	}
-}
 
 ########################################################################################################################
 # PASSWORD VALIDATION FUNCTION
@@ -142,26 +108,6 @@ Function New-RandomPassword() {
     return $RandomPassword
 }
 
-function Generate-Cert() {
-		[CmdletBinding()]
-		param(
-        [securestring]$certPassword,
-				[string]$domain
-    )
-
-		## This script generates a self-signed certificate
-
-		$filePath = ".\"
-
-		$cert = New-SelfSignedCertificate -certstorelocation cert:\localmachine\my -dnsname $domain
-		$path = 'cert:\localMachine\my\' + $cert.thumbprint
-		$certPath = $filePath + '\cert.pfx'
-		$outFilePath = $filePath + '\cert.txt'
-		Export-PfxCertificate -cert $path -FilePath $certPath -Password $certPassword
-		$fileContentBytes = get-content $certPath -Encoding Byte
-		[System.Convert]::ToBase64String($fileContentBytes) | Out-File $outFilePath
-
-}
 ########################################################################################################################
 # Create KeyVault or setup existing keyVault
 ########################################################################################################################
@@ -187,11 +133,11 @@ function orchestration
 	)
 
 	$errorActionPreference = 'stop'
-
+	Write-Host "`n LOGIN TO AZURE `n" -foregroundcolor green
 	try
 	{
 		$subscription = Get-AzureRmSubscription  -SubscriptionId $SubscriptionId
-		Write-Host "Using existing authentication"
+		Write-Host "----Using existing authentication-----"
 	}
 	catch {
 
@@ -207,6 +153,11 @@ function orchestration
 	Select-AzureRmSubscription -SubscriptionId $SubscriptionId | Out-String | Write-Verbose
 	$subscription = Get-AzureRmSubscription  -SubscriptionId $SubscriptionId
 
+	#confirmation before creating resources
+	Write-Host "This is the context in which the resources will be created"
+	Get-AzureRmContext
+	Read-Host "If you are sure to continue, press ENTER otherwise use CTRL+C now" 
+	
 	#Create the resource group
 	Write-Host "Creating resource group '$($resourceGroupName)' to hold key vault"
 	
@@ -227,7 +178,7 @@ function orchestration
 			{
 					# Create a new AD application if not created before
 					$identifierUri = [string]::Format("http://localhost:8080/{0}",[Guid]::NewGuid().ToString("N"));
-					$defaultHomePage = 'http://contoso.com';
+					$defaultHomePage = 'http://GCBlueprint.sample';
 					$now = [System.DateTime]::Now;
 					$oneYearFromNow = $now.AddYears(1);
 					$aadPassword=[Guid]::NewGuid().ToString()
@@ -252,11 +203,11 @@ function orchestration
 			{
 					if(-not $aadClientSecret)
 					{
-							$aadClientSecret = Read-Host -Prompt "Aad application ($aadAppName) was already created, input corresponding aadClientSecret and hit ENTER. It can be retrieved from https://manage.windowsazure.com portal" ;
+							$aadClientSecret = Read-Host -Prompt "Aad application ($aadAppName) was already created, input corresponding aadClientSecret and hit ENTER. It can be retrieved from https://portal.azure.com portal" ;
 					}
 					if(-not $aadClientSecret)
 					{
-							Write-Error "Aad application ($aadAppName) was already created. Re-run the script by supplying aadClientSecret parameter with corresponding secret from https://manage.windowsazure.com portal";
+							Write-Error "Aad application ($aadAppName) was already created. Re-run the script by supplying aadClientSecret parameter with corresponding secret from https://portal.azure.com portal";
 							return;
 					}
 					$aadClientID = $SvcPrincipals[0].ApplicationId;
@@ -282,7 +233,7 @@ function orchestration
 		Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ServicePrincipalName $aadClientID -PermissionsToKeys wrapKey -PermissionsToSecrets set;
 		Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -ResourceGroupName $resourceGroupName -ServicePrincipalName $aadClientID -PermissionsToKeys backup,get,list,wrapKey -PermissionsToSecrets get,list,set;
 		Set-AzureRmKeyVaultAccessPolicy -VaultName $keyVaultName -EnabledForDiskEncryption;
-    $keyEncryptionKeyName = $keyVaultName + "kek"
+    	$keyEncryptionKeyName = $keyVaultName + "kek"
 
 		if($keyEncryptionKeyName)
 		{
@@ -306,63 +257,62 @@ function orchestration
 				$keyEncryptionKeyUrl = $kek.Key.Kid;
 		}
 
-		$certPassword = New-RandomPassword
-		$secureCertPassword = ConvertTo-SecureString $certPassword -AsPlainText -Force
-		Generate-Cert -certPassword $secureCertPassword -domain $domain
-		$certificate = Get-Content -Path ".\cert.txt" | Out-String
-
-		Write-Host "Set Azure Key Vault Access Policy. Set AzureUserName in Key Vault: $keyVaultName";
+		#Generate a self-signed cert for App Gateway
+		Write-Host "Generate a self-signed cert for App Gateway" 
+		$policy=New-AzureKeyVaultCertificatePolicy -IssuerName self -SubjectName "CN=$domain" -ValidityInMonths 12
 		
-		Write-Host "Set Azure Key Vault Access Policy. Set adminUsername in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminUsername' -Destination 'HSM'
+		Add-AzureKeyVaultCertificate -VaultName $keyVaultName -Name sslcertOrigin -CertificatePolicy $policy
+		Write-Host "Certificate is being generated..."
+		$x=1
+		while((Get-AzureKeyVaultCertificateOperation -VaultName $keyVaultName -Name "sslcertOrigin").Status -ne "completed"  )
+		{
+			$x++
+			$y=$x*200	
+			start-sleep -Milliseconds ($y)
+		}
+		Write-Host "Certificate Generated"
+		$cert=Get-AzureKeyVaultCertificate -VaultName $keyVaultName -Name sslcertOrigin
+		$certificate=[System.Convert]::ToBase64String($cert.Certificate.GetRawCertData())
+
+		Write-Host "Set adminUsername in Key Vault: $keyVaultName";
 		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force 
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'adminUsername' -SecretValue $adminUsernameSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set AdminPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'adminPassword' -Destination 'HSM'
+		Write-Host "Set AdminPassword in Key Vault: $keyVaultName";
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'adminPassword' -SecretValue $adminPassword
 
-		Write-Host "Set Azure Key Vault Access Policy. Set SqlServerServiceAccountPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sqlServerServiceAccountPassword' -Destination 'HSM'
+		Write-Host "Set SqlServerServiceAccountPassword in Key Vault: $keyVaultName";
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sqlServerServiceAccountPassword' -SecretValue $sqlServerServiceAccountPassword
 
-		Write-Host "Set Azure Key Vault Access Policy. Set sslCert in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslCert' -Destination 'HSM'
+		Write-Host "Set sslCert in Key Vault: $keyVaultName";
 		$sslCertSecureString = ConvertTo-SecureString "$certificate" -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslCert' -SecretValue $sslCertSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set sslCertPassword in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'sslPassword' -Destination 'HSM'
-		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslPassword' -SecretValue $secureCertPassword
+		#Write-Host "Set sslCertPassword in Key Vault: $keyVaultName";
+		#$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslPassword' -SecretValue $secureCertPassword
 
-		Write-Host "Set Azure Key Vault Access Policy. Set domain in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'domain' -Destination 'HSM'
+		Write-Host "Set domain in Key Vault: $keyVaultName";
 		$domainSecureString = ConvertTo-SecureString $domain -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'domain' -SecretValue $domainSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set guid in Key Vault: $keyVaultName";
+		Write-Host "Set guid in Key Vault: $keyVaultName";
 		$guid = new-guid
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'guid' -Destination 'HSM'
 		$guidSecureString = ConvertTo-SecureString $guid -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'guid' -SecretValue $guidSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set Application Client ID in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientID' -Destination 'HSM'
+		Write-Host "Set Application Client ID in Key Vault: $keyVaultName";
 		$aadClientIDSecureString = ConvertTo-SecureString $aadClientID -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadClientID' -SecretValue $aadClientIDSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set Application Client Secret in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadClientSecret' -Destination 'HSM'
+		Write-Host "Set Application Client Secret in Key Vault: $keyVaultName";
 		$aadClientSecretSecureString =  $aadClientSecret 
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadClientSecret' -SecretValue $aadClientSecretSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set Azure AD tenant id in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'aadTenantID' -Destination 'HSM'
+		Write-Host "Set Azure AD tenant id in Key Vault: $keyVaultName";
 		$aadTenantIDSecureString = ConvertTo-SecureString $subscription.TenantId  -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'aadTenantId' -SecretValue $aadTenantIDSecureString
 
-		Write-Host "Set Azure Key Vault Access Policy. Set Key Encryption URL in Key Vault: $keyVaultName";
-		$key = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -Destination 'HSM'
+		Write-Host "Set Key Encryption URL in Key Vault: $keyVaultName";
 		$keyEncryptionKeyUrlSecureString = ConvertTo-SecureString $keyEncryptionKeyUrl -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'keyEncryptionKeyURL' -SecretValue $keyEncryptionKeyUrlSecureString
 	}
@@ -373,13 +323,9 @@ function orchestration
 
 try{
 
-	#there's no need to loginToAzure function. to be removed in v2
-	#loginToAzure -lginCount 1
-
 	Write-Host "You will now be asked to create credentials for the administrator and sql service accounts. `n"
 
-	Write-Host "Press any key to continue ..."
-	cmd /c pause | out-null
+	Read-Host "Press ENTER key to continue ..."
 
 	Write-Host "`n CREATE CREDENTIALS `n" -foregroundcolor green
 
