@@ -7,15 +7,8 @@ Param(
 )
 
 
-try
-{
-    $subscription = Get-AzureRmSubscription  
-    Write-Host "----Using existing authentication-----"
-}
-catch {
 
-}
-
+<<<<<<< HEAD
 if (-not $subscription)
 {
     Write-Host "Authenticate to Azure subscription"
@@ -53,15 +46,17 @@ Remove-AzureRmRecoveryServicesVault -Vault $vault
 
 ########################################################
 
+=======
+>>>>>>> parent of 5c4b721... simplifying the orchestration file.
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 
-$AADs=(Get-AzureRmADApplication -DisplayNameStartWith $aadAppName)
-foreach($aad in $AADs)
+$AADs = (Get-AzureRmADApplication -DisplayNameStartWith $aadAppName);
+if($SvcPrincipals)
 {
-    try{
-    Remove-AzureADApplication -ObjectId $aad.ObjectId -ErrorAction SilentlyContinue
+    foreach($aad in $AADs)
+    {
+             Remove-AzureADApplication -ObjectId $aad.objectId
     }
-    catch{}
 }
 

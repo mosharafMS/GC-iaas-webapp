@@ -853,6 +853,14 @@
               },
               "secretName": "sslCert"
             }
+          },
+          "certPassword": {
+          "reference": {
+          "keyVault": {
+          "id": "[variables('derivedIds').keyVaultId]"
+          },
+          "secretName": "sslPassword"
+          }
           }
         }
       }

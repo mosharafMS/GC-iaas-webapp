@@ -79,6 +79,13 @@
       "metadata": {
         "description": "Cert 64bit encoded .pfx file for SSL"
       }
+    },
+    "certPassword": {
+    "type": "securestring",
+    "defaultValue": null,
+    "metadata": {
+    "description": "Cert 64bit encoded .pfx file for SSL"
+    }
     }
   },
   "variables": {
@@ -127,7 +134,7 @@
             "name": "appGatewaySslCert",
             "properties": {
               "data": "[parameters('certData')]",
-              "password": null
+              "password": "[parameters('certPassword')]"
             }
           }
         ],
