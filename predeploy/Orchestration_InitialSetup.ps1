@@ -115,7 +115,7 @@ function orchestration
 {
 	Param(
 		[string]$environmentName = "AzureCloud",
-		[string]$location = "CanadaEast",
+		[string]$location = "CanadaCentral",
 		[Parameter(Mandatory=$true)]
 		[string]$subscriptionId,
 		[Parameter(Mandatory=$true)]
@@ -187,8 +187,8 @@ function orchestration
 					Write-Host "Creating new AAD application ($aadAppName)";
 					$ADApp = New-AzureRmADApplication -DisplayName $aadAppName -HomePage $defaultHomePage -IdentifierUris $identifierUri  -StartDate $now -EndDate $oneYearFromNow -Password $aadClientSecret;
 					$servicePrincipal = New-AzureRmADServicePrincipal -ApplicationId $ADApp.ApplicationId;
-					Write-Host "Sleeping for 20 seconds..." -ForegroundColor Yellow					
-					Start-Sleep 20 #sleep for 20 seconds
+					Write-Host "Sleeping for 10 seconds..." -ForegroundColor Yellow					
+					Start-Sleep 10 #sleep for 10 seconds
 					$SvcPrincipals = (Get-AzureRmADServicePrincipal -SearchString $aadAppName);
 					if(-not $SvcPrincipals)
 					{

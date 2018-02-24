@@ -82,6 +82,7 @@
     },
     "certPassword": {
       "type": "securestring",
+      "defaultValue": null,
       "metadata": {
         "description": "Cert 64bit encoded .pfx file for SSL"
       }
