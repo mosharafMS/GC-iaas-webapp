@@ -81,19 +81,10 @@
       }
     },
     "certPassword": {
-<<<<<<< HEAD
     "type": "securestring",
-    "defaultValue": null,
-    "metadata": {
+      "metadata": {
     "description": "Cert 64bit encoded .pfx file for SSL"
     }
-=======
-      "type": "securestring",
-      "defaultValue": null,
-      "metadata": {
-        "description": "Cert 64bit encoded .pfx file for SSL"
-      }
->>>>>>> 4bb9671... test removing the certpassword parameter and just use null
     }
   },
   "variables": {
