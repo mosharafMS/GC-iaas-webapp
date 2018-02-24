@@ -115,7 +115,7 @@ function orchestration
 {
 	Param(
 		[string]$environmentName = "AzureCloud",
-		[string]$location = "CanadaCentral",
+		[string]$location = "CanadaEast",
 		[Parameter(Mandatory=$true)]
 		[string]$subscriptionId,
 		[Parameter(Mandatory=$true)]
