@@ -8,7 +8,6 @@ Param(
 
 
 
-<<<<<<< HEAD
 if (-not $subscription)
 {
     Write-Host "Authenticate to Azure subscription"
@@ -46,8 +45,6 @@ Remove-AzureRmRecoveryServicesVault -Vault $vault
 
 ########################################################
 
-=======
->>>>>>> parent of 5c4b721... simplifying the orchestration file.
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 

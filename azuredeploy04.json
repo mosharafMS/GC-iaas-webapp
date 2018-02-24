@@ -853,6 +853,7 @@
               },
               "secretName": "sslCert"
             }
+<<<<<<< HEAD
           },
           "certPassword": {
           "reference": {
@@ -861,6 +862,8 @@
           },
           "secretName": "sslPassword"
           }
+=======
+>>>>>>> 4bb9671... test removing the certpassword parameter and just use null
           }
         }
       }
