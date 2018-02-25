@@ -15,13 +15,13 @@ $parametersFile='.\azuredeploy.parameters.testing'
 #
 # Provision Basic Services / OMS Workspaces
 #
-New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "AS_Vault_Nework_OMS" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy01.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 #
 # Provision Domain Controllers
 #
-New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "DomainControllers" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy02.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
@@ -33,21 +33,21 @@ Start-Sleep -Seconds 120
 #
 # Provision Domain Controllers Backups
 #
-New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "BackupDomainControllers" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy03.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
 #
 # App GW, other VMs
 #
-New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "NICsApplicationGateway" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy04.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
 #
 # Everything else
 #
-New-AzureRmResourceGroupDeployment -Name "D_$timestamp" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "RestOfMachines" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy05.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 

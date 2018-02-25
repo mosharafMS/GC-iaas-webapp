@@ -7,7 +7,7 @@ Param(
 )
 
 
-
+$subscription=(Get-AzureRmContext).Subscription
 if (-not $subscription)
 {
     Write-Host "Authenticate to Azure subscription"
