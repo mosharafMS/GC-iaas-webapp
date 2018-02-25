@@ -17,13 +17,13 @@ $parametersFile='.\azuredeploy.parameters.testing'
 #
 New-AzureRmResourceGroupDeployment -Name "AS_Vault_Nework_OMS" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy01.json -TemplateParameterFile $parametersFile `
--Mode Incremental -Verbose 
+-Mode Incremental  
 #
 # Provision Domain Controllers
 #
 New-AzureRmResourceGroupDeployment -Name "DomainControllers" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy02.json -TemplateParameterFile $parametersFile `
--Mode Incremental -Verbose 
+-Mode Incremental  
 
 Restart-AzureRmVM -ResourceGroupName $resourceGroupName -Name "AZ-PDC-VMprod" -Verbose
 Restart-AzureRmVM -ResourceGroupName $resourceGroupName -Name "AZ-BDC-VMprod" -Verbose
@@ -35,21 +35,21 @@ Start-Sleep -Seconds 120
 #
 New-AzureRmResourceGroupDeployment -Name "BackupDomainControllers" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy03.json -TemplateParameterFile $parametersFile `
--Mode Incremental -Verbose 
+-Mode Incremental  
 
 #
 # App GW, other VMs
 #
 New-AzureRmResourceGroupDeployment -Name "NICsApplicationGatewayRestofVM" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy04.json -TemplateParameterFile $parametersFile `
--Mode Incremental -Verbose 
+-Mode Incremental  
 
 #
 # Everything else
 #
 New-AzureRmResourceGroupDeployment -Name "VMConfigurations" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy05.json -TemplateParameterFile $parametersFile `
--Mode Incremental -Verbose 
+-Mode Incremental  
 
 #
 # Encryption
