@@ -24,7 +24,7 @@ if($AADs)
     {
         try{
             Write-Host "Removing " $aad.DisplayName
-             Remove-AzureRMADApplication -ObjectId $aad.objectId -Force }
+             Remove-AzureRMADApplication -ObjectId $aad.objectId -Force -ErrorAction SilentlyContinue }
              catch{}
     }
     Write-Host "Job Done"
