@@ -40,14 +40,14 @@ New-AzureRmResourceGroupDeployment -Name "BackupDomainControllers" -ResourceGrou
 #
 # App GW, other VMs
 #
-New-AzureRmResourceGroupDeployment -Name "NICsApplicationGateway" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "NICsApplicationGatewayRestofVM" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy04.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
 #
 # Everything else
 #
-New-AzureRmResourceGroupDeployment -Name "RestOfMachines" -ResourceGroupName $resourceGroupName `
+New-AzureRmResourceGroupDeployment -Name "VMConfigurations" -ResourceGroupName $resourceGroupName `
 -TemplateFile .\azuredeploy05.json -TemplateParameterFile $parametersFile `
 -Mode Incremental -Verbose 
 
