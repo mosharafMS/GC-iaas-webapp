@@ -14,6 +14,25 @@ if (-not $subscription)
     Add-AzureRmAccount
 }
 
+#AzureAD
+Write-Host "Finding AAD App"
+$AADs = (Get-AzureRmADApplication -DisplayNameStartWith $aadAppName);
+if($AADs)
+{
+    Write-Host "AAD App found...Deleting"
+    foreach($aad in $AADs)
+    {
+        try{
+            Write-Host "Removing " $aad.DisplayName
+             Remove-AzureRMADApplication -ObjectId $aad.objectId }
+             catch{}
+    }
+    Write-Host "Job Done"
+}
+
+###############
+
+
 ##############Recovery Vault############################
 
 
@@ -48,12 +67,5 @@ Remove-AzureRmRecoveryServicesVault -Vault $vault
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 
-$AADs = (Get-AzureRmADApplication -DisplayNameStartWith $aadAppName);
-if($SvcPrincipals)
-{
-    foreach($aad in $AADs)
-    {
-             Remove-AzureADApplication -ObjectId $aad.objectId
-    }
-}
+
 
