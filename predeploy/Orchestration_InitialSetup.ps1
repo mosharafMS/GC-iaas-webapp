@@ -271,8 +271,15 @@ function orchestration
 			start-sleep -Milliseconds ($y)
 		}
 		Write-Host "Certificate Generated"
-		$cert=Get-AzureKeyVaultCertificate -VaultName $keyVaultName -Name sslcertOrigin
-		$certificate=[System.Convert]::ToBase64String($cert.Certificate.GetRawCertData())
+		$certSecret=Get-AzureKeyVaultSecret -VaultName $keyVaultName -Name sslcertOrigin
+		$SecretBytes = [System.Convert]::FromBase64String($certSecret.SecretValueText)
+		$certCollection = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2Collection
+		$certCollection.Import($SecretBytes,$null,[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
+
+		$certPassword=New-RandomPassword
+		$protectedCertificateBytes = $certCollection.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pkcs12, $certPassword)
+
+		$certificate=[System.Convert]::ToBase64String($protectedCertificateBytes)
 
 		Write-Host "Set adminUsername in Key Vault: $keyVaultName";
 		$adminUsernameSecureString = ConvertTo-SecureString $adminUsername -AsPlainText -Force 
@@ -289,7 +296,6 @@ function orchestration
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslCert' -SecretValue $sslCertSecureString
 
 		Write-Host "Set sslCertPassword in Key Vault: $keyVaultName";
-		$certPassword=New-RandomPassword
 		$secureCertPassword=ConvertTo-SecureString $certPassword -AsPlainText -Force
 		$secret = Set-AzureKeyVaultSecret -VaultName $keyVaultName -Name 'sslPassword' -SecretValue $secureCertPassword
 
