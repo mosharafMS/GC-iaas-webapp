@@ -63,6 +63,14 @@
                 {
                     "name": "[concat('KeyVaultAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
                     "marketplaceName": "KeyVaultAnalytics"
+                },
+                {
+                    "name": "[concat('NSGAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
+                    "marketplaceName": "AzureNSGAnalytics"
+                },
+                {
+                    "name": "[concat('NSGAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
+                    "marketplaceName": "AzureAppGatewayAnalytics"
                 }
             ]
         },
