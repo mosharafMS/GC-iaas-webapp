@@ -293,4 +293,5 @@ __pycache__/
 cert.pfx
 cert.txt
 GC-iaas-webapp.deployproj
-*parameters.testing
+*parameters.testing.json
+*parameters.prod.json
