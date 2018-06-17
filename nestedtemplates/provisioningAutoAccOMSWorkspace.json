@@ -69,7 +69,7 @@
                     "marketplaceName": "AzureNSGAnalytics"
                 },
                 {
-                    "name": "[concat('NSGAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
+                    "name": "[concat('AppGatewayAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
                     "marketplaceName": "AzureAppGatewayAnalytics"
                 }
             ]
