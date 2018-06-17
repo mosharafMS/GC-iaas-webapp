@@ -38,8 +38,6 @@ if($AADs)
 
 Write-Host "Getting the Recovery Vault"
 
-Get-AzureRmRecoveryServicesVault
-
 $vaults=Get-AzureRmRecoveryServicesVault -Name AZ-RCV-01
 
 foreach($vault in $vaults)
