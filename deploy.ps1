@@ -184,7 +184,7 @@ function CreateFundamentalResources
 
             $guid = [Guid]::NewGuid().toString();
 
-            $aadAppName = "BlueprintGCWin" + $guid ;
+            $aadAppName = "GCBlueprint" + $guid ;
 			# Check if AAD app with $aadAppName was already created
 			$SvcPrincipals = (Get-AzureRmADServicePrincipal -SearchString $aadAppName);
 			if(-not $SvcPrincipals)
