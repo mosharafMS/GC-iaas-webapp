@@ -1,5 +1,10 @@
-#Requires -Modules AzureRM,AzureRM.Profile
-
+#Requires -Modules AzureRM.Netcore
+####################################################
+#
+#  THIS FILE IS DEPRICATED. ALL FUNCTIONALITY REMOVED TO DEPLOY.PS1 IN THE ROOT
+#  WILL BE REMOVED IN THE COMING VERSION
+#
+####################################################
 
 <#
 .Description
@@ -14,11 +19,10 @@ Must meet complexity requirements
 14+ characters, 2 numbers, 2 upper and lower case, and 2 special chars
 #>
 
-Write-Host "`n `n AZURE BLUEPRINT MULTI-TIER WEB APPLICATION SOLUTION FOR FEDRAMP: Pre-Deployment Script `n" -foregroundcolor green
+Write-Host "`n `n AZURE BLUEPRINT MULTI-TIER WEB APPLICATION SOLUTION FOR FEDRAMP --> GoC: Pre-Deployment Script `n" -foregroundcolor green
 Write-Host "This script can be used for creating the necessary preliminary resources to deploy a multi-tier web application architecture with pre-configured security controls to help customers achieve compliance with FedRAMP requirements. See https://github.com/mosharafMS/GC-iaas-webapp for more information. `n " -foregroundcolor yellow
 
-Write-Host "Press Enter key to continue ..."
-Read-Host
+Read-Host "Press Enter key to continue ..."
 
 
 ########################################################################################################################
@@ -31,7 +35,7 @@ function checkPasswords
 		[string]$name
 	)
 
-	$password = Read-Host -assecurestring "Enter $($name)"
+  $password = Read-Host -assecurestring "Enter $($name)"
   $Ptr = [System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($password)
   $pw2test = [System.Runtime.InteropServices.Marshal]::PtrToStringUni($Ptr)
   [System.Runtime.InteropServices.Marshal]::ZeroFreeCoTaskMemUnicode($Ptr)
