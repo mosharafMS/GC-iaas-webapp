@@ -67,10 +67,6 @@
                 {
                     "name": "[concat('NSGAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
                     "marketplaceName": "AzureNSGAnalytics"
-                },
-                {
-                    "name": "[concat('AppGatewayAnalytics', '(', parameters('omsWorkspaceName'), ')')]",
-                    "marketplaceName": "AzureAppGatewayAnalytics" 
                 }
             ]
         },
@@ -926,7 +922,7 @@
             "type": "string",
             "value": "[reference(Concat('Microsoft.Automation/automationAccounts/', parameters('omsAutomationAccountName'), '/variables/', variables('assets').aaVariables.OMSWorkspaceKey.name), '2015-10-31').value]"
         },
-        "OMSWorkspaceID":{
+        "OMSWorkspaceCustomerId":{
             "type":"string",
             "value":"[reference(concat('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspaceName')), '2015-03-20').customerId]"
         }
