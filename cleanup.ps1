@@ -3,7 +3,9 @@ Param(
     [parameter(Mandatory=$true)]
     [string] $aadAppName,
     [parameter(Mandatory=$true)]
-    [string] $resourceGroupName
+    [string] $resourceGroupName,
+    [parameter(Mandatory=$true)]
+    [string] $keyvaultName
 )
 
 
@@ -29,8 +31,6 @@ if($AADs)
     }
     Write-Host "Job Done"
 }
-
-###############
 
 
 ##############Recovery Vault############################
@@ -67,5 +67,7 @@ Remove-AzureRmRecoveryServicesVault -Vault $vault
 Remove-AzureRmResourceGroup -Name $resourceGroupName -Force 
 
 
-
+############purge the keyvault##########################
+$keyVault=Get-AzureRmKeyVault -VaultName $keyvaultName -InRemovedState -Location "CanadaCentral"
+$keyVault | Remove-AzureRmKeyVault -InRemovedState -Force
 
