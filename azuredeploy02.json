@@ -714,7 +714,7 @@
       "name": "ProvisionAndConfigureAD",
       "type": "Microsoft.Resources/deployments",
       "comments": "Creates and configures Active Directory VMs, Network Interfaces, and domain",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2018-01-01",
       "dependsOn": [
         
       ],
