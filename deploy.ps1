@@ -111,6 +111,21 @@ Function New-RandomPassword() {
     return $RandomPassword
 }
 
+<#
+Generate random password with length 12 characters. needed for the cert password for app gateway
+#>
+Function New-RandomPassword12() {
+    [CmdletBinding()]
+    param(
+        [int]$Length = 12
+    )
+    $ascii=$NULL;For ($a=33;$a -le 126;$a++) {$ascii+=,[char][byte]$a }
+    For ($loop=1; $loop -le $length; $loop++) {
+        $RandomPassword+=($ascii | GET-RANDOM)
+    }
+    return $RandomPassword
+}
+
 
 function CreateFundamentalResources
 {
@@ -292,8 +307,8 @@ function CreateFundamentalResources
 		$certCollection = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2Collection
 		$certCollection.Import($SecretBytes,$null,[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::Exportable)
 
-		$certPassword=New-RandomPassword
-		$protectedCertificateBytes = $certCollection.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pkcs12, $certPassword)
+		$certPassword=New-RandomPassword12
+		$protectedCertificateBytes = $certCollection.Export([System.Security.Cryptography.X509Certificates.X509ContentType]::Pfx, $certPassword)
 
 		$certificate=[System.Convert]::ToBase64String($protectedCertificateBytes)
 
