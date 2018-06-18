@@ -10,20 +10,20 @@ This Azure Blueprint solution is comprised of JSON configuration files and Power
 #### Quickstart
 1. Clone or download this repository to your local workstation.
 
-2. Run the pre-deployment PowerShell script: azure-blueprint/predeploy/Orchestration_InitialSetup.ps1. [Read more about pre-deployment.](#pre-deployment)
+2. Run the .\deploy.ps1 PowerShell script and follow the prompt
 
 
-### PRE-DEPLOYMENT
+### Deployment
 
-During pre-deployment, you will confirm that your Azure subscription and local workstation are prepared to deploy the solution. The final pre-deployment step will run a PowerShell script that verifies the setup requirements, gathers parameters and credentials, and creates resources in Azure to prepare for deployment.
+During deployment, you will confirm that your Azure subscription and local workstation are prepared to deploy the solution. The final deployment step will run a PowerShell script that verifies the setup requirements, gathers parameters and credentials, and creates resources in Azure to prepare for deployment.
 
 #### Azure subscription requirements
 
- The solution does not currently support Azure commercial regions. For customers with a multi-tenant environment, the account used to deploy must be a member of the Azure Active Directory instance that is associated with the subscription where this solution will be deployed.
+ The solution is customized to work on Canada Central region however it can change by just changing the parameters to support any commercial regions. For customers with a multi-tenant environment, the account used to deploy must be a member of the Azure Active Directory instance that is associated with the subscription where this solution will be deployed.
 
 #### Local workstation requirements
 
-PowerShell is used to initiate some pre-deployment tasks. PowerShell version 5.0 or greater must be installed on your local workstation. In PowerShell, use the following command to check the version:
+PowerShell is used to initiate some pre-deployment tasks. PowerShell version 6.0 or greater must be installed on your local workstation. In PowerShell, use the following command to check the version:
 
 `$PSVersionTable.psversion`
 
@@ -40,12 +40,13 @@ This solution deploys an Application Gateway and requires an SSL certificate. Th
 
 The pre-deployment PowerShell script will verify that the necessary Azure PowerShell modules are installed. Azure PowerShell modules provide cmdlets for managing Azure resources. After all the setup requirements are verified, the script will ask you to sign into Azure and will then prompt for parameters and credentials to use when the solution is deployed. The script will prompt for the following parameters, in this order:
 
-* **Azure username**: Your Azure username (e.g., someuser@contoso.onmicrosoft.com)
-* **Azure password**: Password for the Azure account above
+* **Azure username**: This account will be taken from the currently logged in user
+* **Azure password**: Password is not needed. Instead there will be a service principal generated to help automate any tasks that requires credentials. 
 * **Admin username**: Administrator username you want to use for the administrator accounts on deployed virtual machines
 * **adminPassword**: Administrator password you want to use for the administrator accounts on deployed virtual machines (must meet the complexity requirements; see below)
 * **sqlServerServiceAccountPassword**: SQL service account password you want to use (must meet the complexity requirements; see below)
 * **subscriptionId**: To find your Azure Government subscription ID, navigate to https://portal.azure.us and sign in. Expand the service menu on the left side of the portal, select "more services," and begin typing "subscription" in the filter box. Click **Subscriptions** to open the subscriptions blade. Note the subscription ID, which has the format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.
+* **tenantID**: That's the Azure Active directory id. To get this information, open the Azure Active directory properties blade.
 * **resourceGroupName**: Resource group name you want to use for this deployment; must be a string of 1-90 alphanumeric characters (such as 0-9, a-z, A-Z), periods, underscores, hyphens, and parenthesis and it cannot end in a period (e.g., `blueprint-rg`).
 * **keyVaultName**: Key Vault name you want to use for this deployment; must be a string 3-24 alphanumeric characters (such as 0-9, a-z, A-Z) and hyphens and must be unique across Azure Government. This must be a name for a new Key Vault; the deployment cannot use an existing Key Vault.
 * **domain**: Domain name for the self-signed SSL certificate (e.g., `contoso.local`).
@@ -55,9 +56,8 @@ Passwords must be at least 14 characters and contain one each of the following: 
 #### Pre-deployment instructions
 
 1. Clone or download this GitHub repository to your local workstation
-`git clone https://github.com/Azure/fedramp-iaas-webapp.git`
-2. Start PowerShell as an administrator
-3. Run Orchestration_InitialSetup.ps1
+`git clone https://github.com/mosharafMS/GC-iaas-webapp.git`
+3. Run deploy.ps1
 4. Enter the parameters above when prompted
 
 Note the resource group name, and Key Vault name, and domain name; these will be required during the deployment phase.
