@@ -149,7 +149,7 @@
       "name": "[parameters('adPDCNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
-      "apiVersion": "2016-12-01",
+      "apiVersion": "2017-09-01",
       "tags": {
         "Project": "BluePrint"
       },
@@ -175,7 +175,7 @@
       "name": "[parameters('adBDCNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
-      "apiVersion": "2016-12-01",
+      "apiVersion": "2017-09-01",
       "tags": {
         "Project": "BluePrint"
       },
@@ -376,7 +376,7 @@
     {
       "name": "UpdatingDNStoPrimaryADVM",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2018-01-01",
       "dependsOn": [
         "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('adPDCVMName'), 'PDCBaselineDSC')]"
       ],
@@ -410,7 +410,7 @@
     {
       "name": "ConfiguringBackupADVM",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2018-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/UpdatingDNStoPrimaryADVM"
       ],
@@ -466,7 +466,7 @@
     {
       "name": "UpdatingDNSwithBackupADVM",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2018-01-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/ConfiguringBackupADVM"
       ],
