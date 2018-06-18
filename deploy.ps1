@@ -266,7 +266,7 @@ function CreateFundamentalResources
 		
 
 
-		Set-Variable -Name keyEncryptionKeyName -Value $keyVaultName + "kek" -Scope global
+		Set-Variable -Name keyEncryptionKeyName -Value $keyVaultName"kek" -Scope global
 		if($Global:keyEncryptionKeyName)
 		{
 				try
