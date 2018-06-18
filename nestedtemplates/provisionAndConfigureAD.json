@@ -149,7 +149,7 @@
       "name": "[parameters('adPDCNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-12-01",
       "tags": {
         "Project": "BluePrint"
       },
@@ -175,7 +175,7 @@
       "name": "[parameters('adBDCNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
       "location": "[parameters('location')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-12-01",
       "tags": {
         "Project": "BluePrint"
       },
@@ -334,7 +334,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2016-12-01",
       "tags": {
         "Project": "BluePrint"
       },
