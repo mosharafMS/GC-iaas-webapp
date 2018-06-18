@@ -334,7 +334,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
       "name": "[concat(parameters('adPDCVMName'),'/PDCBaselineDSC')]",
-      "apiVersion": "2016-12-01",
+      "apiVersion": "2015-06-15",
       "tags": {
         "Project": "BluePrint"
       },
