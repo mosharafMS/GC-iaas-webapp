@@ -10,6 +10,7 @@ $Global:keyvaultName=$null
 $Global:parametersFile='.\azuredeploy.parameters.json' #this value will be replaced during runtime
 $Global:domainName=$null
 $Global:subscriptionID=$null
+$Global:keyEncryptionKeyName=$null
 ###############################################
 # CREATE PARAMETER FILE FUNCTION
 ###############################################
@@ -265,23 +266,23 @@ function CreateFundamentalResources
 		
 
 
-   	$keyEncryptionKeyName = $keyVaultName + "kek"
-		if($keyEncryptionKeyName)
+		Set-Variable -Name keyEncryptionKeyName -Value $keyVaultName + "kek" -Scope global
+		if($Global:keyEncryptionKeyName)
 		{
 				try
 				{
-						$kek = Get-AzureKeyVaultKey -VaultName $keyVaultName -Name $keyEncryptionKeyName -ErrorAction SilentlyContinue;
+						$kek = Get-AzureKeyVaultKey -VaultName $keyVaultName -Name $Global:keyEncryptionKeyName -ErrorAction SilentlyContinue;
 				}
 				catch [Microsoft.Azure.KeyVault.KeyVaultClientException]
 				{
-						Write-Host "Couldn't find key encryption key named : $keyEncryptionKeyName in Key Vault: $keyVaultName";
+						Write-Host "Couldn't find key encryption key named : $Global:keyEncryptionKeyName in Key Vault: $keyVaultName";
 						$kek = $null;
 				}
 
 				if(-not $kek)
 				{
 						Write-Host "Creating new key encryption key named:$keyEncryptionKeyName in Key Vault: $keyVaultName";
-						$kek = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name $keyEncryptionKeyName -Destination HSM -ErrorAction SilentlyContinue;
+						$kek = Add-AzureKeyVaultKey -VaultName $keyVaultName -Name $Global:keyEncryptionKeyName -Destination HSM -ErrorAction SilentlyContinue;
 						Write-Host "Created  key encryption key named:$keyEncryptionKeyName in Key Vault: $keyVaultName";
 				}
 
@@ -441,7 +442,7 @@ $aadClientID= (Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClient
 $aadClientSecret=(Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClientSecret").SecretValueText
 $keyVaultResourceId=$keyvault.ResourceId
 $diskEncryptionKeyVaultUrl=$keyvault.VaultUri
-$keyEncryptionKeyURL=(Get-AzureKeyVaultKey -VaultName $keyvaultName -Name $keyEncryptionKeyName).Id
+$keyEncryptionKeyURL=(Get-AzureKeyVaultKey -VaultName $keyvaultName -Name $Global:keyEncryptionKeyName).Id
 
 Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-PDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -KeyEncryptionKeyUrl $keyEncryptionKeyURL -KeyEncryptionKeyVaultId $keyvault.VaultUri -VolumeType All -Verbose -Force
 Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-BDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -KeyEncryptionKeyUrl $keyEncryptionKeyURL -KeyEncryptionKeyVaultId $keyvault.VaultUri -VolumeType All -Verbose -Force
