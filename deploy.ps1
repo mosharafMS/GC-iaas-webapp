@@ -441,7 +441,7 @@ $keyvault=Get-AzureRmKeyVault -VaultName $keyvaultName
 $aadClientID= (Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClientID").SecretValueText
 $aadClientSecret=(Get-AzureKeyVaultSecret -VaultName $keyvaultName -Name "aadClientSecret").SecretValueText
 $keyVaultResourceId=$keyvault.ResourceId
-$diskEncryptionKeyVaultUrl=$keyVaultResourceId
+$diskEncryptionKeyVaultUrl=$keyvault.VaultUri
 $keyEncryptionKeyURL=(Get-AzureKeyVaultKey -VaultName $keyvaultName -Name $Global:keyEncryptionKeyName).Id
 
 Set-AzureRmVMDiskEncryptionExtension -ResourceGroupName $resourceGroupName -VMName 'AZ-PDC-VMprod' -AadClientID $aadClientID -AadClientSecret $aadClientSecret -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl -DiskEncryptionKeyVaultId $keyVaultResourceId -KeyEncryptionKeyUrl $keyEncryptionKeyURL -KeyEncryptionKeyVaultId $keyVaultResourceId -VolumeType All -Verbose -Force
